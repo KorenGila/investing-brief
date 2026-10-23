@@ -123,7 +123,7 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
 
 <main class="wrap">
 <h1>Bills, 2-year, 10-year or 30-year Treasuries for the next 12 months</h1>
-<p class="lead">Four iShares funds cover the choice: SGOV holds 0-3 month bills, SHY 1-3 year notes, IEF 7-10 year notes and TLT 20+ year bonds. Over a year, the winner depends on where the Fed and long-term yields end up compared with what prices already assume. Section 4 turns your own odds on five scenarios into a pick.</p>
+<p class="lead">Four iShares funds cover the choice: SGOV holds 0-3 month bills, SHY 1-3 year notes, IEF 7-10 year notes and TLT 20+ year bonds. Over a year, the winner depends on where the Fed and long-term yields end up compared with what prices already assume. Section 4 turns your own odds on six scenarios into a pick.</p>
 <div class="live" id="live" aria-live="polite"><span class="muted">Checking Treasury for yields after Oct 22…</span></div>
 
 <section class="block" id="priced" aria-labelledby="priced-h">
@@ -161,13 +161,14 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
 
 <section class="block" id="drivers" aria-labelledby="drivers-h">
   <h2 id="drivers-h">3. What is moving yields</h2>
-  <p>Five forces set Treasury yields over the next year. Each one hits a different part of the curve, which is why the funds react differently.</p>
+  <p>Six forces set Treasury yields over the next year. Each one hits a different part of the curve, which is why the funds react differently.</p>
   <div class="tscroll"><table>
     <thead><tr><th>If this happens</th><th>2-year</th><th>10-year</th><th>30-year</th><th>Fund that does best</th></tr></thead>
     <tbody>
       <tr><td>Fed hikes more than the four hikes priced</td><td>Up a lot</td><td>Up less</td><td>Up least</td><td>SGOV</td></tr>
       <tr><td>Fed stops after December</td><td>Down a lot</td><td>Down</td><td>Down a little</td><td>IEF or TLT in total return; SHY per unit of risk</td></tr>
       <tr><td>Growth breaks and the Fed cuts</td><td>Down the most</td><td>Down</td><td>Down</td><td>TLT</td></tr>
+      <tr><td>AI delivers a real productivity jump</td><td>Up a little</td><td>Up</td><td>Up the most</td><td>SGOV or SHY</td></tr>
       <tr><td>Investors demand more to hold long bonds</td><td>Little change</td><td>Up</td><td>Up the most</td><td>SGOV or SHY</td></tr>
       <tr><td>Oil spikes</td><td>Up, through the Fed</td><td>Mixed</td><td>Mixed</td><td>SGOV</td></tr>
     </tbody>
@@ -220,7 +221,7 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
   </div>
 
   <div class="driver">
-  <h3>Stocks, oil and the haven trade</h3>
+  <h3>AI, stocks and oil</h3>
   <div class="tiles">
     <div class="tile"><div class="lab">S&amp;P 500, Oct 22</div><div class="val">7,663</div><div class="cmp">−1.2%; near its record</div></div>
     <div class="tile"><div class="lab">Nasdaq, Oct 22</div><div class="val">−2.6%</div><div class="cmp">AI spending worries; Meta −8%</div></div>
@@ -228,12 +229,13 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
     <div class="tile"><div class="lab">10-year yield, Oct 22</div><div class="val">4.96%</div><div class="cmp">−0.17; 5.28% on Oct 7</div></div>
   </div>
   <p>Oct 22 showed both shocks at once. Doubts about AI spending sank tech stocks, and Meta fell nearly 8% after its earnings and a new share class to fund AI. Oil rose on reports that the US and Israel are weighing strikes on Iran after the Nov 3 midterms. Treasuries rallied as a haven, and the 10-year had its largest one-day drop since March 2023. Long bonds hedge stocks when the worry is growth. When the worry is inflation, as in 2022, stocks and long bonds fall together. An oil shock does both: it raises headline inflation within a month and cuts consumers' real spending over the following quarters.</p>
+  <p>An AI boom hurts long bonds through real yields. If AI delivers a real jump in productivity, investors expect faster growth and a higher neutral interest rate, and companies borrow heavily to build. Both push long real yields up. Chow, Halperin and Mazlish argue that a market expecting transformative AI would push long real rates up sharply, and across 59 countries they find higher long-run growth expectations go with higher long-term real rates. In 1999, during the last productivity boom, the 10-year yield rose from 4.7% to 6.4% and the Fed hiked from 4.75% to 5.50% while stocks rallied. Long bonds gain in an AI bust and lose in an AI boom. Stocks do the reverse.</p>
   </div>
-  <p class="src">Sources: <a href="https://www.bls.gov/news.release/archives/cpi_10142026.htm" target="_blank" rel="noopener">BLS September CPI</a> and <a href="https://api.bls.gov/publicAPI/v2/timeseries/data/CUSR0000SA0L1E" target="_blank" rel="noopener">core CPI index</a> (rates computed from index levels) · <a href="https://www.bea.gov/news/2026/personal-income-and-outlays-august-2026" target="_blank" rel="noopener">BEA August PCE</a> · <a href="https://www.bls.gov/news.release/archives/empsit_10022026.htm" target="_blank" rel="noopener">BLS September jobs</a> · <a href="https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm" target="_blank" rel="noopener">Fed projections</a> · <a href="https://www.frbsf.org/research-and-insights/data-and-indicators/treasury-yield-premiums/" target="_blank" rel="noopener">SF Fed term premium</a> · <a href="https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents" target="_blank" rel="noopener">Treasury refunding</a> · <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026" target="_blank" rel="noopener">Treasury real yields</a> · <a href="https://www.theglobeandmail.com/investing/article-us-bond-yields-plunge-as-fears-about-sustaining-ai-boom-resurface/" target="_blank" rel="noopener">Reuters on Oct 22 yields, claims, Fed odds and breakevens</a> · <a href="https://www.cnbc.com/2026/10/22/treasurys-bonds-ai-yields.html" target="_blank" rel="noopener">CNBC on the 10-year</a> · <a href="https://www.nbcnews.com/business/markets/iran-war-ai-spending-oil-prices-selloff-rcna604994" target="_blank" rel="noopener">NBC on stocks and oil</a> · <a href="https://www.mitrade.com/insights/more/Central-Banks/fed-october-hold-december-hike-20261022J1428" target="_blank" rel="noopener">Reuters poll, housing data and the Warsh speech</a></p>
+  <p class="src">Sources: <a href="https://www.bls.gov/news.release/archives/cpi_10142026.htm" target="_blank" rel="noopener">BLS September CPI</a> and <a href="https://api.bls.gov/publicAPI/v2/timeseries/data/CUSR0000SA0L1E" target="_blank" rel="noopener">core CPI index</a> (rates computed from index levels) · <a href="https://www.bea.gov/news/2026/personal-income-and-outlays-august-2026" target="_blank" rel="noopener">BEA August PCE</a> · <a href="https://www.bls.gov/news.release/archives/empsit_10022026.htm" target="_blank" rel="noopener">BLS September jobs</a> · <a href="https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm" target="_blank" rel="noopener">Fed projections</a> · <a href="https://www.frbsf.org/research-and-insights/data-and-indicators/treasury-yield-premiums/" target="_blank" rel="noopener">SF Fed term premium</a> · <a href="https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents" target="_blank" rel="noopener">Treasury refunding</a> · <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026" target="_blank" rel="noopener">Treasury real yields</a> · <a href="https://www.theglobeandmail.com/investing/article-us-bond-yields-plunge-as-fears-about-sustaining-ai-boom-resurface/" target="_blank" rel="noopener">Reuters on Oct 22 yields, claims, Fed odds and breakevens</a> · <a href="https://www.cnbc.com/2026/10/22/treasurys-bonds-ai-yields.html" target="_blank" rel="noopener">CNBC on the 10-year</a> · <a href="https://www.nbcnews.com/business/markets/iran-war-ai-spending-oil-prices-selloff-rcna604994" target="_blank" rel="noopener">NBC on stocks and oil</a> · <a href="https://www.basilhalperin.com/papers/agi_emh.pdf" target="_blank" rel="noopener">Chow, Halperin and Mazlish, "Transformative AI, existential risk, and real interest rates"</a> · <a href="https://www.mitrade.com/insights/more/Central-Banks/fed-october-hold-december-hike-20261022J1428" target="_blank" rel="noopener">Reuters poll, housing data and the Warsh speech</a></p>
 </section>
 
 <section class="block" id="scenarios" aria-labelledby="sc-h">
-  <h2 id="sc-h">4. Five scenarios for the next 12 months</h2>
+  <h2 id="sc-h">4. Six scenarios for the next 12 months</h2>
   <p>If the market's forecast comes true exactly, all four funds return about the 1-year yield, between 4.3% and 4.7%. Returns differ when the Fed and long yields land somewhere else. Each scenario sets a Fed path and where yields end in twelve months. Enter your odds in the second column. The weighted rows and the pick fill in as you type.</p>
   <div class="controls">
     <span>Show</span>
@@ -253,7 +255,7 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
     <button type="button" id="reset-assume">Restore original assumptions</button>
   </details>
   <details><summary>How returns are calculated</summary>
-    <p class="small">Bond fund return ≈ yield − fee + roll-down − duration × change in yield. Bills return the average bill yield over the year minus the fee. SHY uses the 2-year yield change, IEF the 10-year and TLT the 30-year. The model leaves out convexity, which adds to returns when yields move a lot in either direction. That is about half a point for TLT in scenarios 3 to 5, less for IEF and nothing that matters for SHY. Returns are before taxes and trading costs.</p>
+    <p class="small">Bond fund return ≈ yield − fee + roll-down − duration × change in yield. Bills return the average bill yield over the year minus the fee. SHY uses the 2-year yield change, IEF the 10-year and TLT the 30-year. The model leaves out convexity, which adds to returns when yields move a lot in either direction. That is about half a point for TLT in scenarios 3 to 6, less for IEF and nothing that matters for SHY. Returns are before taxes and trading costs.</p>
   </details>
   <div class="controls"><button type="button" id="show-suggest">Show suggested odds and the reasoning behind them</button></div>
   <div class="suggest" id="suggest" hidden>
@@ -265,14 +267,16 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
         <tr><td>2. The market's path</td><td class="r">30%</td><td>Core CPI over three months runs at 3.4%. The market has priced this path using every release since September, which the Fed's projection has not seen.</td></tr>
         <tr><td>3. Oil shock, Fed keeps hiking</td><td class="r">15%</td><td>Brent is at $113 with reports of strikes planned after Nov 3. Headline CPI is already 3.7%.</td></tr>
         <tr><td>4. AI bust</td><td class="r">10%</td><td>Oct 22 showed how fast the selloff can start. Unemployment at 4.2% and claims at 194,000 show no sign of a downturn yet.</td></tr>
-        <tr><td>5. Long-end supply scare</td><td class="r">15%</td><td>The Nov 4 refunding is the next test, and the term premium already rose 0.31 points in a year.</td></tr>
+        <tr><td>5. AI boom delivers</td><td class="r">5%</td><td>AI spending is large and growing. A year is short for productivity gains to reach GDP and inflation data, and that data is what would reprice long yields.</td></tr>
+        <tr><td>6. Long-end supply scare</td><td class="r">10%</td><td>The Nov 4 refunding is the next test, and the term premium already rose 0.31 points in a year.</td></tr>
       </tbody>
     </table></div>
-    <p>With these odds, SHY averages 0.8 points over bills and its worst case trails bills by 0.9. IEF also averages 0.8, with a worst case of −3.3, and TLT averages −0.4. The ranking moves with three inputs, each changed with the other odds rescaled to make room:</p>
+    <p>With these odds, SHY averages 0.84 points over bills with a worst case of −0.9. IEF averages 0.75 with a worst case of −3.3, and TLT averages −0.43 with a worst case of −10.9 in the AI boom. SHY and IEF are close enough that one change flips them. Each change below rescales the other odds to make room:</p>
     <ul class="small" style="max-width:72ch">
-      <li>SHY falls behind bills once the oil-shock odds pass 55%.</li>
-      <li>IEF passes SHY once the AI-bust odds reach 15%, or once the supply-scare odds drop to 10%.</li>
+      <li>IEF passes SHY if the AI-bust odds reach 15%, the oil-shock odds fall to 10%, the supply-scare odds fall to 5% or the AI-boom odds go to zero.</li>
+      <li>SHY falls behind bills only once the oil-shock odds pass 55%.</li>
       <li>TLT turns positive once the AI-bust odds reach 15%, and passes IEF near 40%.</li>
+      <li>Each 5 points of AI-boom odds cuts TLT's average by 0.55 points and IEF's by 0.21.</li>
     </ul>
     <button type="button" class="primary" id="load-suggest">Load these odds into the table</button>
   </div>
@@ -378,10 +382,11 @@ const SCEN0=[
  {n:"The market's path",d:"The Fed hikes four more times, to 4.75-5.00% by late 2027. Yields end where forward rates point today.",bills:4.40,y2:0.23,y10:0.06,y30:0.03},
  {n:"Oil shock, Fed keeps hiking",d:"A strike on Iran sends Brent above $130, headline CPI passes 4.5% and the Fed hikes to 5.00-5.25%.",bills:4.65,y2:0.65,y10:0.55,y30:0.50},
  {n:"AI bust",d:"Companies cut AI spending, stocks fall 25% and unemployment reaches 4.9%. The Fed skips December and cuts to 2.75-3.00% by October 2027.",bills:3.55,y2:-1.55,y10:-0.85,y30:-0.55},
+ {n:"AI boom delivers",d:"AI systems approach superintelligence and it starts to show in the data: GDP growth runs above 4%, the S&P 500 rises 30% and core inflation drifts down as costs fall. Investors price faster growth and a higher neutral rate. The Fed hikes in December and holds, and long real yields climb.",bills:4.25,y2:0.10,y10:0.60,y30:0.80},
  {n:"Long-end supply scare",d:"The Fed follows the market's path, but Treasury raises coupon auction sizes and investors demand more to hold long bonds.",bills:4.35,y2:0.15,y10:0.55,y30:0.70}];
-const SUGGESTED=[30,30,15,10,15];
+const SUGGESTED=[30,30,15,10,5,10];
 const ENTRY={date:"2026-10-22",m3:4.22,y2:4.65,y10:4.96,y30:5.29};
-const KEY="treasury-brief-v1";
+const KEY="treasury-brief-v2";
 
 const $=s=>document.querySelector(s);
 const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
@@ -396,8 +401,8 @@ function txt(parent,x,y,s,attrs={}){const t=el("text",Object.assign({x,y,"font-s
 let SCEN=SCEN0.map(s=>Object.assign({},s,{p:0}));
 let saved={};
 try{saved=JSON.parse(localStorage.getItem(KEY)||"{}");}catch(e){}
-if(Array.isArray(saved.odds)&&saved.odds.length===5)saved.odds.forEach((p,i)=>{if(Number.isFinite(p))SCEN[i].p=p;});
-if(Array.isArray(saved.assume)&&saved.assume.length===5)saved.assume.forEach((a,i)=>{["bills","y2","y10","y30"].forEach(k=>{if(Number.isFinite(a[k]))SCEN[i][k]=a[k];});});
+if(Array.isArray(saved.odds)&&saved.odds.length===SCEN0.length)saved.odds.forEach((p,i)=>{if(Number.isFinite(p))SCEN[i].p=p;});
+if(Array.isArray(saved.assume)&&saved.assume.length===SCEN0.length)saved.assume.forEach((a,i)=>{["bills","y2","y10","y30"].forEach(k=>{if(Number.isFinite(a[k]))SCEN[i][k]=a[k];});});
 function persist(){try{saved.odds=SCEN.map(s=>s.p);saved.assume=SCEN.map(s=>({bills:s.bills,y2:s.y2,y10:s.y10,y30:s.y30}));localStorage.setItem(KEY,JSON.stringify(saved));}catch(e){}}
 
 /* ---------- returns model ---------- */
@@ -467,13 +472,13 @@ function update(){
   const ok=stats.filter(s=>s.f.k==="SGOV"||-s.worst<=lim);
   const pick=ok.reduce((a,b)=>b.ev>a.ev?b:a);
   const row=(label,fn,first)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${label}</td><td class="r num">${first||""}</td>`+stats.map(s=>`<td class="r">${fn(s)}</td>`).join("");tfoot.appendChild(tr);};
-  row("Weighted by your odds",s=>mode==="ex"?(s.f.k==="SGOV"?"0.0":sgn(s.ev)):pc(s.evt),tot+"%");
+  row("Weighted by your odds",s=>mode==="ex"?(s.f.k==="SGOV"?"0.00":sgn(s.ev,2)):pc(s.evt,2),tot+"%");
   row("Worst scenario with odds above zero",s=>mode==="ex"?(s.f.k==="SGOV"?"0.0":sgn(s.worst)):pc(s.wt));
   row("Highest average within your loss limit",s=>s===pick?"✓":"");
   let msg;
   if(pick.f.k==="SGOV") msg=`Your odds favor SGOV. No longer fund beats bills on average`+(lim<99?` within a ${lim}-point loss limit.`:".");
-  else msg=`Your odds favor ${pick.f.k}. It ${pick.ev>=0?"beats":"trails"} bills by ${Math.abs(pick.ev).toFixed(1)} points on average over 12 months`+(pick.worst<0?`, and its worst scenario trails bills by ${Math.abs(pick.worst).toFixed(1)} points.`:", and it beats bills in every scenario you gave odds to.");
-  stats.filter(s=>s!==pick&&s.f.k!=="SGOV"&&s.ev>=pick.ev-0.25).forEach(s=>{msg+=` ${s.f.k} averages ${sgn(s.ev)} and can trail bills by ${Math.abs(Math.min(0,s.worst)).toFixed(1)} points`+(-s.worst>lim?", past your limit.":".");});
+  else msg=`Your odds favor ${pick.f.k}. It ${pick.ev>=0?"beats":"trails"} bills by ${Math.abs(pick.ev).toFixed(2)} points on average over 12 months`+(pick.worst<0?`, and its worst scenario trails bills by ${Math.abs(pick.worst).toFixed(1)} points.`:", and it beats bills in every scenario you gave odds to.");
+  stats.filter(s=>s!==pick&&s.f.k!=="SGOV"&&s.ev>=pick.ev-0.25).forEach(s=>{msg+=` ${s.f.k} averages ${sgn(s.ev,2)} and can trail bills by ${Math.abs(Math.min(0,s.worst)).toFixed(1)} points`+(-s.worst>lim?", past your limit.":".");});
   if(tot!==100) msg+=` Your odds add to ${tot}%, so they are rescaled to 100.`;
   out.textContent=msg;
 }
