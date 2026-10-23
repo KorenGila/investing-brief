@@ -3,107 +3,100 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bills or 2-year Treasuries? A decision brief (Oct 22, 2026)</title>
-<meta name="description" content="Where to keep cash for the next 12 months: bills, 2-year, 10-year or 30-year Treasuries. One call, the numbers behind it, and the dates that would change it.">
-<meta property="og:title" content="Bills or 2-year Treasuries? A decision brief">
-<meta property="og:description" content="The market prices four more Fed hikes. The Fed projects one. Here is the trade that follows, with scenario odds you can change.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23eb6834'/%3E%3Cpath d='M8 23V17m8 6V11m8 12V7' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>Treasury research brief: bills, 2-year, 10-year or 30-year (Oct 22, 2026)</title>
+<meta name="description" content="What the Treasury market prices, how four Treasury funds pay off in five scenarios, the evidence behind each driver, and a worksheet for your own call.">
+<meta property="og:title" content="Treasury research brief, Oct 22, 2026">
+<meta property="og:description" content="The market prices four more Fed hikes. The Fed projects one. Evidence, scenarios and a worksheet for choosing between bills and longer Treasuries.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232a78d6'/%3E%3Cpath d='M8 23V17m8 6V11m8 12V7' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 <style>
 :root{
   color-scheme:light;
   --page:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#6f6d68;
   --grid:#e1e0d9;--axis:#c3c2b7;--ring:rgba(11,11,11,.10);
   --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;
-  --pos:#2a78d6;--neg:#e34948;--posbg:rgba(42,120,214,.13);--negbg:rgba(227,73,72,.13);
-  --good:#006300;--bad:#b42d2d;--accentbg:#fff4ee;
+  --posbg:rgba(42,120,214,.13);--negbg:rgba(227,73,72,.13);
+  --good:#006300;--bad:#b42d2d;--accentbg:#eef4fc;
 }
 @media (prefers-color-scheme:dark){:root{
   color-scheme:dark;
   --page:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#9a988f;
   --grid:#2c2c2a;--axis:#383835;--ring:rgba(255,255,255,.10);
   --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;
-  --pos:#3987e5;--neg:#e66767;--posbg:rgba(57,135,229,.20);--negbg:rgba(230,103,103,.20);
-  --good:#0ca30c;--bad:#e66767;--accentbg:#2a1d16;
+  --posbg:rgba(57,135,229,.20);--negbg:rgba(230,103,103,.20);
+  --good:#0ca30c;--bad:#e66767;--accentbg:#16202d;
 }}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{margin:0;background:var(--page);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:var(--s1)}
 .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
 header.top{border-bottom:1px solid var(--grid);background:var(--surface)}
 header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
-.kicker{font-size:13px;color:var(--muted);letter-spacing:.02em}
+.kicker{font-size:13px;color:var(--muted)}
 nav.toc{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
 nav.toc a{color:var(--ink2);text-decoration:none}
 nav.toc a:hover{color:var(--ink);text-decoration:underline}
-h1{font-size:34px;line-height:1.15;margin:36px 0 12px;letter-spacing:-.01em}
-h2{font-size:23px;margin:0 0 6px;letter-spacing:-.005em}
-h3{font-size:17px;margin:22px 0 6px}
+h1{font-size:33px;line-height:1.15;margin:36px 0 12px;letter-spacing:-.01em}
+h2{font-size:23px;margin:0 0 8px;letter-spacing:-.005em}
+h3{font-size:17px;margin:24px 0 6px}
 p{margin:0 0 12px;max-width:72ch}
 .lead{font-size:18px;color:var(--ink2);max-width:70ch}
 section.block{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:26px 28px;margin:22px 0}
 .num{font-variant-numeric:tabular-nums}
 .small{font-size:14px;color:var(--ink2)}
 .muted{color:var(--muted)}
-.src{font-size:13px;color:var(--muted);margin-top:8px}
+.src{font-size:13px;color:var(--muted);margin-top:10px}
 .src a{color:var(--muted)}
-/* the call */
-section.block.call{border:2px solid var(--s2);background:var(--accentbg)}
-.call h2{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin-bottom:10px}
-.call .verdict{font-size:26px;font-weight:650;line-height:1.25;margin:0 0 16px;max-width:none}
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px 22px;margin:0}
-.facts div{border-top:1px solid var(--grid);padding-top:8px}
-.facts dt{font-size:13px;color:var(--muted)}
-.facts dd{margin:2px 0 0;font-weight:600}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:18px 0 4px}
-.tile{background:var(--surface);border:1px solid var(--ring);border-radius:10px;padding:12px 14px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:12px 0 14px}
+.tile{background:var(--page);border:1px solid var(--ring);border-radius:10px;padding:12px 14px}
 .tile .lab{font-size:13px;color:var(--muted)}
-.tile .val{font-size:28px;font-weight:650;line-height:1.2;margin-top:2px}
+.tile .val{font-size:27px;font-weight:650;line-height:1.2;margin-top:2px}
 .tile .cmp{font-size:13px;color:var(--ink2);margin-top:2px}
-.up{color:var(--good)} .down{color:var(--bad)}
-/* live */
-.live{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:baseline;font-size:15px;padding:14px 18px;border:1px solid var(--ring);border-radius:10px;background:var(--surface);margin-top:14px}
+.live{font-size:15px;padding:14px 18px;border:1px solid var(--ring);border-radius:10px;background:var(--surface);margin:18px 0 0}
+.live .row{display:flex;flex-wrap:wrap;gap:6px 24px;align-items:baseline}
 .live b{font-weight:650}
-.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px;border:1px solid var(--ring)}
-.pill.ok{color:var(--good)} .pill.warn{color:var(--bad)}
-/* tables */
 .tscroll{overflow-x:auto;margin:10px 0}
 table{border-collapse:collapse;width:100%;font-size:14.5px}
 th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--grid);vertical-align:top}
 thead th{font-size:12.5px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--axis)}
 td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-tr.pick td{font-weight:650}
 .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:0}
 .cellpos{background:var(--posbg)} .cellneg{background:var(--negbg)}
 tfoot td{font-weight:600;border-bottom:none}
 tfoot tr:first-child td{border-top:1px solid var(--axis)}
-input[type=number]{width:62px;font:inherit;padding:3px 6px;border:1px solid var(--axis);border-radius:6px;background:var(--page);color:var(--ink);text-align:right}
-select,button{font:inherit;font-size:14px;padding:5px 10px;border:1px solid var(--axis);border-radius:7px;background:var(--surface);color:var(--ink);cursor:pointer}
+input[type=number],input[type=text],input[type=date],select,textarea{font:inherit;font-size:14.5px;padding:4px 7px;border:1px solid var(--axis);border-radius:6px;background:var(--page);color:var(--ink)}
+input[type=number]{width:66px;text-align:right}
+textarea{width:100%;min-height:70px;resize:vertical;line-height:1.45}
+button{font:inherit;font-size:14px;padding:5px 11px;border:1px solid var(--axis);border-radius:7px;background:var(--surface);color:var(--ink);cursor:pointer}
 button:hover{border-color:var(--ink2)}
-.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:8px 0 4px;font-size:14px}
+button.primary{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:10px 0 4px;font-size:14px}
 .seg{display:inline-flex;border:1px solid var(--axis);border-radius:7px;overflow:hidden}
 .seg button{border:0;border-radius:0;padding:5px 12px}
 .seg button[aria-pressed=true]{background:var(--ink);color:var(--surface)}
-.outcome{margin-top:12px;padding:12px 16px;border-left:3px solid var(--s2);background:var(--accentbg);border-radius:0 8px 8px 0}
+.outcome{margin-top:12px;padding:12px 16px;border-left:3px solid var(--s1);background:var(--accentbg);border-radius:0 8px 8px 0}
 .scen-name{font-weight:600}
-.scen-desc{font-size:13.5px;color:var(--ink2);margin-top:2px;max-width:46ch}
+.scen-desc{font-size:13.5px;color:var(--ink2);margin-top:2px;max-width:48ch}
 .scen-moves{font-size:12.5px;color:var(--muted);margin-top:3px}
-/* charts */
+.suggest{margin-top:16px;border-top:1px solid var(--grid);padding-top:14px}
+.suggest[hidden]{display:none}
 .chart{position:relative;margin:12px 0 4px}
 .chart svg{display:block;width:100%;height:auto;overflow:visible}
 .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink2);margin-top:6px}
 .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:4px}
-.legend i.box{height:10px;width:10px;border-radius:3px;vertical-align:-1px}
+.legend i.dot{height:10px;width:10px;border-radius:50%;vertical-align:-1px}
 .tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--ring);box-shadow:0 4px 14px rgba(0,0,0,.12);border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.45;min-width:120px;opacity:0;transition:opacity .08s;z-index:5;white-space:nowrap}
 .tip .t{font-weight:600;margin-bottom:2px}
 .tip i{display:inline-block;width:12px;height:2px;margin-right:6px;vertical-align:4px}
 details{margin:10px 0}
 summary{cursor:pointer;color:var(--ink2);font-size:14px}
-details[open] summary{margin-bottom:6px}
+details[open] summary{margin-bottom:8px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
-.against{display:grid;gap:14px}
-.against div{border-top:1px solid var(--grid);padding-top:10px}
-.against .claim{font-weight:600;margin-bottom:3px}
+.driver{border-top:1px solid var(--grid);padding-top:6px;margin-top:22px}
+.driver:first-of-type{border-top:0;margin-top:8px}
+.form{display:grid;gap:12px;max-width:760px}
+.form label{display:grid;gap:4px;font-size:14px;color:var(--ink2)}
+.form .inline{display:flex;flex-wrap:wrap;gap:12px 22px}
+.form .inline label{display:flex;align-items:center;gap:8px}
 ol.steps{padding-left:20px;margin:6px 0}
 ol.steps li{margin-bottom:8px;max-width:72ch}
 dl.gloss dt{font-weight:600;margin-top:10px}
@@ -112,7 +105,7 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
 @media (max-width:760px){
   .tscroll table{min-width:640px}
   #t-scen td:first-child{min-width:230px}
-  h1{font-size:27px} .call .verdict{font-size:21px}
+  h1{font-size:26px}
   section.block{padding:20px 16px}
   .two{grid-template-columns:1fr}
   nav.toc{display:none}
@@ -122,196 +115,250 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
 </head>
 <body>
 <header class="top"><div class="wrap">
-  <div class="kicker">Treasury decision brief · data as of Oct 22, 2026 close</div>
+  <div class="kicker">Treasury research brief · data as of the Oct 22, 2026 close</div>
   <nav class="toc" aria-label="Sections">
-    <a href="#priced">What's priced</a><a href="#curve">Why 2-year</a><a href="#scenarios">Scenarios</a><a href="#against">Case against</a><a href="#watch">Checkpoints</a><a href="#execute">How to buy</a><a href="#evidence">Evidence</a>
+    <a href="#priced">Priced</a><a href="#funds">Funds</a><a href="#drivers">Drivers</a><a href="#scenarios">Scenarios</a><a href="#calendar">Calendar</a><a href="#call">Your call</a><a href="#terms">Terms</a>
   </nav>
 </div></header>
 
 <main class="wrap">
-<h1>Move cash from Treasury bills into 2-year Treasuries</h1>
-<p class="lead">Bond prices imply the Fed funds rate averages about 4.9% over the year starting next October. The Fed's own projection for that year is 4.1%. A 2-year Treasury fund pays more than bills today and gains if the Fed stops anywhere short of the market's path. It trails bills only if the Fed hikes more than the market already expects.</p>
-
-<section class="block call" aria-labelledby="call-h">
-  <h2 id="call-h">The call</h2>
-  <p class="verdict">Sell SGOV (0-3 month bills), buy SHY (1-3 year Treasuries). Hold 12 months.</p>
-  <dl class="facts">
-    <div><dt>Size</dt><dd>The cash you would otherwise keep in bills. For a $500 practice account: 6 shares of SHY, about $489.</dd></div>
-    <div><dt>Exit if wrong</dt><dd>2-year yield closes above 5.05% (now 4.65%)</dd></div>
-    <div><dt>Exit when done</dt><dd>2-year yield closes below 4.15%. Move back to bills.</dd></div>
-    <div><dt>Re-check</dt><dd>Dec 10, after the Fed's new projections and November CPI</dd></div>
-    <div><dt>Expected gain over bills, 12 months</dt><dd class="num" id="c-ev">+0.8 points</dd></div>
-    <div><dt>Worst scenario vs bills</dt><dd class="num" id="c-worst">−0.9 points</dd></div>
-    <div><dt>Best scenario vs bills</dt><dd class="num" id="c-best">+4.1 points</dd></div>
-    <div><dt>Odds used</dt><dd id="c-odds">The brief's defaults (change them in Scenarios)</dd></div>
-  </dl>
-  <div class="live" id="live" aria-live="polite"><span class="muted">Checking Treasury for yields after Oct 22…</span></div>
-</section>
+<h1>Bills, 2-year, 10-year or 30-year Treasuries for the next 12 months</h1>
+<p class="lead">Four iShares funds cover the choice: SGOV holds 0-3 month bills, SHY 1-3 year notes, IEF 7-10 year notes and TLT 20+ year bonds. Over a year, the winner depends on where the Fed and long-term yields end up compared with what prices already assume. Section 4 turns your own odds on five scenarios into a pick.</p>
+<div class="live" id="live" aria-live="polite"><span class="muted">Checking Treasury for yields after Oct 22…</span></div>
 
 <section class="block" id="priced" aria-labelledby="priced-h">
-  <h2 id="priced-h">1. The market prices about three more hikes than the Fed projects</h2>
-  <p>Treasury yields are the market's forecast of short rates plus a small premium. The 1-year yield of 4.41% implies the Fed funds rate averages about 4.4% over the next twelve months, up from 3.88% today. The forward rate for the following year, read off the 1-year and 2-year yields, is 4.89%. That is the Fed holding at 4.75-5.00%, roughly four quarter-point hikes above today.</p>
-  <p>The Fed's September projections put the rate at 4.1% at the end of both 2026 and 2027: one more hike, then a hold. Reuters' poll of 100 economists (Oct 16-20) found all 100 expecting a hike on Dec 9, and about 60% expecting the peak at 4.00-4.25%.</p>
-  <p>The December hike is in both paths, so this trade does not depend on it. The bet is on 2027: the market's rate for that year is 0.86 points above the Fed's.</p>
+  <h2 id="priced-h">1. What the market prices and what the Fed projects</h2>
+  <p>Treasury yields imply a path for the Fed funds rate. The 1-year yield of 4.41% implies a 4.4% average Fed funds rate over the next twelve months, against 3.88% today. The rate for the following year, read off the 1-year and 2-year yields, is 4.89%. That matches the Fed holding at 4.75-5.00% after four more quarter-point hikes.</p>
+  <p>The Fed's September projections put the rate at 4.1% at the end of both 2026 and 2027, one hike above today. Reuters polled 100 economists on Oct 16-20. All 100 expect a hike on Dec 9, and about 60% expect the peak at 4.00-4.25%.</p>
+  <p>The two paths agree on December and split on 2027, where the market's forward rate sits 0.86 points above the Fed's projection. The Fed's numbers date from Sep 16. Since then September CPI rose 0.6%, producer prices posted their biggest increase in years and Brent climbed to $113. Market prices include that news, and the Fed publishes new projections on Dec 9.</p>
   <div class="chart" id="chart-path"></div>
-  <div class="legend"><span><i class="box" style="background:var(--s1);border-radius:50%"></i>Market: forward rate from Treasury yields</span><span><i class="box" style="background:var(--s2);border-radius:50%"></i>Fed: September median projection, averaged over the year</span></div>
+  <div class="legend"><span><i class="dot" style="background:var(--s1)"></i>Market: forward rate from Treasury yields</span><span><i class="dot" style="background:var(--s2)"></i>Fed: September median projection, averaged over the year</span></div>
   <details><summary>Values and method</summary>
     <div class="tscroll"><table><thead><tr><th>Year</th><th class="r">Market forward</th><th class="r">Fed projection</th><th class="r">Gap</th></tr></thead><tbody id="t-path"></tbody></table></div>
-    <p class="small">Market: 1-year par yield (Oct 2026-27), the 1-year rate one year forward from the 1- and 2-year yields (2027-28), and from the 2- and 3-year yields (2028-29). Bills traded within 0.05 points of the fed funds rate in January, when no hikes were expected, so the basis between them is small. Fed: year-end medians of 4.1% (2026), 4.1% (2027), 3.9% (2028) and 3.6% (2029), with the December hike placed on Dec 9 and each year averaged between its endpoints.</p>
+    <p class="small">Market: the 1-year par yield (Oct 2026-27), the 1-year rate one year forward from the 1- and 2-year yields (2027-28), and the same from the 2- and 3-year yields (2028-29). Forward rates include a small term premium. In January, when no hikes were priced, the 3-month bill traded 0.04 points above the fed funds rate, so bill yields track the policy rate closely. Fed: year-end medians of 4.1% (2026), 4.1% (2027), 3.9% (2028) and 3.6% (2029), with the December hike on Dec 9 and each year averaged between its endpoints.</p>
   </details>
-  <h3>The 2-year yield has run far ahead of the Fed</h3>
-  <p>Since January the Fed has raised its rate once, by 0.25 points. The 2-year yield has risen 1.18 points, from 3.47% to 4.65%. Today it fell 0.16 points as stocks sold off.</p>
+  <h3>The 2-year yield and the Fed funds rate over the past year</h3>
+  <p>Since January the Fed has raised its rate once, by 0.25 points, and the 2-year yield has risen 1.18 points, from 3.47% to 4.65%. The 2-year fell 0.16 points on Oct 22 as stocks sold off.</p>
   <div class="chart" id="chart-hist"></div>
   <div class="legend"><span><i style="background:var(--s2)"></i>2-year Treasury yield</span><span><i style="background:var(--s1)"></i>Effective fed funds rate</span></div>
   <p class="src">Sources: <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026" target="_blank" rel="noopener">US Treasury daily par yield curve</a> · <a href="https://www.newyorkfed.org/markets/reference-rates/effr" target="_blank" rel="noopener">NY Fed effective fed funds rate</a> · <a href="https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm" target="_blank" rel="noopener">Fed September 2026 projections</a> · <a href="https://www.mitrade.com/insights/more/Central-Banks/fed-october-hold-december-hike-20261022J1428" target="_blank" rel="noopener">Reuters poll summary</a></p>
 </section>
 
-<section class="block" id="curve" aria-labelledby="curve-h">
-  <h2 id="curve-h">2. The 2-year pays the most per unit of risk</h2>
-  <p>Each step out the curve adds a little yield and a lot of price risk. The last column is how far yields can rise over a year before each fund's extra income is gone. SHY can absorb a 0.49-point rise. IEF absorbs 0.16 and TLT 0.08, and the 10-year moved 0.17 today alone.</p>
+<section class="block" id="funds" aria-labelledby="funds-h">
+  <h2 id="funds-h">2. How the four funds behave</h2>
+  <p>Longer funds pay more yield and move more when rates change. The table gives each fund's starting yield, its price change for a 0.5-point move in yields and the rise in yields over a year that would wipe out its extra income over bills.</p>
   <div class="tscroll"><table>
-    <thead><tr><th>Fund</th><th>Holds</th><th class="r">Yield</th><th class="r">After fee + roll-down</th><th class="r">Extra vs bills</th><th class="r">Duration</th><th class="r">Yield rise that erases the extra in 12 months</th></tr></thead>
+    <thead><tr><th>Fund</th><th>Holds</th><th class="r">Yield</th><th class="r">After fee + roll-down</th><th class="r">Extra vs bills</th><th class="r">Duration</th><th class="r">Yields −0.5</th><th class="r">Yields +0.5</th><th class="r">Rise that erases the extra</th></tr></thead>
     <tbody id="t-funds"></tbody>
   </table></div>
-  <p class="small">Yield is the iShares average yield to maturity on Oct 21, moved by each fund's segment of the Treasury curve on Oct 22. Roll-down is the gain from bonds aging into lower-yielding maturities on today's curve: about 0.30 points a year for SHY, 0.23 for IEF and slightly negative for TLT, because 20-year yields sit above 30-year yields.</p>
-  <h3>Long bonds carry a second risk the 2-year mostly avoids</h3>
-  <p>A long yield is the expected path of short rates plus a term premium, the extra investors demand to hold a long bond. The San Francisco Fed puts the 10-year term premium at 1.35 points, up from 1.04 a year ago. Treasury announces auction sizes on Nov 4. Since August it has said coupon auction sizes stay unchanged "for at least the next several quarters." Dropping that line would push long yields up even if the Fed stops hiking. The 2-year moves almost entirely on the Fed path, which is where the mispricing is.</p>
-  <p>Long bonds hedged stocks today: TLT gained about 1.8% while the Nasdaq fell 2.6%. If your portfolio is mostly S&amp;P 500 and you want that hedge, that is a separate decision. This brief is about where to hold cash.</p>
+  <p class="small">Yield is the iShares average yield to maturity on Oct 21, moved by each fund's segment of the Treasury curve on Oct 22. Roll-down is the gain from bonds aging into lower-yielding maturities on today's curve: 0.30 points a year for SHY and 0.23 for IEF. TLT's is slightly negative because 20-year yields sit above 30-year yields. The ±0.5 columns are price changes only, before income.</p>
+  <p>Per year of duration, the extra income shrinks fast as maturity grows. SHY's 0.87 points of extra income covers a 0.49-point rise in the 2-year over a year. IEF's 1.09 covers 0.16 and TLT's 1.23 covers 0.08. The 10-year moved 0.17 on Oct 22 alone. The same leverage works the other way: a 0.5-point fall in yields adds 0.9% to SHY, 3.4% to IEF and 7.4% to TLT.</p>
   <div class="chart" id="chart-curve"></div>
-  <div class="legend"><span><i style="background:var(--s2)"></i>Oct 22, 2026</span><span><i style="background:var(--s1)"></i>Oct 7, 2026 (this year's high in long yields)</span><span><i style="background:var(--s3)"></i>Oct 22, 2025</span></div>
-  <p class="src">Sources: <a href="https://www.ishares.com/us/products/314116/ishares-0-3-month-treasury-bond-etf" target="_blank" rel="noopener">SGOV</a> · <a href="https://www.ishares.com/us/products/239452/ishares-13-year-treasury-bond-etf" target="_blank" rel="noopener">SHY</a> · <a href="https://www.ishares.com/us/products/239456/ishares-710-year-treasury-bond-etf" target="_blank" rel="noopener">IEF</a> · <a href="https://www.ishares.com/us/products/239454/ishares-20-year-treasury-bond-etf" target="_blank" rel="noopener">TLT</a> (iShares, Oct 21-22) · <a href="https://www.frbsf.org/research-and-insights/data-and-indicators/treasury-yield-premiums/" target="_blank" rel="noopener">SF Fed term premium</a> · <a href="https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents" target="_blank" rel="noopener">Treasury refunding</a></p>
+  <div class="legend"><span><i style="background:var(--s2)"></i>Oct 22, 2026</span><span><i style="background:var(--s1)"></i>Oct 7, 2026, this year's high in long yields</span><span><i style="background:var(--s3)"></i>Oct 22, 2025</span></div>
+  <p class="small">A year ago the curve dipped in the middle because the Fed was cutting. Now it slopes up from 3 months to 20 years. Over the year the 1- to 3-year yields rose 0.9 to 1.3 points, the 10-year 1.0 and the 30-year 0.75.</p>
+  <p class="src">Sources: <a href="https://www.ishares.com/us/products/314116/ishares-0-3-month-treasury-bond-etf" target="_blank" rel="noopener">SGOV</a> · <a href="https://www.ishares.com/us/products/239452/ishares-13-year-treasury-bond-etf" target="_blank" rel="noopener">SHY</a> · <a href="https://www.ishares.com/us/products/239456/ishares-710-year-treasury-bond-etf" target="_blank" rel="noopener">IEF</a> · <a href="https://www.ishares.com/us/products/239454/ishares-20-year-treasury-bond-etf" target="_blank" rel="noopener">TLT</a> (iShares, Oct 21-22) · <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026" target="_blank" rel="noopener">US Treasury yield curve</a></p>
+</section>
+
+<section class="block" id="drivers" aria-labelledby="drivers-h">
+  <h2 id="drivers-h">3. What is moving yields</h2>
+  <p>Five forces set Treasury yields over the next year. Each one hits a different part of the curve, which is why the funds react differently.</p>
+  <div class="tscroll"><table>
+    <thead><tr><th>If this happens</th><th>2-year</th><th>10-year</th><th>30-year</th><th>Fund that does best</th></tr></thead>
+    <tbody>
+      <tr><td>Fed hikes more than the four hikes priced</td><td>Up a lot</td><td>Up less</td><td>Up least</td><td>SGOV</td></tr>
+      <tr><td>Fed stops after December</td><td>Down a lot</td><td>Down</td><td>Down a little</td><td>IEF or TLT in total return; SHY per unit of risk</td></tr>
+      <tr><td>Growth breaks and the Fed cuts</td><td>Down the most</td><td>Down</td><td>Down</td><td>TLT</td></tr>
+      <tr><td>Investors demand more to hold long bonds</td><td>Little change</td><td>Up</td><td>Up the most</td><td>SGOV or SHY</td></tr>
+      <tr><td>Oil spikes</td><td>Up, through the Fed</td><td>Mixed</td><td>Mixed</td><td>SGOV</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="driver">
+  <h3>Inflation</h3>
+  <div class="tiles">
+    <div class="tile"><div class="lab">Headline CPI, past year</div><div class="val">3.7%</div><div class="cmp">September. +0.6% for the month</div></div>
+    <div class="tile"><div class="lab">Core CPI, past year</div><div class="val">2.6%</div><div class="cmp">2.4% in August</div></div>
+    <div class="tile"><div class="lab">Core CPI, 3 months annualized</div><div class="val">3.4%</div><div class="cmp">6-month rate 2.9%</div></div>
+    <div class="tile"><div class="lab">Core PCE, past year</div><div class="val">3.0%</div><div class="cmp">August. +0.2% for the month</div></div>
+    <div class="tile"><div class="lab">10-year breakeven inflation</div><div class="val">2.33%</div><div class="cmp">Oct 22</div></div>
+  </div>
+  <p>Energy is pushing headline inflation well above core. Gasoline made up more than half of September's 0.6% CPI rise. Core is the part the Fed responds to, and it is speeding up: 3.4% annualized over three months against 2.6% over twelve. At 0.3% a month, core runs near 3.6% a year, which gives the Fed reason to keep hiking past December. Core PCE, the Fed's target measure, rose a slower 0.2% in August. The 10-year breakeven of 2.33% says bond investors expect inflation to average 2.3% over the next decade, well below today's 3.7%, so they treat the current pickup as temporary.</p>
+  </div>
+
+  <div class="driver">
+  <h3>Jobs and growth</h3>
+  <div class="tiles">
+    <div class="tile"><div class="lab">Payroll growth, September</div><div class="val">+29K</div><div class="cmp">3-month avg 51K; 12-month avg 41K</div></div>
+    <div class="tile"><div class="lab">Unemployment rate</div><div class="val">4.2%</div><div class="cmp">4.1 to 4.5% over the past year</div></div>
+    <div class="tile"><div class="lab">Initial jobless claims</div><div class="val">194K</div><div class="cmp">Down 6K; forecast was 200K</div></div>
+    <div class="tile"><div class="lab">Consumer spending, August</div><div class="val">+0.9%</div><div class="cmp">Nominal, one month; July +0.1%</div></div>
+    <div class="tile"><div class="lab">Building permits, September</div><div class="val">1.40M</div><div class="cmp">Lowest in 3.5 years</div></div>
+  </div>
+  <p>Layoffs are low and hiring is weak. Payrolls grew 41,000 a month over the past year and unemployment has stayed between 4.1% and 4.5%. A labor market that adds few jobs and loses few gives the Fed no reason to hike for labor-market reasons, so the hiking case rests on inflation. Spending is the strong number: consumer spending rose 0.9% in August after 0.1% in July. Housing is the weak one, with permits at a three-and-a-half-year low and starts down 5.2% in September. Q3 GDP comes out Oct 29.</p>
+  </div>
+
+  <div class="driver">
+  <h3>The Fed</h3>
+  <div class="tiles">
+    <div class="tile"><div class="lab">Fed funds target</div><div class="val">3.75-4.00%</div><div class="cmp">Hiked 0.25 on Sep 16, 12-0</div></div>
+    <div class="tile"><div class="lab">Fed median, end-2027</div><div class="val">4.1%</div><div class="cmp">Market forward for 2027-28: 4.89%</div></div>
+    <div class="tile"><div class="lab">Odds of an Oct 28 hike</div><div class="val">7%</div><div class="cmp">28% a week earlier (CME)</div></div>
+    <div class="tile"><div class="lab">Economists expecting a Dec hike</div><div class="val">100/100</div><div class="cmp">Under half a month earlier</div></div>
+    <div class="tile"><div class="lab">Fed's 2026 core PCE forecast</div><div class="val">3.4%</div><div class="cmp">2.5% for 2027</div></div>
+  </div>
+  <p>The September hike was the first in three years and passed 12-0. Chair Kevin Warsh's Oct 16 speech referred to "synchronous tightening" without signaling the next move. The Fed's own forecast has core PCE falling from 3.4% this year to 2.5% in 2027, and that forecast is why its rate path flattens at 4.1%. If inflation does not fall that fast, the Fed's path moves up toward the market's. On Dec 9 the new projections will show which way it moved.</p>
+  </div>
+
+  <div class="driver">
+  <h3>Long-bond supply and the term premium</h3>
+  <div class="tiles">
+    <div class="tile"><div class="lab">10-year term premium</div><div class="val">1.35</div><div class="cmp">Points, Oct 21. 1.04 a year ago</div></div>
+    <div class="tile"><div class="lab">10-year real yield</div><div class="val">2.64%</div><div class="cmp">2.92% on Oct 7</div></div>
+    <div class="tile"><div class="lab">August refunding</div><div class="val">$125B</div><div class="cmp">3-, 10- and 30-year; sizes unchanged</div></div>
+  </div>
+  <p>A long yield is the expected path of short rates plus a term premium, the extra investors demand for holding a long bond. The San Francisco Fed estimates the 10-year term premium at 1.35 points, up 0.31 in a year. Over the same year its expected-rate component rose 0.78 points, so most of the rise in long yields came from the expected Fed path. A high term premium means long bonds pay more for their risk today. A further rise pushes their prices down even if the Fed stops. Treasury announces auction sizes on Nov 4, and since August it has said coupon auction sizes stay unchanged "for at least the next several quarters." Dropping that line would point to more long-bond supply. The 2-year depends mostly on the Fed path and very little on the term premium.</p>
+  </div>
+
+  <div class="driver">
+  <h3>Stocks, oil and the haven trade</h3>
+  <div class="tiles">
+    <div class="tile"><div class="lab">S&amp;P 500, Oct 22</div><div class="val">7,663</div><div class="cmp">−1.2%; near its record</div></div>
+    <div class="tile"><div class="lab">Nasdaq, Oct 22</div><div class="val">−2.6%</div><div class="cmp">AI spending worries; Meta −8%</div></div>
+    <div class="tile"><div class="lab">Brent crude</div><div class="val">~$113</div><div class="cmp">Highest since May</div></div>
+    <div class="tile"><div class="lab">10-year yield, Oct 22</div><div class="val">4.96%</div><div class="cmp">−0.17; 5.28% on Oct 7</div></div>
+  </div>
+  <p>Oct 22 showed both shocks at once. Doubts about AI spending sank tech stocks, and Meta fell nearly 8% after its earnings and a new share class to fund AI. Oil rose on reports that the US and Israel are weighing strikes on Iran after the Nov 3 midterms. Treasuries rallied as a haven, and the 10-year had its largest one-day drop since March 2023. Long bonds hedge stocks when the worry is growth. When the worry is inflation, as in 2022, stocks and long bonds fall together. An oil shock does both: it raises headline inflation within a month and cuts consumers' real spending over the following quarters.</p>
+  </div>
+  <p class="src">Sources: <a href="https://www.bls.gov/news.release/archives/cpi_10142026.htm" target="_blank" rel="noopener">BLS September CPI</a> and <a href="https://api.bls.gov/publicAPI/v2/timeseries/data/CUSR0000SA0L1E" target="_blank" rel="noopener">core CPI index</a> (rates computed from index levels) · <a href="https://www.bea.gov/news/2026/personal-income-and-outlays-august-2026" target="_blank" rel="noopener">BEA August PCE</a> · <a href="https://www.bls.gov/news.release/archives/empsit_10022026.htm" target="_blank" rel="noopener">BLS September jobs</a> · <a href="https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm" target="_blank" rel="noopener">Fed projections</a> · <a href="https://www.frbsf.org/research-and-insights/data-and-indicators/treasury-yield-premiums/" target="_blank" rel="noopener">SF Fed term premium</a> · <a href="https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents" target="_blank" rel="noopener">Treasury refunding</a> · <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026" target="_blank" rel="noopener">Treasury real yields</a> · <a href="https://www.theglobeandmail.com/investing/article-us-bond-yields-plunge-as-fears-about-sustaining-ai-boom-resurface/" target="_blank" rel="noopener">Reuters on Oct 22 yields, claims, Fed odds and breakevens</a> · <a href="https://www.cnbc.com/2026/10/22/treasurys-bonds-ai-yields.html" target="_blank" rel="noopener">CNBC on the 10-year</a> · <a href="https://www.nbcnews.com/business/markets/iran-war-ai-spending-oil-prices-selloff-rcna604994" target="_blank" rel="noopener">NBC on stocks and oil</a> · <a href="https://www.mitrade.com/insights/more/Central-Banks/fed-october-hold-december-hike-20261022J1428" target="_blank" rel="noopener">Reuters poll, housing data and the Warsh speech</a></p>
 </section>
 
 <section class="block" id="scenarios" aria-labelledby="sc-h">
-  <h2 id="sc-h">3. Five ways the next year can go</h2>
-  <p>If the market's forecast comes true exactly, every fund returns about the 1-year yield, 4.3 to 4.7%. Returns differ only when the future differs from what is priced. Each scenario below sets the Fed path and where yields end up in twelve months. Put your own odds in the first column; the pick at the bottom updates.</p>
+  <h2 id="sc-h">4. Five scenarios for the next 12 months</h2>
+  <p>If the market's forecast comes true exactly, all four funds return about the 1-year yield, between 4.3% and 4.7%. Returns differ when the Fed and long yields land somewhere else. Each scenario sets a Fed path and where yields end in twelve months. Enter your odds in the second column. The weighted rows and the pick fill in as you type.</p>
   <div class="controls">
     <span>Show</span>
     <span class="seg" role="group" aria-label="Return display"><button type="button" id="v-ex" aria-pressed="true">Gain vs bills</button><button type="button" id="v-tot" aria-pressed="false">Total return</button></span>
-    <label>Largest loss vs bills you'd accept <select id="risk"><option value="0.5">0.5 points</option><option value="1">1 point</option><option value="2" selected>2 points</option><option value="5">5 points</option><option value="99">No limit</option></select></label>
-    <button type="button" id="reset">Reset odds</button>
+    <label>Largest loss vs bills you'd accept <select id="risk"><option value="0.5">0.5 points</option><option value="1">1 point</option><option value="2">2 points</option><option value="5">5 points</option><option value="99" selected>No limit</option></select></label>
+    <button type="button" id="clear">Clear odds</button>
   </div>
   <div class="tscroll"><table id="t-scen">
-    <thead><tr><th>Scenario (12 months)</th><th class="r">Odds %</th><th class="r"><span class="sw" style="background:var(--s1)"></span>SGOV</th><th class="r"><span class="sw" style="background:var(--s2)"></span>SHY</th><th class="r"><span class="sw" style="background:var(--s3)"></span>IEF</th><th class="r"><span class="sw" style="background:var(--s4)"></span>TLT</th></tr></thead>
+    <thead><tr><th>Scenario</th><th class="r">Odds %</th><th class="r"><span class="sw" style="background:var(--s1)"></span>SGOV</th><th class="r"><span class="sw" style="background:var(--s2)"></span>SHY</th><th class="r"><span class="sw" style="background:var(--s3)"></span>IEF</th><th class="r"><span class="sw" style="background:var(--s4)"></span>TLT</th></tr></thead>
     <tbody></tbody>
     <tfoot></tfoot>
   </table></div>
   <div class="outcome" id="outcome" aria-live="polite"></div>
-  <details><summary>How returns are calculated</summary>
-    <p class="small">Bond fund return ≈ yield − fee + roll-down − duration × change in yield. Bills return the average bill yield over the year minus the fee. SHY uses the 2-year yield change, IEF the 10-year and TLT the 30-year. The model leaves out convexity, which adds to returns when yields move a lot in either direction: about half a point for TLT in scenarios 3 to 5, less for IEF and nothing that matters for SHY. Returns are before taxes and trading costs.</p>
+  <details><summary>Change the scenario assumptions</summary>
+    <p class="small">Yield changes are in percentage points over twelve months. Bills is the average SGOV yield over the year, before its fee.</p>
+    <div class="tscroll"><table id="t-assume"><thead><tr><th>Scenario</th><th class="r">Bills avg %</th><th class="r">2-year</th><th class="r">10-year</th><th class="r">30-year</th></tr></thead><tbody></tbody></table></div>
+    <button type="button" id="reset-assume">Restore original assumptions</button>
   </details>
-</section>
-
-<section class="block" id="against" aria-labelledby="ag-h">
-  <h2 id="ag-h">4. The case against, and the answer to each point</h2>
-  <div class="against">
-    <div><p class="claim">Inflation is speeding up, so the market is right to price more hikes.</p>
-      <p>Core CPI rose at a 3.4% annual rate over the last three months, against 2.6% over the past year, and September producer prices posted their biggest increase in years. This is the strongest objection. It is why the oil-shock scenario gets 15% and why the exit sits at 5.05%. Core PCE, the measure the Fed targets, rose 0.2% in August.</p></div>
-    <div><p class="claim">The Fed's projections are stale.</p>
-      <p>They were made Sep 16, before the hot September CPI. New ones come with the Dec 9 decision. If the median for end-2027 rises to 4.6% or more, the Fed has moved to the market's path and the reason for the trade is gone: sell SHY.</p></div>
-    <div><p class="claim">Chair Warsh is a hawk.</p>
-      <p>The September hike passed 12-0, and his Oct 16 speech talked about "synchronous tightening." The market already prices four hikes from here. SHY loses to bills only if the Fed delivers more than that.</p></div>
-    <div><p class="claim">Oil could spike if the US strikes Iran.</p>
-      <p>Brent hit about $113 today, its highest since May, on reports of an operation planned for after the Nov 3 midterms. Higher oil lifts headline inflation within a month but also cuts consumers' real spending, and the Fed sets policy on core inflation. Brent above $125 is a reason to cut the position in half.</p></div>
-    <div><p class="claim">The labor market is fine.</p>
-      <p>Layoffs are low: jobless claims fell to 194,000 this week and unemployment is 4.2%. Hiring is weak: payrolls grew 41,000 a month over the past year and 29,000 in September. Low layoffs with slow hiring argues for the Fed stopping, since it does not need to cool a labor market that is barely adding jobs.</p></div>
+  <details><summary>How returns are calculated</summary>
+    <p class="small">Bond fund return ≈ yield − fee + roll-down − duration × change in yield. Bills return the average bill yield over the year minus the fee. SHY uses the 2-year yield change, IEF the 10-year and TLT the 30-year. The model leaves out convexity, which adds to returns when yields move a lot in either direction. That is about half a point for TLT in scenarios 3 to 5, less for IEF and nothing that matters for SHY. Returns are before taxes and trading costs.</p>
+  </details>
+  <div class="controls"><button type="button" id="show-suggest">Show suggested odds and the reasoning behind them</button></div>
+  <div class="suggest" id="suggest" hidden>
+    <h3 style="margin-top:0">Suggested odds</h3>
+    <div class="tscroll"><table>
+      <thead><tr><th>Scenario</th><th class="r">Odds</th><th>Reasoning</th></tr></thead>
+      <tbody>
+        <tr><td>1. Fed stops after December</td><td class="r">30%</td><td>Hiring averages 41,000 a month, core PCE rose 0.2% in August and the Fed's own projection has one more hike. About 60% of economists put the peak at 4.00-4.25%.</td></tr>
+        <tr><td>2. The market's path</td><td class="r">30%</td><td>Core CPI over three months runs at 3.4%. The market has priced this path using every release since September, which the Fed's projection has not seen.</td></tr>
+        <tr><td>3. Oil shock, Fed keeps hiking</td><td class="r">15%</td><td>Brent is at $113 with reports of strikes planned after Nov 3. Headline CPI is already 3.7%.</td></tr>
+        <tr><td>4. AI bust</td><td class="r">10%</td><td>Oct 22 showed how fast the selloff can start. Unemployment at 4.2% and claims at 194,000 show no sign of a downturn yet.</td></tr>
+        <tr><td>5. Long-end supply scare</td><td class="r">15%</td><td>The Nov 4 refunding is the next test, and the term premium already rose 0.31 points in a year.</td></tr>
+      </tbody>
+    </table></div>
+    <p>With these odds, SHY averages 0.8 points over bills and its worst case trails bills by 0.9. IEF also averages 0.8, with a worst case of −3.3, and TLT averages −0.4. The ranking moves with three inputs, each changed with the other odds rescaled to make room:</p>
+    <ul class="small" style="max-width:72ch">
+      <li>SHY falls behind bills once the oil-shock odds pass 55%.</li>
+      <li>IEF passes SHY once the AI-bust odds reach 15%, or once the supply-scare odds drop to 10%.</li>
+      <li>TLT turns positive once the AI-bust odds reach 15%, and passes IEF near 40%.</li>
+    </ul>
+    <button type="button" class="primary" id="load-suggest">Load these odds into the table</button>
   </div>
 </section>
 
-<section class="block" id="watch" aria-labelledby="w-h">
-  <h2 id="w-h">5. Checkpoints</h2>
-  <p>Each date below can move the 2-year yield. Decide now what result changes the position, so the decision on the day is mechanical.</p>
+<section class="block" id="calendar" aria-labelledby="cal-h">
+  <h2 id="cal-h">5. Dates that will move yields</h2>
+  <p>Markets react to the gap between a release and the consensus forecast, which is published the week before. Write the forecast down ahead of each release so you can tell a surprise from a number that was already expected.</p>
   <div class="tscroll"><table>
-    <thead><tr><th>Date (ET)</th><th>Event</th><th>Helps the trade</th><th>Hurts the trade</th><th>Action</th></tr></thead>
+    <thead><tr><th>Date (ET)</th><th>Event</th><th>Points to lower yields</th><th>Points to higher yields</th></tr></thead>
     <tbody>
-      <tr><td class="num">Oct 28, 2:00pm</td><td>Fed decision</td><td>Hold, no talk of a series of hikes</td><td>A hike (7% priced), or "further increases"</td><td>Hike: re-read section 3 with the oil-shock odds raised</td></tr>
-      <tr><td class="num">Oct 29, 8:30am</td><td>Q3 GDP and September PCE</td><td>Core PCE +0.2% or less for the month</td><td>Core PCE +0.4% or more</td><td>Hold either way unless the 2-year passes 5.05%</td></tr>
-      <tr><td class="num">Nov 3</td><td>Midterm elections; Iran risk after</td><td>Brent back under $100</td><td>Brent above $125</td><td>Above $125: sell half</td></tr>
-      <tr><td class="num">Nov 4</td><td>Treasury auction sizes</td><td>Coupon sizes unchanged</td><td>Larger coupon auctions signaled</td><td>Mostly a long-bond risk; no SHY action</td></tr>
-      <tr><td class="num">Nov 6, 8:30am</td><td>October jobs</td><td>Payrolls under 50,000, unemployment 4.3% or higher</td><td>Payrolls over 150,000, unemployment 4.1% or lower</td><td>Hold unless the 2-year passes 5.05%</td></tr>
-      <tr><td class="num">Nov 10, 8:30am</td><td>October CPI</td><td>Core +0.2% or less</td><td>Core +0.4% or more</td><td>Core +0.4% and 2-year above 4.95%: sell half</td></tr>
-      <tr><td class="num">Dec 4, 8:30am</td><td>November jobs</td><td>Same as Nov 6</td><td>Same as Nov 6</td><td>Same as Nov 6</td></tr>
-      <tr><td class="num">Dec 9, 2:00pm</td><td>Fed decision and new projections</td><td>End-2027 median at 4.25% or less</td><td>End-2027 median at 4.6% or more</td><td>4.6% or more: sell SHY</td></tr>
-      <tr><td class="num">Dec 10, 8:30am</td><td>November CPI</td><td>Core +0.2% or less</td><td>Core +0.4% or more</td><td>Full review of this brief</td></tr>
+      <tr><td class="num">Oct 28, 2:00pm</td><td>Fed decision</td><td>Hold with no signal of a series of hikes</td><td>A hike (7% priced), or language about "further increases"</td></tr>
+      <tr><td class="num">Oct 29, 8:30am</td><td>Q3 GDP and September PCE</td><td>Core PCE +0.2% or less for the month</td><td>Core PCE +0.4% or more</td></tr>
+      <tr><td class="num">Nov 3</td><td>Midterms; reported Iran timing</td><td>Brent back under $100</td><td>Brent above $125</td></tr>
+      <tr><td class="num">Nov 4</td><td>Treasury auction sizes</td><td>Coupon sizes unchanged, guidance kept</td><td>Larger coupon auctions signaled (hits 10- and 30-year most)</td></tr>
+      <tr><td class="num">Nov 6, 8:30am</td><td>October jobs</td><td>Payrolls under 50,000, unemployment 4.3% or higher</td><td>Payrolls over 150,000, unemployment 4.1% or lower</td></tr>
+      <tr><td class="num">Nov 10, 8:30am</td><td>October CPI</td><td>Core +0.2% or less</td><td>Core +0.4% or more</td></tr>
+      <tr><td class="num">Dec 4, 8:30am</td><td>November jobs</td><td>Same as Nov 6</td><td>Same as Nov 6</td></tr>
+      <tr><td class="num">Dec 9, 2:00pm</td><td>Fed decision and new projections</td><td>End-2027 median stays at 4.25% or less</td><td>End-2027 median at 4.6% or more, closing the gap with the market</td></tr>
+      <tr><td class="num">Dec 10, 8:30am</td><td>November CPI</td><td>Core +0.2% or less</td><td>Core +0.4% or more</td></tr>
     </tbody>
   </table></div>
-  <p class="src">Sources: <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" rel="noopener">Fed calendar</a> · <a href="https://www.bls.gov/schedule/news_release/cpi.htm" target="_blank" rel="noopener">BLS CPI schedule</a> · <a href="https://www.bls.gov/schedule/news_release/empsit.htm" target="_blank" rel="noopener">BLS jobs schedule</a> · <a href="https://www.bea.gov/news/schedule" target="_blank" rel="noopener">BEA schedule</a> · Oct 28 hike odds of 7.2% from CME FedWatch via <a href="https://www.theglobeandmail.com/investing/article-us-bond-yields-plunge-as-fears-about-sustaining-ai-boom-resurface/" target="_blank" rel="noopener">Reuters, Oct 22</a></p>
+  <p class="src">Sources: <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" rel="noopener">Fed calendar</a> · <a href="https://www.bls.gov/schedule/news_release/cpi.htm" target="_blank" rel="noopener">BLS CPI schedule</a> · <a href="https://www.bls.gov/schedule/news_release/empsit.htm" target="_blank" rel="noopener">BLS jobs schedule</a> · <a href="https://www.bea.gov/news/schedule" target="_blank" rel="noopener">BEA schedule</a> · Oct 28 odds from CME FedWatch via <a href="https://www.theglobeandmail.com/investing/article-us-bond-yields-plunge-as-fears-about-sustaining-ai-boom-resurface/" target="_blank" rel="noopener">Reuters, Oct 22</a></p>
 </section>
 
-<section class="block" id="execute" aria-labelledby="x-h">
-  <h2 id="x-h">6. How to place it</h2>
+<section class="block" id="call" aria-labelledby="call-h">
+  <h2 id="call-h">6. Your call</h2>
+  <p>A good call says what you expect to happen that prices do not already reflect, which fund pays off if you are right and what result would prove you wrong. It saves in this browser. Copy it to keep a dated record.</p>
+  <div class="form" id="form">
+    <div class="inline">
+      <label>Fund <select id="f-fund"><option value="">Choose</option><option>SGOV</option><option>SHY</option><option>IEF</option><option>TLT</option><option>Split</option></select></label>
+      <label>Amount $ <input type="number" id="f-amt" min="0" step="50" value="500"></label>
+      <label>Review on <input type="date" id="f-date" value="2026-12-10"></label>
+    </div>
+    <label>What I expect that prices do not reflect<textarea id="f-view"></textarea></label>
+    <label>Evidence behind it<textarea id="f-ev"></textarea></label>
+    <label>Strongest argument against it<textarea id="f-against"></textarea></label>
+    <label>What would make me exit (a yield level or a release result)<textarea id="f-exit"></textarea></label>
+    <div class="controls" style="margin:0"><button type="button" class="primary" id="copy-call">Copy my call as text</button><span class="small" id="save-note"></span></div>
+  </div>
+
+  <h3>Entry prices, Oct 22, 2026</h3>
+  <div class="tscroll"><table>
+    <thead><tr><th>Fund</th><th class="r">NAV</th><th class="r">Shares for $500</th><th class="r">Cost</th><th class="r">Expense ratio</th></tr></thead>
+    <tbody>
+      <tr><td><span class="sw" style="background:var(--s1)"></span>SGOV</td><td class="r">$100.64</td><td class="r">4</td><td class="r">$402.54</td><td class="r">0.09%</td></tr>
+      <tr><td><span class="sw" style="background:var(--s2)"></span>SHY</td><td class="r">$81.50</td><td class="r">6</td><td class="r">$489.00</td><td class="r">0.15%</td></tr>
+      <tr><td><span class="sw" style="background:var(--s3)"></span>IEF</td><td class="r">$91.18</td><td class="r">5</td><td class="r">$455.90</td><td class="r">0.15%</td></tr>
+      <tr><td><span class="sw" style="background:var(--s4)"></span>TLT</td><td class="r">$81.71</td><td class="r">6</td><td class="r">$490.26</td><td class="r">0.15%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Yields that day: 3-month 4.22%, 1-year 4.41%, 2-year 4.65%, 10-year 4.96%, 30-year 5.29%. Most brokers allow fractional shares, which uses the full $500.</p>
   <div class="two">
     <div>
-      <h3 style="margin-top:0">With a brokerage account</h3>
+      <h3>Placing the trade</h3>
       <ol class="steps">
-        <li>Sell SGOV, or use cash already in the account.</li>
-        <li>Buy SHY with a limit order at the current ask. The spread is usually one cent. Trade between 10:00am and 3:30pm ET, when spreads are tightest.</li>
-        <li>SHY's NAV was $81.50 on Oct 22, so $500 buys 6 shares for about $489. Set dividends to reinvest; SHY pays monthly.</li>
-        <li>Set price alerts on the 2-year yield at 5.05% and 4.15%, or check the live line at the top of this page.</li>
+        <li>Use a limit order at the current ask. Spreads on these funds are usually one cent.</li>
+        <li>Trade between 10:00am and 3:30pm ET, when spreads are tightest.</li>
+        <li>Set dividends to reinvest. All four pay monthly.</li>
+        <li>Treasury interest is exempt from state and local income tax and taxed federally as ordinary income.</li>
       </ol>
     </div>
     <div>
-      <h3 style="margin-top:0">Costs and taxes</h3>
-      <p>SHY's expense ratio is 0.15% a year, already counted in the numbers above. Treasury interest is exempt from state and local income tax and taxed federally as ordinary income.</p>
-      <h3>Direct alternative</h3>
-      <p>Treasury auctions 2-year notes every month, usually in the last week. Buying one at auction through <a href="https://www.treasurydirect.gov/auctions/upcoming/" target="_blank" rel="noopener">TreasuryDirect</a> ($100 minimum) or a broker locks in the yield to maturity with no fund fee. Selling before maturity on TreasuryDirect requires moving the note to a broker first, so use the fund if you might exit early.</p>
+      <h3>Buying a note directly</h3>
+      <p>Treasury auctions 2-, 10- and 30-year securities every month. Buying at auction through <a href="https://www.treasurydirect.gov/auctions/upcoming/" target="_blank" rel="noopener">TreasuryDirect</a> ($100 minimum) or a broker locks in the yield to maturity with no fund fee. Selling before maturity from TreasuryDirect means moving the security to a broker first, so a fund is simpler if you may exit early.</p>
     </div>
   </div>
-  <h3>Record the entry, then grade it</h3>
-  <p>Entry on Oct 22, 2026: SHY NAV $81.50, SGOV NAV $100.64, 2-year yield 4.65%, 1-year forward rate 4.89%. On Dec 10 and on Oct 22, 2027, compare SHY's total return with SGOV's and write down which scenario actually happened. If SHY wins for a reason outside the scenarios, count it as a miss on the analysis.</p>
+  <h3>Grading it</h3>
+  <p>On the review date, compare your fund's total return with SGOV's over the same period and write down which scenario actually happened. A call that made money for a reason outside your scenarios counts as a miss on the analysis.</p>
 </section>
 
-<section class="block" id="evidence" aria-labelledby="e-h">
-  <h2 id="e-h">7. Evidence</h2>
-  <p>Latest readings, each next to the comparison that gives it meaning.</p>
-  <h3>Inflation</h3>
-  <div class="tiles">
-    <div class="tile"><div class="lab">Headline CPI, past year</div><div class="val">3.7%</div><div class="cmp">September. Monthly +0.6%, gasoline over half of it</div></div>
-    <div class="tile"><div class="lab">Core CPI, past year</div><div class="val">2.6%</div><div class="cmp">Up from 2.4% in August</div></div>
-    <div class="tile"><div class="lab">Core CPI, last 3 months annualized</div><div class="val">3.4%</div><div class="cmp">6-month rate 2.9%: speeding up</div></div>
-    <div class="tile"><div class="lab">Core PCE, past year</div><div class="val">3.0%</div><div class="cmp">August. Monthly +0.2%. Fed target 2%</div></div>
-    <div class="tile"><div class="lab">10-year breakeven inflation</div><div class="val">2.33%</div><div class="cmp">Market sees inflation falling back</div></div>
-  </div>
-  <h3>Jobs and growth</h3>
-  <div class="tiles">
-    <div class="tile"><div class="lab">Payroll growth, September</div><div class="val">+29K</div><div class="cmp">3-month avg 51K; 12-month avg 41K</div></div>
-    <div class="tile"><div class="lab">Unemployment rate</div><div class="val">4.2%</div><div class="cmp">Range of 4.1 to 4.5% over the past year</div></div>
-    <div class="tile"><div class="lab">Initial jobless claims</div><div class="val">194K</div><div class="cmp">Down 6K; low layoffs</div></div>
-    <div class="tile"><div class="lab">Consumer spending, August</div><div class="val">+0.9%</div><div class="cmp">Nominal, one month; July +0.1%</div></div>
-    <div class="tile"><div class="lab">Building permits, September</div><div class="val">1.40M</div><div class="cmp">Lowest in three and a half years</div></div>
-  </div>
-  <h3>Markets on Oct 22</h3>
-  <div class="tiles">
-    <div class="tile"><div class="lab">S&amp;P 500</div><div class="val">7,663</div><div class="cmp">−1.2% on AI spending worries; near its record</div></div>
-    <div class="tile"><div class="lab">Brent crude</div><div class="val">~$113</div><div class="cmp">Highest since May</div></div>
-    <div class="tile"><div class="lab">10-year Treasury</div><div class="val">4.96%</div><div class="cmp">−0.17 today; 5.28% close on Oct 7</div></div>
-    <div class="tile"><div class="lab">10-year real yield</div><div class="val">2.64%</div><div class="cmp">2.92% on Oct 7</div></div>
-    <div class="tile"><div class="lab">10-year term premium</div><div class="val">1.35</div><div class="cmp">Points, Oct 21. 1.04 a year ago</div></div>
-  </div>
-  <h3>Policy</h3>
-  <div class="tiles">
-    <div class="tile"><div class="lab">Fed funds target</div><div class="val">3.75-4.00%</div><div class="cmp">Hiked 0.25 on Sep 16, 12-0 vote</div></div>
-    <div class="tile"><div class="lab">Fed median, end-2027</div><div class="val">4.1%</div><div class="cmp">Market forward for 2027-28: 4.89%</div></div>
-    <div class="tile"><div class="lab">Economists expecting a Dec hike</div><div class="val">100/100</div><div class="cmp">Under half a month earlier</div></div>
-    <div class="tile"><div class="lab">Fed's 2026 core PCE forecast</div><div class="val">3.4%</div><div class="cmp">2.5% for 2027</div></div>
-  </div>
-  <p class="src">Sources: <a href="https://www.bls.gov/news.release/archives/cpi_10142026.htm" target="_blank" rel="noopener">BLS September CPI</a> and <a href="https://api.bls.gov/publicAPI/v2/timeseries/data/CUSR0000SA0L1E" target="_blank" rel="noopener">core CPI index</a> (rates computed from index levels) · <a href="https://www.bea.gov/news/2026/personal-income-and-outlays-august-2026" target="_blank" rel="noopener">BEA August PCE</a> · <a href="https://www.bls.gov/news.release/archives/empsit_10022026.htm" target="_blank" rel="noopener">BLS September jobs</a> · <a href="https://www.theglobeandmail.com/investing/article-us-bond-yields-plunge-as-fears-about-sustaining-ai-boom-resurface/" target="_blank" rel="noopener">Reuters on Oct 22 yields, claims and breakevens</a> · <a href="https://www.nbcnews.com/business/markets/iran-war-ai-spending-oil-prices-selloff-rcna604994" target="_blank" rel="noopener">NBC on stocks and oil</a> · <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_real_yield_curve&field_tdr_date_value=2026" target="_blank" rel="noopener">Treasury real yields</a> · <a href="https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm" target="_blank" rel="noopener">Fed projections</a></p>
-</section>
-
-<section class="block" aria-labelledby="g-h">
+<section class="block" id="terms" aria-labelledby="g-h">
   <h2 id="g-h">Terms</h2>
   <dl class="gloss">
     <dt>Treasury bill, note, bond</dt><dd>Loans to the US government. Bills mature within a year, notes in 2 to 10 years, bonds in 20 or 30.</dd>
     <dt>Yield</dt><dd>The annual return from holding a bond to maturity at today's price. When yields rise, existing bonds fall in price.</dd>
     <dt>Duration</dt><dd>Price sensitivity. A duration of 1.79 means a 1-point rise in yields cuts the price about 1.79%.</dd>
-    <dt>Forward rate</dt><dd>The rate the curve implies for a future period. If a 1-year note yields 4.41% and a 2-year 4.65%, rolling 1-year notes only matches the 2-year if next year's 1-year rate is 4.89%.</dd>
-    <dt>Term premium</dt><dd>The extra yield investors demand for holding a long bond instead of rolling short ones. It cannot be observed directly; the SF Fed estimates it with a model.</dd>
-    <dt>Roll-down</dt><dd>When the curve slopes up, a bond gains value as it ages into a shorter, lower-yielding maturity.</dd>
+    <dt>Forward rate</dt><dd>The rate the curve implies for a future period. With a 1-year note at 4.41% and a 2-year at 4.65%, rolling 1-year notes matches the 2-year only if next year's 1-year rate is 4.89%.</dd>
+    <dt>Term premium</dt><dd>The extra yield investors demand for holding a long bond instead of rolling short ones. Nobody observes it directly; the SF Fed estimates it with a model.</dd>
+    <dt>Roll-down</dt><dd>On an upward-sloping curve, a bond gains value as it ages into a shorter, lower-yielding maturity.</dd>
+    <dt>Breakeven inflation</dt><dd>The gap between a regular Treasury yield and an inflation-protected one. It approximates the inflation rate bond investors expect, plus a premium for inflation risk.</dd>
     <dt>SGOV, SHY, IEF, TLT</dt><dd>iShares Treasury funds holding 0-3 month bills, 1-3 year notes, 7-10 year notes and 20+ year bonds.</dd>
   </dl>
 </section>
 </main>
-<footer class="wrap">Practice research for learning, not financial advice. Figures are as of the Oct 22, 2026 close unless dated otherwise. The live line at the top reads Treasury's daily yield feed.</footer>
+<footer class="wrap">Practice research for learning, not financial advice. Figures are as of the Oct 22, 2026 close unless dated otherwise. The yields at the top come from Treasury's daily feed.</footer>
 
 <script>
 const Y2HIST=[["25-10-01",3.55],["25-10-02",3.55],["25-10-03",3.58],["25-10-06",3.6],["25-10-07",3.57],["25-10-08",3.58],["25-10-09",3.6],["25-10-10",3.52],["25-10-14",3.48],["25-10-15",3.5],["25-10-16",3.41],["25-10-17",3.46],["25-10-20",3.46],["25-10-21",3.45],["25-10-22",3.45],["25-10-23",3.48],["25-10-24",3.48],["25-10-27",3.48],["25-10-28",3.47],["25-10-29",3.59],["25-10-30",3.61],["25-10-31",3.6],["25-11-03",3.6],["25-11-04",3.58],["25-11-05",3.63],["25-11-06",3.57],["25-11-07",3.55],["25-11-10",3.58],["25-11-12",3.56],["25-11-13",3.58],["25-11-14",3.62],["25-11-17",3.6],["25-11-18",3.58],["25-11-19",3.58],["25-11-20",3.55],["25-11-21",3.51],["25-11-24",3.46],["25-11-25",3.43],["25-11-26",3.45],["25-11-28",3.47],["25-12-01",3.54],["25-12-02",3.51],["25-12-03",3.49],["25-12-04",3.52],["25-12-05",3.56],["25-12-08",3.57],["25-12-09",3.61],["25-12-10",3.54],["25-12-11",3.52],["25-12-12",3.52],["25-12-15",3.51],["25-12-16",3.48],["25-12-17",3.49],["25-12-18",3.46],["25-12-19",3.48],["25-12-22",3.44],["25-12-23",3.48],["25-12-24",3.47],["25-12-26",3.46],["25-12-29",3.45],["25-12-30",3.45],["25-12-31",3.47],["26-01-02",3.47],["26-01-05",3.46],["26-01-06",3.47],["26-01-07",3.47],["26-01-08",3.49],["26-01-09",3.54],["26-01-12",3.54],["26-01-13",3.53],["26-01-14",3.51],["26-01-15",3.56],["26-01-16",3.59],["26-01-20",3.6],["26-01-21",3.6],["26-01-22",3.61],["26-01-23",3.6],["26-01-26",3.56],["26-01-27",3.53],["26-01-28",3.56],["26-01-29",3.53],["26-01-30",3.52],["26-02-02",3.57],["26-02-03",3.57],["26-02-04",3.57],["26-02-05",3.47],["26-02-06",3.5],["26-02-09",3.48],["26-02-10",3.45],["26-02-11",3.52],["26-02-12",3.47],["26-02-13",3.4],["26-02-17",3.43],["26-02-18",3.47],["26-02-19",3.47],["26-02-20",3.48],["26-02-23",3.43],["26-02-24",3.43],["26-02-25",3.45],["26-02-26",3.42],["26-02-27",3.38],["26-03-02",3.47],["26-03-03",3.51],["26-03-04",3.54],["26-03-05",3.57],["26-03-06",3.56],["26-03-09",3.56],["26-03-10",3.57],["26-03-11",3.64],["26-03-12",3.76],["26-03-13",3.73],["26-03-16",3.68],["26-03-17",3.68],["26-03-18",3.76],["26-03-19",3.79],["26-03-20",3.88],["26-03-23",3.83],["26-03-24",3.9],["26-03-25",3.84],["26-03-26",3.96],["26-03-27",3.88],["26-03-30",3.82],["26-03-31",3.79],["26-04-01",3.81],["26-04-02",3.79],["26-04-03",3.84],["26-04-06",3.84],["26-04-07",3.81],["26-04-08",3.79],["26-04-09",3.78],["26-04-10",3.81],["26-04-13",3.78],["26-04-14",3.76],["26-04-15",3.76],["26-04-16",3.78],["26-04-17",3.71],["26-04-20",3.72],["26-04-21",3.78],["26-04-22",3.79],["26-04-23",3.83],["26-04-24",3.78],["26-04-27",3.78],["26-04-28",3.84],["26-04-29",3.92],["26-04-30",3.88],["26-05-01",3.88],["26-05-04",3.95],["26-05-05",3.93],["26-05-06",3.87],["26-05-07",3.92],["26-05-08",3.9],["26-05-11",3.95],["26-05-12",4.0],["26-05-13",3.98],["26-05-14",4.0],["26-05-15",4.09],["26-05-18",4.07],["26-05-19",4.13],["26-05-20",4.04],["26-05-21",4.08],["26-05-22",4.13],["26-05-26",4.01],["26-05-27",4.0],["26-05-28",3.99],["26-05-29",3.98],["26-06-01",4.05],["26-06-02",4.05],["26-06-03",4.08],["26-06-04",4.05],["26-06-05",4.17],["26-06-08",4.15],["26-06-09",4.13],["26-06-10",4.13],["26-06-11",4.05],["26-06-12",4.09],["26-06-15",4.07],["26-06-16",4.05],["26-06-17",4.2],["26-06-18",4.19],["26-06-22",4.24],["26-06-23",4.16],["26-06-24",4.11],["26-06-25",4.09],["26-06-26",4.07],["26-06-29",4.1],["26-06-30",4.14],["26-07-01",4.17],["26-07-02",4.14],["26-07-06",4.13],["26-07-07",4.19],["26-07-08",4.21],["26-07-09",4.16],["26-07-10",4.21],["26-07-13",4.26],["26-07-14",4.18],["26-07-15",4.13],["26-07-16",4.16],["26-07-17",4.18],["26-07-20",4.21],["26-07-21",4.26],["26-07-22",4.31],["26-07-23",4.37],["26-07-24",4.33],["26-07-27",4.31],["26-07-28",4.26],["26-07-29",4.22],["26-07-30",4.23],["26-07-31",4.28],["26-08-03",4.25],["26-08-04",4.2],["26-08-05",4.18],["26-08-06",4.25],["26-08-07",4.19],["26-08-10",4.25],["26-08-11",4.22],["26-08-12",4.2],["26-08-13",4.15],["26-08-14",4.17],["26-08-17",4.19],["26-08-18",4.19],["26-08-19",4.19],["26-08-20",4.19],["26-08-21",4.24],["26-08-24",4.24],["26-08-25",4.17],["26-08-26",4.19],["26-08-27",4.2],["26-08-28",4.34],["26-08-31",4.34],["26-09-01",4.39],["26-09-02",4.39],["26-09-03",4.34],["26-09-04",4.37],["26-09-08",4.39],["26-09-09",4.43],["26-09-10",4.56],["26-09-11",4.63],["26-09-14",4.65],["26-09-15",4.67],["26-09-16",4.74],["26-09-17",4.67],["26-09-18",4.76],["26-09-21",4.76],["26-09-22",4.71],["26-09-23",4.85],["26-09-24",4.87],["26-09-25",4.81],["26-09-28",4.92],["26-09-29",4.89],["26-09-30",4.88],["26-10-01",4.78],["26-10-02",4.83],["26-10-05",4.84],["26-10-06",4.79],["26-10-07",4.77],["26-10-08",4.75],["26-10-09",4.8],["26-10-13",4.79],["26-10-14",4.82],["26-10-15",4.77],["26-10-16",4.74],["26-10-19",4.77],["26-10-20",4.79],["26-10-21",4.81],["26-10-22",4.65]];
@@ -322,17 +369,19 @@ const CURVES={mats:["3M","6M","1Y","2Y","3Y","5Y","7Y","10Y","20Y","30Y"],
   "Oct 22, 2025":[3.96,3.78,3.55,3.45,3.44,3.56,3.74,3.97,4.52,4.54]};
 const PATH=[["Oct 2026-27",4.41,4.10],["Oct 2027-28",4.89,4.03],["Oct 2028-29",4.86,3.80]];
 const FUNDS=[
- {k:"SGOV",c:"--s1",holds:"0-3 month bills",y:4.00,fee:0.09,roll:0,d:0.11},
+ {k:"SGOV",c:"--s1",holds:"0-3 month bills",y:4.00,fee:0.09,roll:0,d:0.11,seg:"m3"},
  {k:"SHY",c:"--s2",holds:"1-3 year notes",y:4.63,fee:0.15,roll:0.30,d:1.79,seg:"y2"},
  {k:"IEF",c:"--s3",holds:"7-10 year notes",y:4.92,fee:0.15,roll:0.23,d:6.83,seg:"y10"},
  {k:"TLT",c:"--s4",holds:"20+ year bonds",y:5.33,fee:0.15,roll:-0.04,d:14.87,seg:"y30"}];
-const SCEN=[
- {n:"Fed stops after December",d:"Inflation cools from its summer pace and hiring stays near 50,000 a month. The Fed hikes once more to 4.00-4.25% and holds, as its own projection says.",bills:4.15,y2:-0.55,y10:-0.30,y30:-0.15,p:30},
- {n:"The market's path",d:"The Fed hikes four more times, to 4.75-5.00% by late 2027. Yields end where forward rates point today.",bills:4.40,y2:0.23,y10:0.06,y30:0.03,p:30},
- {n:"Oil shock, Fed keeps hiking",d:"A strike on Iran sends Brent above $130, headline CPI passes 4.5% and the Fed hikes to 5.00-5.25%.",bills:4.65,y2:0.65,y10:0.55,y30:0.50,p:15},
- {n:"AI bust",d:"Companies cut AI spending, stocks fall 25% and unemployment reaches 4.9%. The Fed skips December and cuts to 2.75-3.00% by October 2027.",bills:3.55,y2:-1.55,y10:-0.85,y30:-0.55,p:10},
- {n:"Long-end supply scare",d:"The Fed follows the market's path, but Treasury raises coupon auction sizes and investors demand more to hold long bonds.",bills:4.35,y2:0.15,y10:0.55,y30:0.70,p:15}];
-const ENTRY={date:"2026-10-22",y2:4.65,stop:5.05,target:4.15};
+const SCEN0=[
+ {n:"Fed stops after December",d:"Inflation cools from its summer pace and hiring stays near 50,000 a month. The Fed hikes once more to 4.00-4.25% and holds, as its own projection says.",bills:4.15,y2:-0.55,y10:-0.30,y30:-0.15},
+ {n:"The market's path",d:"The Fed hikes four more times, to 4.75-5.00% by late 2027. Yields end where forward rates point today.",bills:4.40,y2:0.23,y10:0.06,y30:0.03},
+ {n:"Oil shock, Fed keeps hiking",d:"A strike on Iran sends Brent above $130, headline CPI passes 4.5% and the Fed hikes to 5.00-5.25%.",bills:4.65,y2:0.65,y10:0.55,y30:0.50},
+ {n:"AI bust",d:"Companies cut AI spending, stocks fall 25% and unemployment reaches 4.9%. The Fed skips December and cuts to 2.75-3.00% by October 2027.",bills:3.55,y2:-1.55,y10:-0.85,y30:-0.55},
+ {n:"Long-end supply scare",d:"The Fed follows the market's path, but Treasury raises coupon auction sizes and investors demand more to hold long bonds.",bills:4.35,y2:0.15,y10:0.55,y30:0.70}];
+const SUGGESTED=[30,30,15,10,15];
+const ENTRY={date:"2026-10-22",m3:4.22,y2:4.65,y10:4.96,y30:5.29};
+const KEY="treasury-brief-v1";
 
 const $=s=>document.querySelector(s);
 const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
@@ -343,18 +392,26 @@ const NS="http://www.w3.org/2000/svg";
 function el(tag,attrs={},parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
 function txt(parent,x,y,s,attrs={}){const t=el("text",Object.assign({x,y,"font-size":12,fill:css("--muted")},attrs),parent);t.textContent=s;return t;}
 
+/* ---------- state ---------- */
+let SCEN=SCEN0.map(s=>Object.assign({},s,{p:0}));
+let saved={};
+try{saved=JSON.parse(localStorage.getItem(KEY)||"{}");}catch(e){}
+if(Array.isArray(saved.odds)&&saved.odds.length===5)saved.odds.forEach((p,i)=>{if(Number.isFinite(p))SCEN[i].p=p;});
+if(Array.isArray(saved.assume)&&saved.assume.length===5)saved.assume.forEach((a,i)=>{["bills","y2","y10","y30"].forEach(k=>{if(Number.isFinite(a[k]))SCEN[i][k]=a[k];});});
+function persist(){try{saved.odds=SCEN.map(s=>s.p);saved.assume=SCEN.map(s=>({bills:s.bills,y2:s.y2,y10:s.y10,y30:s.y30}));localStorage.setItem(KEY,JSON.stringify(saved));}catch(e){}}
+
 /* ---------- returns model ---------- */
 function ret(f,s){ if(f.k==="SGOV") return s.bills-f.fee; return f.y-f.fee+f.roll-f.d*s[f.seg]; }
-const carryEx=f=>(f.y-f.fee+f.roll)-(FUNDS[0].y-FUNDS[0].fee);
+const net=f=>f.y-f.fee+f.roll;
+const carryEx=f=>net(f)-net(FUNDS[0]);
 
 /* ---------- fund table ---------- */
 (function(){
   const tb=$("#t-funds");
   FUNDS.forEach(f=>{
-    const net=f.y-f.fee+f.roll, ex=carryEx(f);
-    const tr=document.createElement("tr"); if(f.k==="SHY")tr.className="pick";
-    const cells=[`<span class="sw" style="background:var(${f.c})"></span>${f.k}`,f.holds,f2(f.y)+"%",f2(net)+"%",
-      f.k==="SGOV"?"":sgn(ex,2),f2(f.d),f.k==="SGOV"?"":f2(ex/f.d)+" pts"];
+    const ex=carryEx(f), tr=document.createElement("tr");
+    const cells=[`<span class="sw" style="background:var(${f.c})"></span>${f.k}`,f.holds,f2(f.y)+"%",f2(net(f))+"%",
+      f.k==="SGOV"?"":sgn(ex,2),f2(f.d),sgn(f.d*0.5,2)+"%",sgn(-f.d*0.5,2)+"%",f.k==="SGOV"?"":f2(ex/f.d)+" pts"];
     cells.forEach((c,i)=>{const td=document.createElement("td");if(i>1)td.className="r";if(i===0)td.style.whiteSpace="nowrap";td.innerHTML=c;tr.appendChild(td);});
     tb.appendChild(tr);
   });
@@ -363,29 +420,39 @@ const carryEx=f=>(f.y-f.fee+f.roll)-(FUNDS[0].y-FUNDS[0].fee);
 /* ---------- scenario table ---------- */
 let mode="ex";
 const tbody=$("#t-scen tbody"), tfoot=$("#t-scen tfoot");
+const moves=s=>`Bills average ${f2(s.bills)}% · 2-year ${sgn(s.y2,2)} · 10-year ${sgn(s.y10,2)} · 30-year ${sgn(s.y30,2)}`;
 function buildScen(){
   tbody.innerHTML="";
   SCEN.forEach((s,i)=>{
     const tr=document.createElement("tr");
     const td0=document.createElement("td");
-    td0.innerHTML=`<div class="scen-name">${i+1}. ${s.n}</div><div class="scen-desc">${s.d}</div><div class="scen-moves">Bills average ${f2(s.bills)}% · 2-year ${sgn(s.y2,2)} · 10-year ${sgn(s.y10,2)} · 30-year ${sgn(s.y30,2)}</div>`;
+    td0.innerHTML=`<div class="scen-name">${i+1}. ${s.n}</div><div class="scen-desc">${s.d}</div><div class="scen-moves" data-m="${i}"></div>`;
     tr.appendChild(td0);
     const td1=document.createElement("td");td1.className="r";
-    const inp=document.createElement("input");inp.type="number";inp.min=0;inp.max=100;inp.step=5;inp.value=s.p;inp.setAttribute("aria-label","Odds for "+s.n);
+    const inp=document.createElement("input");inp.type="number";inp.min=0;inp.max=100;inp.step=5;inp.value=s.p||"";inp.placeholder="0";inp.setAttribute("aria-label","Odds for "+s.n);
     inp.addEventListener("input",()=>{s.p=Math.max(0,+inp.value||0);update();});
     td1.appendChild(inp);tr.appendChild(td1);
     FUNDS.forEach(f=>{const td=document.createElement("td");td.className="r";td.dataset.s=i;td.dataset.f=f.k;tr.appendChild(td);});
     tbody.appendChild(tr);
   });
+  const ta=$("#t-assume tbody");ta.innerHTML="";
+  SCEN.forEach((s,i)=>{
+    const tr=document.createElement("tr");const td=document.createElement("td");td.textContent=(i+1)+". "+s.n;tr.appendChild(td);
+    ["bills","y2","y10","y30"].forEach(k=>{const c=document.createElement("td");c.className="r";const inp=document.createElement("input");inp.type="number";inp.step=k==="bills"?0.05:0.05;inp.value=s[k];inp.setAttribute("aria-label",s.n+" "+k);
+      inp.addEventListener("input",()=>{const v=parseFloat(inp.value);if(Number.isFinite(v)){s[k]=v;update();}});c.appendChild(inp);tr.appendChild(c);});
+    ta.appendChild(tr);
+  });
 }
 function update(){
-  const tot=SCEN.reduce((a,s)=>a+s.p,0)||1;
+  persist();
+  SCEN.forEach((s,i)=>{const m=document.querySelector(`[data-m="${i}"]`);if(m)m.textContent=moves(s);});
+  const tot=SCEN.reduce((a,s)=>a+s.p,0);
   const stats=FUNDS.map(f=>{
     const ex=SCEN.map(s=>ret(f,s)-ret(FUNDS[0],s)), tr=SCEN.map(s=>ret(f,s));
-    const ev=SCEN.reduce((a,s,i)=>a+s.p/tot*ex[i],0), evt=SCEN.reduce((a,s,i)=>a+s.p/tot*tr[i],0);
     const live=SCEN.map((s,i)=>[s.p,i]).filter(x=>x[0]>0).map(x=>x[1]);
-    const worst=Math.min(...live.map(i=>ex[i])), best=Math.max(...live.map(i=>ex[i]));
-    return {f,ex,tr,ev,evt,worst,best,wt:Math.min(...live.map(i=>tr[i]))};
+    if(!tot)return {f,ex,tr};
+    const ev=SCEN.reduce((a,s,i)=>a+s.p/tot*ex[i],0), evt=SCEN.reduce((a,s,i)=>a+s.p/tot*tr[i],0);
+    return {f,ex,tr,ev,evt,worst:Math.min(...live.map(i=>ex[i])),wt:Math.min(...live.map(i=>tr[i]))};
   });
   tbody.querySelectorAll("td[data-f]").forEach(td=>{
     const st=stats.find(x=>x.f.k===td.dataset.f), i=+td.dataset.s;
@@ -393,31 +460,60 @@ function update(){
     td.textContent=(mode==="ex"&&st.f.k==="SGOV")?"0.0":(mode==="ex"?sgn(v):pc(v));
     td.className="r"+(mode==="ex"&&st.f.k!=="SGOV"?(v>0.05?" cellpos":v<-0.05?" cellneg":""):"");
   });
+  tfoot.innerHTML="";
+  const out=$("#outcome");
+  if(!tot){out.textContent="Enter odds for at least one scenario to see the weighted results and the pick.";return;}
   const lim=+$("#risk").value;
   const ok=stats.filter(s=>s.f.k==="SGOV"||-s.worst<=lim);
   const pick=ok.reduce((a,b)=>b.ev>a.ev?b:a);
-  const best=stats.reduce((a,b)=>b.ev>a.ev?b:a);
-  tfoot.innerHTML="";
-  const row=(label,fn,cls="")=>{const tr=document.createElement("tr");tr.className=cls;tr.innerHTML=`<td>${label}</td><td class="r num">${label.startsWith("Weighted")?tot+"%":""}</td>`+stats.map(s=>`<td class="r">${fn(s)}</td>`).join("");tfoot.appendChild(tr);};
-  row("Weighted by your odds",s=>mode==="ex"?(s.f.k==="SGOV"?"0.0":sgn(s.ev)):pc(s.evt));
+  const row=(label,fn,first)=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${label}</td><td class="r num">${first||""}</td>`+stats.map(s=>`<td class="r">${fn(s)}</td>`).join("");tfoot.appendChild(tr);};
+  row("Weighted by your odds",s=>mode==="ex"?(s.f.k==="SGOV"?"0.0":sgn(s.ev)):pc(s.evt),tot+"%");
   row("Worst scenario with odds above zero",s=>mode==="ex"?(s.f.k==="SGOV"?"0.0":sgn(s.worst)):pc(s.wt));
-  row("Pick",s=>s===pick?"✓":"");
-  const out=$("#outcome");
+  row("Highest average within your loss limit",s=>s===pick?"✓":"");
   let msg;
-  if(pick.f.k==="SGOV") msg=`<b>Stay in bills.</b> No fund beats bills on average within a ${lim}-point loss limit with these odds.`;
-  else msg=`<b>Buy ${pick.f.k}.</b> With these odds it ${pick.ev>=0?"beats":"trails"} bills by ${Math.abs(pick.ev).toFixed(1)} points on average over 12 months`+(pick.worst<0?`, and its worst scenario trails bills by ${Math.abs(pick.worst).toFixed(1)} points.`:", and it beats bills in every scenario you gave odds to.");
-  stats.filter(s=>s!==pick&&s.f.k!=="SGOV"&&s.ev>=pick.ev-0.25).forEach(s=>{msg+=` ${s.f.k} averages ${sgn(s.ev)} but can trail bills by ${Math.abs(Math.min(0,s.worst)).toFixed(1)} points`+(-s.worst>lim?", beyond your limit.":".");});
-  if(tot!==100) msg+=` <span class="muted">Your odds add to ${tot}%, so they are rescaled to 100.</span>`;
-  out.innerHTML=msg;
-  const shy=stats[1], isDefault=SCEN.every((s,i)=>s.p===DEFAULTS[i]);
-  $("#c-ev").textContent=sgn(shy.ev)+" points"; $("#c-worst").textContent=sgn(shy.worst)+" points"; $("#c-best").textContent=sgn(shy.best)+" points";
-  $("#c-odds").textContent=isDefault?"The brief's defaults (change them in Scenarios)":"Your odds from Scenarios"+(pick.f.k!=="SHY"?`, which pick ${pick.f.k}`:"");
+  if(pick.f.k==="SGOV") msg=`Your odds favor SGOV. No longer fund beats bills on average`+(lim<99?` within a ${lim}-point loss limit.`:".");
+  else msg=`Your odds favor ${pick.f.k}. It ${pick.ev>=0?"beats":"trails"} bills by ${Math.abs(pick.ev).toFixed(1)} points on average over 12 months`+(pick.worst<0?`, and its worst scenario trails bills by ${Math.abs(pick.worst).toFixed(1)} points.`:", and it beats bills in every scenario you gave odds to.");
+  stats.filter(s=>s!==pick&&s.f.k!=="SGOV"&&s.ev>=pick.ev-0.25).forEach(s=>{msg+=` ${s.f.k} averages ${sgn(s.ev)} and can trail bills by ${Math.abs(Math.min(0,s.worst)).toFixed(1)} points`+(-s.worst>lim?", past your limit.":".");});
+  if(tot!==100) msg+=` Your odds add to ${tot}%, so they are rescaled to 100.`;
+  out.textContent=msg;
 }
-const DEFAULTS=SCEN.map(s=>s.p);
 buildScen();update();
 $("#risk").addEventListener("change",update);
-$("#reset").addEventListener("click",()=>{SCEN.forEach((s,i)=>s.p=DEFAULTS[i]);buildScen();update();});
+$("#clear").addEventListener("click",()=>{SCEN.forEach(s=>s.p=0);buildScen();update();});
+$("#reset-assume").addEventListener("click",()=>{SCEN.forEach((s,i)=>Object.assign(s,{bills:SCEN0[i].bills,y2:SCEN0[i].y2,y10:SCEN0[i].y10,y30:SCEN0[i].y30}));buildScen();update();});
+$("#show-suggest").addEventListener("click",()=>{const b=$("#suggest");b.hidden=!b.hidden;$("#show-suggest").textContent=b.hidden?"Show suggested odds and the reasoning behind them":"Hide suggested odds";});
+$("#load-suggest").addEventListener("click",()=>{SCEN.forEach((s,i)=>s.p=SUGGESTED[i]);buildScen();update();$("#t-scen").scrollIntoView({block:"center"});});
 [["#v-ex","ex"],["#v-tot","tot"]].forEach(([id,m])=>$(id).addEventListener("click",()=>{mode=m;$("#v-ex").setAttribute("aria-pressed",m==="ex");$("#v-tot").setAttribute("aria-pressed",m==="tot");update();}));
+
+/* ---------- your call ---------- */
+const FIELDS=["f-fund","f-amt","f-date","f-view","f-ev","f-against","f-exit"];
+FIELDS.forEach(id=>{const e=$("#"+id);if(saved.call&&typeof saved.call[id]==="string")e.value=saved.call[id];
+  e.addEventListener("input",()=>{saved.call=saved.call||{};saved.call[id]=e.value;persist();$("#save-note").textContent="Saved in this browser";});});
+$("#copy-call").addEventListener("click",async()=>{
+  const v=id=>$("#"+id).value.trim();
+  const odds=SCEN.map((s,i)=>`${i+1}. ${s.n}: ${s.p}%`).join("\n");
+  const t=`My Treasury call, made ${new Date().toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})}
+Fund: ${v("f-fund")||"(not chosen)"}, $${v("f-amt")}
+Review on: ${v("f-date")}
+Entry levels (Oct 22, 2026): 2-year 4.65%, 10-year 4.96%, 30-year 5.29%; SGOV $100.64, SHY $81.50, IEF $91.18, TLT $81.71
+
+What I expect that prices do not reflect:
+${v("f-view")}
+
+Evidence:
+${v("f-ev")}
+
+Strongest argument against:
+${v("f-against")}
+
+Exit if:
+${v("f-exit")}
+
+My scenario odds:
+${odds}`;
+  try{await navigator.clipboard.writeText(t);$("#save-note").textContent="Copied";}
+  catch(e){const ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();$("#save-note").textContent="Copied";}
+});
 
 /* ---------- path table ---------- */
 $("#t-path").innerHTML=PATH.map(p=>`<tr><td>${p[0]}</td><td class="r">${f2(p[1])}%</td><td class="r">${f2(p[2])}%</td><td class="r">${sgn(p[1]-p[2],2)}</td></tr>`).join("");
@@ -425,7 +521,7 @@ $("#t-path").innerHTML=PATH.map(p=>`<tr><td>${p[0]}</td><td class="r">${f2(p[1])
 /* ---------- charts ---------- */
 function tipFor(box){let t=box.querySelector(".tip");if(!t){t=document.createElement("div");t.className="tip";box.appendChild(t);}return t;}
 function placeTip(box,t,x,y){const w=box.clientWidth;t.style.opacity=1;const tw=t.offsetWidth;let left=x+14;if(left+tw>w)left=x-tw-14;t.style.left=Math.max(0,left)+"px";t.style.top=Math.max(0,y-10)+"px";}
-function frame(box,W,H){box.innerHTML="";const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img"},box);return svg;}
+function frame(box,W,H){box.innerHTML="";return el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img"},box);}
 function yAxis(svg,x0,x1,y,min,max,step,fmt){for(let v=min;v<=max+1e-9;v+=step){const yy=y(v);el("line",{x1:x0,x2:x1,y1:yy,y2:yy,stroke:css("--grid"),"stroke-width":1},svg);txt(svg,x0-8,yy+4,fmt(v),{"text-anchor":"end"});}}
 
 function drawPath(){
@@ -460,13 +556,13 @@ function lineChart(box,{W=720,H=280,xs,series,min,max,step,xLabels,label,fmtX}){
     let d="";s.v.forEach((v,i)=>{if(v==null)return;d+=(d?"L":"M")+x(i).toFixed(1)+","+y(v).toFixed(1);});
     el("path",{d,fill:"none",stroke:css(s.c),"stroke-width":2,"stroke-linejoin":"round","stroke-linecap":"round"},svg);
     const li=s.v.length-1;el("circle",{cx:x(li),cy:y(s.v[li]),r:4,fill:css(s.c),stroke:css("--surface"),"stroke-width":2},svg);
-    if(s.end)txt(svg,x(li)+8,y(s.v[li])+4+(s.dy||0),s.v[li].toFixed(2)+"%",{fill:css("--ink"),"font-size":12.5,"font-weight":600});
+    txt(svg,x(li)+8,y(s.v[li])+4,s.v[li].toFixed(2)+"%",{fill:css("--ink"),"font-size":12.5,"font-weight":600});
   });
   const cross=el("line",{y1:m.t,y2:H-m.b,stroke:css("--axis"),"stroke-width":1,opacity:0},svg);
   const dots=series.map(s=>el("circle",{r:4,fill:css(s.c),stroke:css("--surface"),"stroke-width":2,opacity:0},svg));
   const hit=el("rect",{x:m.l,y:m.t,width:W-m.l-m.r,height:H-m.t-m.b,fill:"transparent"},svg);
   const tip=tipFor(box);
-  const move=e=>{
+  hit.addEventListener("pointermove",e=>{
     const r=svg.getBoundingClientRect(),px=(e.clientX-r.left)*W/r.width;
     const i=Math.max(0,Math.min(n-1,Math.round((px-m.l)/(W-m.l-m.r)*(n-1))));
     cross.setAttribute("x1",x(i));cross.setAttribute("x2",x(i));cross.setAttribute("opacity",1);
@@ -474,29 +570,28 @@ function lineChart(box,{W=720,H=280,xs,series,min,max,step,xLabels,label,fmtX}){
     series.forEach((s,j)=>{const v=s.v[i];dots[j].setAttribute("cx",x(i));dots[j].setAttribute("cy",v==null?-99:y(v));dots[j].setAttribute("opacity",v==null?0:1);
       const row=document.createElement("div");const k=document.createElement("i");k.style.background=css(s.c);row.appendChild(k);row.appendChild(document.createTextNode(s.n+": "+(v==null?"n/a":v.toFixed(2)+"%")));tip.appendChild(row);});
     placeTip(box,tip,x(i)*r.width/W,20);
-  };
-  hit.addEventListener("pointermove",move);hit.addEventListener("pointerleave",()=>{tip.style.opacity=0;cross.setAttribute("opacity",0);dots.forEach(d=>d.setAttribute("opacity",0));});
+  });
+  hit.addEventListener("pointerleave",()=>{tip.style.opacity=0;cross.setAttribute("opacity",0);dots.forEach(d=>d.setAttribute("opacity",0));});
 }
-
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 function drawHist(){
   const xs=Y2HIST.map(r=>"20"+r[0]);
   const effr=xs.map(d=>{let v=null;for(const [dd,r] of EFFR)if(d>=dd)v=r;return v;});
-  const mon=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const labels=[];let last="";xs.forEach((d,i)=>{const k=d.slice(0,7);if(k!==last){last=k;const mm=+d.slice(5,7);if(mm%2===0||i===0)labels.push([i,mon[mm-1]+(mm===1||i===0?" '"+d.slice(2,4):"")]);}});
-  lineChart($("#chart-hist"),{xs,series:[{n:"2-year yield",c:"--s2",v:Y2HIST.map(r=>r[1]),end:true},{n:"Fed funds",c:"--s1",v:effr,end:true}],min:3,max:5,step:0.5,xLabels:labels,label:"2-year Treasury yield and effective fed funds rate, Oct 2025 to Oct 2026",
-    fmtX:d=>{const [Y,M,D]=d.split("-");return mon[+M-1]+" "+(+D)+", "+Y;}});
+  const labels=[];let last="";xs.forEach((d,i)=>{const k=d.slice(0,7);if(k!==last){last=k;const mm=+d.slice(5,7);if(mm%2===0||i===0)labels.push([i,MON[mm-1]+(mm===1||i===0?" '"+d.slice(2,4):"")]);}});
+  lineChart($("#chart-hist"),{xs,series:[{n:"2-year yield",c:"--s2",v:Y2HIST.map(r=>r[1])},{n:"Fed funds",c:"--s1",v:effr}],min:3,max:5,step:0.5,xLabels:labels,label:"2-year Treasury yield and effective fed funds rate, Oct 2025 to Oct 2026",
+    fmtX:d=>{const [Y,M,D]=d.split("-");return MON[+M-1]+" "+(+D)+", "+Y;}});
 }
 function drawCurve(){
   const keys=["Oct 22, 2026","Oct 7, 2026","Oct 22, 2025"],cols=["--s2","--s1","--s3"];
-  lineChart($("#chart-curve"),{xs:CURVES.mats,series:keys.map((k,i)=>({n:k,c:cols[i],v:CURVES[k],end:true,dy:0})),min:3,max:6,step:0.5,
-    xLabels:CURVES.mats.map((m,i)=>[i,m]),label:"Treasury yield curve: today, one month ago, one year ago",fmtX:m=>m+" maturity"});
+  lineChart($("#chart-curve"),{xs:CURVES.mats,series:keys.map((k,i)=>({n:k,c:cols[i],v:CURVES[k]})),min:3,max:6,step:0.5,
+    xLabels:CURVES.mats.map((m,i)=>[i,m]),label:"Treasury yield curve: Oct 22 2026, Oct 7 2026 and Oct 22 2025",fmtX:m=>m+" maturity"});
 }
 function drawAll(){drawPath();drawHist();drawCurve();}
 drawAll();
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",drawAll);
 let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(drawAll,150);});
 
-/* ---------- live check ---------- */
+/* ---------- live yields ---------- */
 (async function(){
   const box=$("#live");
   const ym=d=>d.getFullYear()+String(d.getMonth()+1).padStart(2,"0");
@@ -505,26 +600,23 @@ let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(drawAll,150
     const r=await fetch(`https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value_month=${m}`);
     if(!r.ok)throw new Error(r.status);
     const doc=new DOMParser().parseFromString(await r.text(),"application/xml");
-    return [...doc.getElementsByTagNameNS("*","properties")].map(p=>{const g=k=>{const e=p.getElementsByTagNameNS("*",k)[0];return e&&e.textContent?parseFloat(e.textContent):null;};const de=p.getElementsByTagNameNS("*","NEW_DATE")[0];return {d:de?de.textContent.slice(0,10):"",y2:g("BC_2YEAR"),y10:g("BC_10YEAR"),y1:g("BC_1YEAR")};}).filter(x=>x.y2!=null);
+    return [...doc.getElementsByTagNameNS("*","properties")].map(p=>{const g=k=>{const e=p.getElementsByTagNameNS("*",k)[0];return e&&e.textContent?parseFloat(e.textContent):null;};const de=p.getElementsByTagNameNS("*","NEW_DATE")[0];return {d:de?de.textContent.slice(0,10):"",m3:g("BC_3MONTH"),y1:g("BC_1YEAR"),y2:g("BC_2YEAR"),y10:g("BC_10YEAR"),y30:g("BC_30YEAR")};}).filter(x=>x.y2!=null);
   }
   try{
     let rows=await month(ym(now));if(!rows.length)rows=await month(ym(prev));
-    rows.sort((a,b)=>a.d<b.d?-1:1);const L=rows[rows.length-1];
-    if(!L)throw new Error("empty");
-    const days=(new Date(L.d)-new Date(ENTRY.date))/864e5;
-    const shy=FUNDS[1],ex=carryEx(shy)*days/365-shy.d*(L.y2-ENTRY.y2);
+    rows.sort((a,b)=>a.d<b.d?-1:1);const L=rows[rows.length-1];if(!L)throw new Error("empty");
+    const days=Math.max(0,(new Date(L.d)-new Date(ENTRY.date))/864e5);
     const fwd=L.y1?((1+L.y2/100)**2/(1+L.y1/100)-1)*100:null;
     const dt=new Date(L.d+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
-    let status;
-    if(L.y2>=ENTRY.stop)status=`<span class="pill warn">Exit: 2-year at or above ${ENTRY.stop}%</span>`;
-    else if(L.y2<=ENTRY.target)status=`<span class="pill ok">Target hit: move back to bills</span>`;
-    else status=`<span class="pill ok">Hold</span> <span class="small">${Math.round((ENTRY.stop-L.y2)*100)} bp below the exit, ${Math.round((L.y2-ENTRY.target)*100)} bp above the target</span>`;
-    box.innerHTML=`<span>2-year yield on ${dt}: <b class="num">${f2(L.y2)}%</b> <span class="small">(entry ${f2(ENTRY.y2)}%)</span></span>`+
-      (fwd?`<span>1-year forward: <b class="num">${f2(fwd)}%</b> <span class="small">(Fed: 4.1%)</span></span>`:"")+
-      (days>0?`<span>SHY vs bills since entry, estimated: <b class="num ${ex>=0?"up":"down"}">${sgn(ex,2)} pts</b></span>`:"")+
-      `<span>${status}</span>`;
+    const y=(lab,k)=>`<span>${lab} <b class="num">${f2(L[k])}%</b>${days>0?` <span class="small">(${sgn(L[k]-ENTRY[k],2)})</span>`:""}</span>`;
+    let html=`<div class="row"><span class="muted">Treasury yields, ${dt}${days>0?", change since Oct 22":""}</span>${y("2-year","y2")}${y("10-year","y10")}${y("30-year","y30")}`+(fwd?`<span>1-year forward <b class="num">${f2(fwd)}%</b></span>`:"")+`</div>`;
+    if(days>0){
+      const est=FUNDS.map(f=>{const dy=f.k==="SGOV"?0:L[f.seg]-ENTRY[f.seg];return [f.k,net(f)*days/365-f.d*dy];});
+      html+=`<div class="row" style="margin-top:6px"><span class="muted">Estimated return since Oct 22</span>`+est.map(([k,v])=>`<span>${k} <b class="num">${sgn(v,2)}%</b></span>`).join("")+`</div>`;
+    }
+    box.innerHTML=html;
   }catch(e){
-    box.innerHTML=`<span class="small">Treasury's feed did not load. Entry levels: 2-year 4.65%, exit above 5.05%, target below 4.15%. <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=${ym(now)}" target="_blank" rel="noopener">Check current yields</a>.</span>`;
+    box.innerHTML=`<span class="small">Treasury's feed did not load. Oct 22 levels: 2-year 4.65%, 10-year 4.96%, 30-year 5.29%. <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=${ym(now)}" target="_blank" rel="noopener">Current yields</a></span>`;
   }
 })();
 </script>
