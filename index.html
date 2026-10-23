@@ -80,6 +80,10 @@ summary{cursor:pointer;color:var(--ink2);font-size:14px}
 .form label{display:grid;gap:4px;font-size:14px;color:var(--ink2)}
 .form .inline{display:flex;flex-wrap:wrap;gap:12px 22px}
 .form .inline label{display:flex;align-items:center;gap:8px}
+ol.lead-steps{color:var(--ink2);max-width:74ch;margin:4px 0 12px;padding-left:22px}
+ol.lead-steps li{margin-bottom:4px}
+dl.gloss dt{font-weight:600;margin-top:10px}
+dl.gloss dd{margin:2px 0 0;max-width:74ch;color:var(--ink2)}
 footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
 @media (max-width:760px){.tscroll table{min-width:640px} h1{font-size:25px} section.block{padding:20px 16px} nav.toc{display:none}}
 @media print{nav.toc,.controls,.live,button{display:none} section.block{break-inside:avoid}}
@@ -88,100 +92,114 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
 <body>
 <header class="top"><div class="wrap">
   <div class="kicker">Treasury research brief · data as of the Oct 22, 2026 close</div>
-  <nav class="toc" aria-label="Sections"><a href="#priced">Priced</a><a href="#funds">Funds</a><a href="#evidence">Evidence</a><a href="#rule">Fed rule</a><a href="#scenarios">Scenarios</a><a href="#checks">Model checks</a><a href="#base">Base rates</a><a href="#calendar">Calendar</a><a href="#call">Your call</a><a href="#method">Method</a></nav>
+  <nav class="toc" aria-label="Sections"><a href="#priced">Priced</a><a href="#funds">Funds</a><a href="#evidence">Evidence</a><a href="#rule">Fed rule</a><a href="#scenarios">Scenarios</a><a href="#checks">Model checks</a><a href="#base">Base rates</a><a href="#calendar">Calendar</a><a href="#call">Your call</a><a href="#method">Method</a><a href="#terms">Terms</a></nav>
 </div></header>
 <main class="wrap">
 <h1>Treasuries for the next 12 months: SGOV, SHY, IEF or TLT</h1>
-<p class="lead">Scenario yields come from two sources: the average surprise in matching historical episodes since 1994, and a structural model built on a Fed reaction function estimated from 1988 to 2026. Section 6 backtests both. Returns come from pricing each fund as a ladder of Treasuries, which reproduces this year's actual fund returns within 0.2 points.</p>
+<p class="lead">The question: which of four Treasury funds to hold for the next 12 months. SGOV holds Treasury bills that mature within 3 months, so it behaves like cash. SHY, IEF and TLT hold longer bonds, which pay more interest but lose value when interest rates rise. The brief works out what each fund would return under six possible futures, in four steps:</p>
+<ol class="lead-steps">
+  <li>Find what the market already expects the Fed to do. Bond prices contain that forecast (section 1).</li>
+  <li>Describe each future as a surprise against that forecast, using what happened in similar past episodes or a formula for how the Fed sets rates (sections 4 and 5).</li>
+  <li>Turn each future into the interest rate every bond would pay 12 months from now.</li>
+  <li>Reprice each fund at those rates to get its 12-month return. Section 2 checks this step against what the funds actually returned this year.</li>
+</ol>
+<p class="small">"Points" means percentage points: a 0.25-point hike takes a 3.75% rate to 4.00%. A bond's yield is the yearly return from buying it today and holding it until it matures. Every other term is explained where it first appears and listed in <a href="#terms">Terms</a> at the bottom.</p>
 <div class="live" id="live" aria-live="polite"><span class="muted">Checking Treasury for yields after Oct 22…</span></div>
 
 <section class="block" id="priced">
-  <h2>1. What the market prices</h2>
-  <p>The NY Fed's ACM model splits each Treasury yield into the expected path of the short rate and a term premium. On Oct 22 the expected short rate averages <span id="p-m1"></span> over the next year and <span id="p-m2"></span> over the year after, against a 3.88% fed funds rate today. That is 2.4 quarter-point hikes by late 2027, followed by a slow decline to 4.12% ten years out.</p>
-  <p>Subtracting the expected path from each par yield leaves term premiums of <span id="p-tp"></span>. Those premiums are what longer bonds earn over bills if the expected path comes true. The San Francisco Fed's model puts the 10-year premium at 1.35, about double, so the split between expectations and premium carries about 0.7 points of model uncertainty at 10 years.</p>
+  <h2>1. What the market expects the Fed to do</h2>
+  <p>A 2-year Treasury pays about what you would earn by buying 3-month bills and reinvesting them for two years. So its yield tells you where investors think short-term rates, which the Fed sets, are headed. Longer bonds also pay a little extra on top of that forecast, called the term premium, for locking money up longer and taking bigger price swings.</p>
+  <p>To split a yield into the forecast and the term premium, the brief uses a model the New York Fed publishes every day, called ACM after its authors (Adrian, Crump and Moench). On Oct 22 it says investors expect the Fed's rate to average <span id="p-m1"></span> over the next 12 months and <span id="p-m2"></span> over the 12 months after that. The Fed's rate today is 3.88%, so the market expects about 2.4 more quarter-point hikes by late 2027, then a slow drift down to 4.12% ten years out.</p>
+  <p>What is left over is the term premium: <span id="p-tp"></span>. That is the extra a longer bond earns over bills if the market's forecast turns out right. Models disagree on this split: the San Francisco Fed's model puts the 10-year term premium at 1.35, about double ACM's.</p>
   <div class="chart" id="chart-paths"></div>
-  <div class="legend"><span><i style="background:var(--s1)"></i>Market expected path (ACM)</span><span><i style="background:repeating-linear-gradient(90deg,var(--s2) 0 6px,transparent 6px 10px)"></i>Estimated Fed rule (section 4)</span><span><i style="background:var(--s3)"></i>Fed September projection</span></div>
-  <p>The Fed's September projections imply 4.10% and 4.03% for the same two years, below the market. The estimated Fed rule, fed today's data and an inflation path that falls to the Fed's 2.5% projection for 2027, gives 4.24% and 4.47%, the same as the market.</p>
-  <p class="src">Sources: <a href="https://www.newyorkfed.org/research/data_indicators/term-premia-tabs" target="_blank" rel="noopener">NY Fed ACM term structure model</a> (daily, Oct 22) · <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026" target="_blank" rel="noopener">Treasury par yields</a> · <a href="https://www.frbsf.org/research-and-insights/data-and-indicators/treasury-yield-premiums/" target="_blank" rel="noopener">SF Fed term premium</a> · <a href="https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm" target="_blank" rel="noopener">Fed projections, Sep 16</a></p>
+  <div class="legend"><span><i style="background:var(--s1)"></i>Market forecast (ACM)</span><span><i style="background:repeating-linear-gradient(90deg,var(--s2) 0 6px,transparent 6px 10px)"></i>Fed-rate formula from section 4</span><span><i style="background:var(--s3)"></i>Fed's own projection (September)</span></div>
+  <p>Two cross-checks. The Fed's own September projections are lower: 4.10% and 4.03% for the same two years. A formula fitted to how the Fed has set rates since 1988 (section 4), given today's inflation and unemployment, produces 4.24% and 4.47%, the same path the market expects.</p>
+  <p class="src">Sources: <a href="https://www.newyorkfed.org/research/data_indicators/term-premia-tabs" target="_blank" rel="noopener">NY Fed ACM model</a> (daily, Oct 22) · <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026" target="_blank" rel="noopener">Treasury yields</a> · <a href="https://www.frbsf.org/research-and-insights/data-and-indicators/treasury-yield-premiums/" target="_blank" rel="noopener">SF Fed term premium</a> · <a href="https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm" target="_blank" rel="noopener">Fed projections, Sep 16</a></p>
 </section>
 
 <section class="block" id="funds">
   <h2>2. The four funds</h2>
+  <p>Each fund holds Treasuries in a different maturity range. Duration measures how sensitive a fund's price is to rates: with a duration of 6.83, a 1-point rise in yields cuts the price about 6.83%, and a 1-point fall raises it about as much. The interest keeps coming either way.</p>
   <div class="tscroll"><table>
-    <thead><tr><th>Fund</th><th>Holds</th><th class="r">Yield, Oct 22</th><th class="r">Fee</th><th class="r">Duration, iShares</th><th class="r">Duration, model</th><th class="r">12-month return on the priced path</th><th class="r">vs SGOV</th></tr></thead>
+    <thead><tr><th>Fund</th><th>Holds</th><th class="r">Yield, Oct 22</th><th class="r">Yearly fee</th><th class="r">Duration (iShares)</th><th class="r">Duration (this brief's model)</th><th class="r">12-month return if the market's forecast is right</th><th class="r">Gain over SGOV</th></tr></thead>
     <tbody id="t-funds"></tbody>
   </table></div>
-  <p>On the priced path, the longer funds beat SGOV by 0.54 to 1.25 points. That excess is the compensation for carrying rate risk, and it grows with duration. A scenario's result is this baseline plus the effect of yields ending away from the priced path.</p>
-  <h3>Pricing check against actual 2026 returns</h3>
-  <p>Each fund is modeled as a ladder of Treasuries rebalanced monthly: SHY holds 1 to 2.8 years, IEF 7 to 10 and TLT 20 to 30, with TLT's coupon set to 3.5% to match its reported duration. Run on the actual 2026 yield curves, the ladders reproduce year-to-date returns:</p>
-  <div class="tscroll"><table style="max-width:560px"><thead><tr><th>Fund</th><th class="r">Model, Jan 2 to Oct 21</th><th class="r">iShares NAV return</th><th class="r">Gap</th></tr></thead><tbody id="t-ytd"></tbody></table></div>
-  <p class="src">Sources: iShares fund pages for <a href="https://www.ishares.com/us/products/314116/ishares-0-3-month-treasury-bond-etf" target="_blank" rel="noopener">SGOV</a>, <a href="https://www.ishares.com/us/products/239452/ishares-13-year-treasury-bond-etf" target="_blank" rel="noopener">SHY</a>, <a href="https://www.ishares.com/us/products/239456/ishares-710-year-treasury-bond-etf" target="_blank" rel="noopener">IEF</a>, <a href="https://www.ishares.com/us/products/239454/ishares-20-year-treasury-bond-etf" target="_blank" rel="noopener">TLT</a> (Oct 21-22). Oct 22 yields are the Oct 21 iShares yields moved by each fund's segment of the curve.</p>
+  <p>If the market's forecast comes true, the longer funds beat SGOV by 0.54 to 1.25 points over the year. That gap is the term premium at work: pay for taking rate risk. Every scenario in section 5 starts from this baseline and adds the effect of rates ending somewhere other than the forecast.</p>
+  <h3>Checking the return math against real returns</h3>
+  <p>To compute a fund's return in any scenario, the brief treats each fund as a ladder: a set of bonds that mature at evenly spaced dates. SHY is modeled as one bond maturing each month from 1 to 2.8 years out, IEF from 7 to 10 years and TLT from 20 to 30 years. Each month the model reprices every bond at that month's rates, collects the interest and swaps bonds that have aged out of the range for new ones, which is what the real funds do. TLT's bonds get a 3.5% coupon so the ladder has the same rate sensitivity as the real fund.</p>
+  <p>Run on the actual yield curves from Jan 2 to Oct 21, 2026, the ladders land within 0.2 points of what the funds returned:</p>
+  <div class="tscroll"><table style="max-width:560px"><thead><tr><th>Fund</th><th class="r">Model</th><th class="r">Actual (iShares)</th><th class="r">Gap</th></tr></thead><tbody id="t-ytd"></tbody></table></div>
+  <p class="src">Sources: iShares fund pages for <a href="https://www.ishares.com/us/products/314116/ishares-0-3-month-treasury-bond-etf" target="_blank" rel="noopener">SGOV</a>, <a href="https://www.ishares.com/us/products/239452/ishares-13-year-treasury-bond-etf" target="_blank" rel="noopener">SHY</a>, <a href="https://www.ishares.com/us/products/239456/ishares-710-year-treasury-bond-etf" target="_blank" rel="noopener">IEF</a>, <a href="https://www.ishares.com/us/products/239454/ishares-20-year-treasury-bond-etf" target="_blank" rel="noopener">TLT</a> (Oct 21-22). Oct 22 yields are the Oct 21 iShares yields moved by that day's change in Treasury yields.</p>
 </section>
 
 <section class="block" id="evidence">
   <h2>3. Evidence</h2>
   <h3>Inflation</h3>
   <div class="tiles">
-    <div class="tile"><div class="lab">Core PCE, 3 months annualized</div><div class="val">2.05%</div><div class="cmp">6 months 2.74%; 12 months 3.01% (Aug)</div></div>
-    <div class="tile"><div class="lab">Core CPI, 3 months annualized</div><div class="val">3.4%</div><div class="cmp">12 months 2.6% (Sep)</div></div>
-    <div class="tile"><div class="lab">Headline CPI, 12 months</div><div class="val">3.7%</div><div class="cmp">Sep +0.6%; gasoline over half</div></div>
-    <div class="tile"><div class="lab">Headline PCE, 12 months</div><div class="val">3.4%</div><div class="cmp">Aug</div></div>
-    <div class="tile"><div class="lab">10-year breakeven</div><div class="val">2.33%</div><div class="cmp">Oct 22</div></div>
+    <div class="tile"><div class="lab">Core PCE, pace over last 3 months</div><div class="val">2.05%</div><div class="cmp">Last 6 months 2.74%; last 12 months 3.01% (Aug)</div></div>
+    <div class="tile"><div class="lab">Core CPI, pace over last 3 months</div><div class="val">3.4%</div><div class="cmp">Last 12 months 2.6% (Sep)</div></div>
+    <div class="tile"><div class="lab">All-items CPI, last 12 months</div><div class="val">3.7%</div><div class="cmp">Sep +0.6%; gasoline over half</div></div>
+    <div class="tile"><div class="lab">All-items PCE, last 12 months</div><div class="val">3.4%</div><div class="cmp">Aug</div></div>
+    <div class="tile"><div class="lab">Inflation investors expect, next 10 years</div><div class="val">2.33%</div><div class="cmp">From inflation-protected Treasuries, Oct 22</div></div>
   </div>
-  <p>The two core measures point in opposite directions. Core PCE, the Fed's target measure, slowed to a 2.05% annualized pace over the last three months, while core CPI sped up to 3.4%. PCE gives housing less weight than CPI and includes spending CPI leaves out, such as health care paid by insurers and government. In the estimated rule, each 0.5 points of core PCE moves the Fed's target by 1.0 point, so which measure wins matters for the 2-year more than any other input.</p>
-  <h3>Labor market</h3>
+  <p>"Core" leaves out food and energy, whose prices jump around. There are two main core gauges and they point in opposite directions. Core PCE, the one the Fed targets, slowed to a 2.05% yearly pace over the last three months. Core CPI, the one in the news, sped up to 3.4%. PCE gives housing less weight and counts spending CPI leaves out, such as health care paid by insurers and government. In the Fed formula (section 4), each 0.5 points of core PCE moves the Fed's target rate by 1.0 point, so which gauge is right matters more for the 2-year yield than anything else on this page.</p>
+  <h3>Jobs</h3>
   <div class="tiles">
-    <div class="tile"><div class="lab">Unemployment, Q3 average</div><div class="val">4.13%</div><div class="cmp">4.33% a year earlier</div></div>
-    <div class="tile"><div class="lab">Payrolls, September</div><div class="val">+29K</div><div class="cmp">12-month average 41K</div></div>
-    <div class="tile"><div class="lab">Initial claims</div><div class="val">194K</div><div class="cmp">Week to Oct 17; forecast 200K</div></div>
-    <div class="tile"><div class="lab">Consumer spending, Aug</div><div class="val">+0.9%</div><div class="cmp">Nominal; July +0.1%</div></div>
+    <div class="tile"><div class="lab">Unemployment, Jul-Sep average</div><div class="val">4.13%</div><div class="cmp">4.33% a year earlier</div></div>
+    <div class="tile"><div class="lab">Jobs added, September</div><div class="val">+29K</div><div class="cmp">12-month average 41K</div></div>
+    <div class="tile"><div class="lab">New jobless claims</div><div class="val">194K</div><div class="cmp">Week to Oct 17; forecast 200K</div></div>
+    <div class="tile"><div class="lab">Consumer spending, Aug</div><div class="val">+0.9%</div><div class="cmp">Not inflation-adjusted; July +0.1%</div></div>
   </div>
-  <p>The Fed's strongest historical response is to rising unemployment: in the rule, unemployment up 0.5 points over a year cuts the target by 4.6 points. Unemployment has fallen 0.2 over the past year, which pushes the rule toward hikes even with hiring at 41,000 a month.</p>
-  <h3>Policy, term premium and markets</h3>
+  <p>Historically the Fed reacts most strongly to rising unemployment: in the formula, unemployment up 0.5 points over a year cuts the target rate by 4.6 points. Unemployment has fallen 0.2 points over the past year, which pushes the formula toward hikes even though hiring is slow at 41,000 jobs a month.</p>
+  <h3>The Fed, long-term bonds and markets</h3>
   <div class="tiles">
-    <div class="tile"><div class="lab">Fed funds target</div><div class="val">3.75-4.00%</div><div class="cmp">Hiked Sep 16; reserves pay 3.90%</div></div>
-    <div class="tile"><div class="lab">Oct 28 hike odds</div><div class="val">7%</div><div class="cmp">CME FedWatch, Oct 22</div></div>
-    <div class="tile"><div class="lab">10-year term premium</div><div class="val">0.64</div><div class="cmp">ACM; SF Fed 1.35</div></div>
-    <div class="tile"><div class="lab">10-year real yield</div><div class="val">2.64%</div><div class="cmp">2.92% on Oct 7</div></div>
-    <div class="tile"><div class="lab">S&amp;P 500</div><div class="val">7,663</div><div class="cmp">−1.2% Oct 22 on AI spending</div></div>
-    <div class="tile"><div class="lab">Brent crude</div><div class="val">~$113</div><div class="cmp">Highest since May</div></div>
+    <div class="tile"><div class="lab">Fed's target range</div><div class="val">3.75-4.00%</div><div class="cmp">Raised Sep 16</div></div>
+    <div class="tile"><div class="lab">Chance of an Oct 28 hike</div><div class="val">7%</div><div class="cmp">From futures prices (CME), Oct 22</div></div>
+    <div class="tile"><div class="lab">10-year term premium</div><div class="val">0.64</div><div class="cmp">ACM; SF Fed model 1.35</div></div>
+    <div class="tile"><div class="lab">10-year yield after inflation</div><div class="val">2.64%</div><div class="cmp">2.92% on Oct 7</div></div>
+    <div class="tile"><div class="lab">S&amp;P 500</div><div class="val">7,663</div><div class="cmp">−1.2% Oct 22 on AI spending doubts</div></div>
+    <div class="tile"><div class="lab">Brent oil</div><div class="val">~$113</div><div class="cmp">Highest since May</div></div>
   </div>
-  <p>Treasury announces auction sizes on Nov 4. Since August it has said coupon sizes stay unchanged "for at least the next several quarters," and dropping that line is the most direct trigger for the term-premium scenario. Oil at $113 lifts headline inflation, but core PCE, which the rule uses, excludes energy.</p>
-  <p class="src">Sources: <a href="https://db.nomics.world/BEA/NIPA-T20804" target="_blank" rel="noopener">BEA PCE price indexes via DBnomics</a> · <a href="https://www.bls.gov/news.release/archives/cpi_10142026.htm" target="_blank" rel="noopener">BLS CPI</a> · <a href="https://www.bls.gov/news.release/archives/empsit_10022026.htm" target="_blank" rel="noopener">BLS jobs</a> · <a href="https://www.bea.gov/news/2026/personal-income-and-outlays-august-2026" target="_blank" rel="noopener">BEA spending</a> · <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a1.htm" target="_blank" rel="noopener">Fed implementation note</a> · <a href="https://www.theglobeandmail.com/investing/article-us-bond-yields-plunge-as-fears-about-sustaining-ai-boom-resurface/" target="_blank" rel="noopener">Reuters, Oct 22</a> · <a href="https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents" target="_blank" rel="noopener">Treasury refunding</a> · <a href="https://www.nbcnews.com/business/markets/iran-war-ai-spending-oil-prices-selloff-rcna604994" target="_blank" rel="noopener">NBC on stocks and oil</a></p>
+  <p>On Nov 4 the Treasury announces how much debt it will sell at its next auctions. Since August it has said the size of its note and bond sales stays unchanged "for at least the next several quarters." Dropping that line would mean more long bonds to absorb, the most direct trigger for the term-premium scenario. Oil at $113 lifts all-items inflation, but core PCE, which the Fed formula uses, leaves energy out.</p>
+  <p class="src">Sources: <a href="https://db.nomics.world/BEA/NIPA-T20804" target="_blank" rel="noopener">BEA PCE prices via DBnomics</a> · <a href="https://www.bls.gov/news.release/archives/cpi_10142026.htm" target="_blank" rel="noopener">BLS CPI</a> · <a href="https://www.bls.gov/news.release/archives/empsit_10022026.htm" target="_blank" rel="noopener">BLS jobs</a> · <a href="https://www.bea.gov/news/2026/personal-income-and-outlays-august-2026" target="_blank" rel="noopener">BEA spending</a> · <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a1.htm" target="_blank" rel="noopener">Fed implementation note</a> · <a href="https://www.theglobeandmail.com/investing/article-us-bond-yields-plunge-as-fears-about-sustaining-ai-boom-resurface/" target="_blank" rel="noopener">Reuters, Oct 22</a> · <a href="https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents" target="_blank" rel="noopener">Treasury refunding</a> · <a href="https://www.nbcnews.com/business/markets/iran-war-ai-spending-oil-prices-selloff-rcna604994" target="_blank" rel="noopener">NBC on stocks and oil</a></p>
 </section>
 
 <section class="block" id="rule">
-  <h2>4. The Fed's reaction function</h2>
-  <p>Estimated on quarterly data from 1988 to 2026, leaving out quarters with the rate near zero:</p>
+  <h2>4. How the Fed sets its rate: a formula fitted to history</h2>
+  <p>To say what the Fed does in each scenario, the brief needs a link from the economy to the Fed's rate. Economists use the Taylor rule for this: the Fed raises its rate when inflation runs above its 2% target and cuts when unemployment rises. Fitting that kind of formula to the Fed's actual decisions from 1988 to 2026 (leaving out years when the rate was stuck near zero) gives:</p>
   <div class="eq" id="eq"></div>
-  <div class="tscroll"><table style="max-width:680px"><thead><tr><th>Parameter</th><th class="r">Estimate</th><th class="r">Std. error</th><th>Meaning</th></tr></thead><tbody id="t-rule"></tbody></table></div>
+  <p>r* is the neutral rate after inflation: the rate that neither speeds up nor slows the economy. The brief uses the New York Fed's Laubach-Williams estimate, 1.65% today. The second line says the Fed moves gradually: each quarter it closes 6% of the gap between its current rate and the formula's target.</p>
+  <div class="tscroll"><table style="max-width:680px"><thead><tr><th>Part of the formula</th><th class="r">Estimate</th><th class="r">Uncertainty (std. error)</th><th>Meaning</th></tr></thead><tbody id="t-rule"></tbody></table></div>
+  <p class="small">An estimate more than twice its standard error is reliably different from zero. Both responses clear that bar by a wide margin.</p>
   <p id="rule-fit-text"></p>
   <div class="chart" id="chart-fit"></div>
-  <div class="legend"><span><i style="background:var(--s1)"></i>Actual fed funds rate</span><span><i style="background:var(--s2)"></i>Rule, given last quarter's rate</span></div>
-  <h3>Big moves: actual 4-quarter change vs the rule's dynamic forecast</h3>
-  <div class="tscroll"><table style="max-width:640px"><thead><tr><th>Starting quarter</th><th class="r">Actual change</th><th class="r">Rule forecast</th></tr></thead><tbody id="t-rule-ep"></tbody></table></div>
-  <p>The rule gets the direction of the four large moves right and reaches 41% to 86% of their size. It understates recession cuts most, because the Fed cuts on forecasts and financial stress before unemployment has risen much. It missed both recent pauses: it called a hike in 2019 and a cut in 2024.</p>
+  <div class="legend"><span><i style="background:var(--s1)"></i>Actual Fed rate</span><span><i style="background:var(--s2)"></i>Formula's prediction, given the rate the quarter before</span></div>
+  <h3>Big moves: what the Fed did over a year vs what the formula predicted</h3>
+  <div class="tscroll"><table style="max-width:640px"><thead><tr><th>Starting quarter</th><th class="r">Actual change</th><th class="r">Formula's forecast</th></tr></thead><tbody id="t-rule-ep"></tbody></table></div>
+  <p>The formula gets the direction of all four big moves right and captures 41% to 86% of their size. It falls furthest short in recessions, because the Fed cuts on forecasts and market stress before unemployment has risen much. It missed both recent pauses: it called for a hike in 2019 and a cut in 2024.</p>
   <h3>What it says today</h3>
-  <p>With Laubach-Williams r* at 1.65, core PCE a point above 2% and unemployment down 0.2 over the year, the rule's target is 7.5%. Smoothing turns that into steady hikes: 4.37% by October 2027 if core PCE glides to the Fed's 2.5% projection, which averages to the market's path. Each 0.5-point miss in core PCE against that glide moves the rule's October 2027 rate by about 0.15 points in the same direction, and the 2-year by more, because the market extends the miss into later years.</p>
-  <p class="src">Data: <a href="https://db.nomics.world/FED/H15" target="_blank" rel="noopener">Fed H.15 fed funds via DBnomics</a> · <a href="https://db.nomics.world/BEA/NIPA-T20804" target="_blank" rel="noopener">BEA core PCE</a> · <a href="https://db.nomics.world/BLS/ln" target="_blank" rel="noopener">BLS unemployment</a> · <a href="https://www.newyorkfed.org/research/policy/rstar" target="_blank" rel="noopener">NY Fed Laubach-Williams r*</a></p>
+  <p>Today the formula's target is 7.5%, because core PCE is a full point above 2% and unemployment has fallen 0.2 points over the year. Since the Fed moves gradually, that turns into steady hikes rather than a jump: 4.37% by October 2027 if core PCE falls to the Fed's projected 2.5%. That matches the market's forecast. Each 0.5 points that core PCE runs above or below that path moves the October 2027 rate by about 0.15 points in the same direction.</p>
+  <p class="src">Data: <a href="https://db.nomics.world/FED/H15" target="_blank" rel="noopener">Fed funds rate (Fed H.15) via DBnomics</a> · <a href="https://db.nomics.world/BEA/NIPA-T20804" target="_blank" rel="noopener">BEA core PCE</a> · <a href="https://db.nomics.world/BLS/ln" target="_blank" rel="noopener">BLS unemployment</a> · <a href="https://www.newyorkfed.org/research/policy/rstar" target="_blank" rel="noopener">NY Fed Laubach-Williams r*</a></p>
 </section>
 
 <section class="block" id="scenarios">
   <h2>5. Six scenarios</h2>
-  <p>Each scenario is a surprise relative to the priced path, turned into yields two ways:</p>
+  <p>Each scenario is a story about the next 12 months. The brief describes each story as a surprise against the market's forecast from section 1, then turns it into interest rates two ways:</p>
   <ul class="small">
-    <li>Historical analogs: the average of what happened in matching episodes, measured against the forward curve at the time. A 2-year surprise of −1.0 means the 2-year ended the year 1.0 point below where forwards had pointed.</li>
-    <li>Structural model: the scenario's surprises in core PCE, unemployment and r* run through the Fed rule for a year. After that, the Fed's deviation from the priced path fades at 13% a year, the rate that matches ACM's finding that 10-year expectations move 0.63 for each point of 2-year expectations. Term-premium changes enter through ACM's maturity loadings.</li>
+    <li>Historical analogs: find past episodes that fit the story and measure how far rates ended up from what the market had forecast at the start. In the four soft landings since 1995, for example, the 2-year yield ended the year 0.98 points below the forecast on average. The brief applies the same surprise to today's forecast.</li>
+    <li>Structural model: run the story's changes in inflation and unemployment through the Fed formula from section 4 to get the Fed's rate for the next year. Long-term rates then move by the share of a Fed surprise that markets have carried into their long-term forecasts in the past (0.63 for the 10-year, per ACM), plus any change in the term premium.</li>
   </ul>
   <div class="tscroll"><table id="t-def">
-    <thead><tr><th>Scenario</th><th>Episodes</th><th class="r">Core PCE</th><th class="r">Unemp.</th><th class="r">r*</th><th class="r">Term prem. 10y</th><th class="r">Fed rate</th><th class="r">2-year</th><th class="r">10-year</th><th class="r">30-year</th></tr></thead>
+    <thead><tr><th>Scenario</th><th>Past episodes</th><th class="r">Core PCE</th><th class="r">Unemp.</th><th class="r">r*</th><th class="r">10-year term premium</th><th class="r">Fed rate</th><th class="r">2-year</th><th class="r">10-year</th><th class="r">30-year</th></tr></thead>
     <tbody></tbody>
   </table></div>
-  <p class="small">Macro columns are average 12-month changes in the episodes. Yield columns are surprises against the forward curve after 12 months: historical analogs on top, structural model below in grey.</p>
+  <p class="small">Core PCE, Unemp., r* and term premium: average 12-month changes in those episodes, in points. Fed rate and yield columns: how far each ended from the market's forecast after 12 months. Top number: historical analogs. Grey number: structural model.</p>
+  <h3>Returns over the next 12 months</h3>
+  <p>Enter how likely you think each scenario is in the Odds column. The bottom rows then weight each fund's return by your odds.</p>
   <div class="controls">
-    <span>Yields from</span><span class="seg" role="group" aria-label="Method"><button type="button" id="m-an" aria-pressed="true">Historical analogs</button><button type="button" id="m-mo" aria-pressed="false">Structural model</button></span>
-    <span>Show</span><span class="seg" role="group" aria-label="Display"><button type="button" id="v-ex" aria-pressed="true">Gain vs SGOV</button><button type="button" id="v-tot" aria-pressed="false">Total return</button></span>
-    <label>AI boom: trend growth priced <select id="g"><option value="0.31">+0.3 (1990s)</option><option value="1" selected>+1 point</option><option value="2">+2 points</option><option value="3">+3 points</option></select></label>
+    <span>Rates from</span><span class="seg" role="group" aria-label="Method"><button type="button" id="m-an" aria-pressed="true">Historical analogs</button><button type="button" id="m-mo" aria-pressed="false">Structural model</button></span>
+    <span>Show</span><span class="seg" role="group" aria-label="Display"><button type="button" id="v-ex" aria-pressed="true">Gain over SGOV</button><button type="button" id="v-tot" aria-pressed="false">Total return</button></span>
+    <label>AI boom size (extra yearly growth markets price in) <select id="g"><option value="0.31">+0.3 points (1990s)</option><option value="1" selected>+1 point</option><option value="2">+2 points</option><option value="3">+3 points</option></select></label>
     <label>Largest loss vs SGOV you'd accept <select id="risk"><option value="1">1 point</option><option value="2">2 points</option><option value="5">5 points</option><option value="99" selected>No limit</option></select></label>
     <button type="button" id="clear">Clear odds</button>
   </div>
@@ -191,11 +209,11 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
   </table></div>
   <p class="small" id="range-note"></p>
   <div class="outcome" id="outcome" aria-live="polite"></div>
-  <h3>Yield curve in 12 months</h3>
+  <h3>Interest rates in 12 months, by maturity</h3>
   <div class="controls"><label>Scenario <select id="viewer"></select></label></div>
   <div class="chart" id="chart-curve"></div>
   <div class="legend"><span><i style="background:var(--s1)"></i>Today</span><span><i style="background:var(--s2)"></i>In 12 months, historical analogs</span><span><i style="background:var(--s3)"></i>In 12 months, structural model</span></div>
-  <div class="controls"><button type="button" id="show-suggest">Show suggested odds and the base rates behind them</button></div>
+  <div class="controls"><button type="button" id="show-suggest">Show suggested odds and the history behind them</button></div>
   <div class="suggest" id="suggest" hidden>
     <div class="tscroll"><table><thead><tr><th>Scenario</th><th class="r">Odds</th><th>Basis</th></tr></thead><tbody id="t-sugg"></tbody></table></div>
     <p id="sugg-out"></p>
@@ -204,15 +222,15 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
 </section>
 
 <section class="block" id="checks">
-  <h2>6. Model checks</h2>
-  <h3>Structural model backtest, 12-month changes</h3>
-  <p>For each episode the model gets the actual changes in core PCE, unemployment, r* and the ACM term premium, plus the forward curve at the start. It then predicts the Fed rate and yields a year later:</p>
+  <h2>6. Does the model work on past episodes?</h2>
+  <p>For each past episode, the structural model was given what actually happened to inflation, unemployment, r* and the term premium, plus the market's forecast at the start. It then predicted the Fed's rate and yields a year later. The table compares its predictions with what happened.</p>
   <div class="tscroll"><table id="t-bt"><thead><tr><th>Episode</th><th class="r">Fed rate</th><th class="r">2-year</th><th class="r">10-year</th><th class="r">30-year</th></tr></thead><tbody></tbody><tfoot></tfoot></table></div>
-  <p class="small">Cells show predicted / actual change in points. RMSE is the root mean squared error across episodes; "no change" is the error from predicting zero change.</p>
-  <p>The model's weak spot is the long end in big cycles. In 1994 it predicted a flat 30-year, and the 30-year rose 1.24 points: ACM attributes that rise to expectations that stayed high for years, longer than the model's 13% decay allows. In busts it overstates long yields because term premiums jumped (1.6 points in 2001) while expectations fell further than the model lets them. The analog method has no mapping error, but it rests on two to four episodes per scenario, and the ranges under each return show how much those episodes disagree.</p>
-  <h3>How the curve has moved together, 1990-2026</h3>
-  <div class="tscroll"><table style="max-width:720px"><thead><tr><th>Regression of 12-month changes</th><th class="r">Slope</th><th class="r">R²</th></tr></thead><tbody id="t-trans"></tbody></table></div>
-  <h3>Size of 12-month changes since 1990</h3>
+  <p class="small">Each cell: predicted / actual change over 12 months, in points. Typical miss is the root-mean-square error, a standard measure of the size of a typical error. "Predict no change" is the miss you get by assuming rates stay put, a baseline any model should beat. A correlation of 1 would mean predictions moved exactly with reality.</p>
+  <p>Where it fails: long-term rates in big cycles. In 1994 it predicted the 30-year yield would stay flat, and the 30-year rose 1.24 points, because investors came to expect high rates to last for years, longer than the model assumes. In recessions it predicts long-term rates that are too high. The analog method avoids this kind of mistake, but each scenario rests on only two to four past episodes, and the ranges under each return in section 5 show how much those episodes disagree.</p>
+  <h3>How rates have moved together, 1990-2026</h3>
+  <div class="tscroll"><table style="max-width:720px"><thead><tr><th>Relationship (12-month changes)</th><th class="r">Slope</th><th class="r">R²</th></tr></thead><tbody id="t-trans"></tbody></table></div>
+  <p class="small">Slope: how many points the first moves for each 1-point move in the second. R²: the share of the movement the relationship explains, from 0 (none) to 1 (all).</p>
+  <h3>How big 12-month moves usually are</h3>
   <div class="tscroll"><table style="max-width:720px"><thead><tr><th>Percentile</th><th class="r">5th</th><th class="r">10th</th><th class="r">25th</th><th class="r">50th</th><th class="r">75th</th><th class="r">90th</th><th class="r">95th</th></tr></thead><tbody id="t-dist"></tbody></table></div>
   <p class="small" id="dist-note"></p>
 </section>
@@ -221,7 +239,7 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
   <h2>7. Base rates</h2>
   <h3>Hiking cycles since 1988</h3>
   <div class="tscroll"><table style="max-width:700px"><thead><tr><th>First hike</th><th class="r">Rate before</th><th class="r">Peak</th><th class="r">Total rise</th><th class="r">Months to peak</th></tr></thead><tbody id="t-cyc"></tbody></table></div>
-  <p>In all six cycles the Fed raised at least 1.55 points beyond its first hike. The market prices 0.59 beyond the September hike. The closest match in setup is 1999, when the Fed also hiked after a run of cuts, and that cycle added 1.55. Six cycles is a small sample, and four of them started from rates far below neutral, which this one did not.</p>
+  <p>In all six cycles the Fed raised at least 1.55 points beyond its first hike. The market expects 0.59 beyond the September hike. The closest match in setup is 1999, when the Fed also hiked after a run of cuts, and that cycle added 1.55. Six cycles is a small sample, and four of them started from rates far below neutral (r* plus inflation), which this one did not.</p>
   <h3>Recessions</h3>
   <p>Four recessions started between January 1990 and September 2026, a rate of 0.11 a year. The recessions that followed asset busts, in 2001 and 2008, are the analogs for the AI bust scenario.</p>
 </section>
@@ -280,6 +298,24 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
     <li>Not modeled: changes in fund holdings beyond the ladder, the bid-ask spread and correlation with your other holdings.</li>
   </ul>
   <p class="src">Data: <a href="https://www.newyorkfed.org/research/data_indicators/term-premia-tabs" target="_blank" rel="noopener">ACM term premia</a> · <a href="https://www.newyorkfed.org/research/policy/rstar" target="_blank" rel="noopener">Laubach-Williams r*</a> · <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026" target="_blank" rel="noopener">Treasury par yield curve, 1990-2026</a> · <a href="https://db.nomics.world/" target="_blank" rel="noopener">DBnomics (Fed H.15, BEA, BLS)</a> · <a href="https://www.bls.gov/developers/" target="_blank" rel="noopener">BLS API</a></p>
+</section>
+
+<section class="block" id="terms">
+  <h2>Terms</h2>
+  <dl class="gloss">
+    <dt>Yield</dt><dd>The yearly return from buying a bond today and holding it to maturity. When yields rise, existing bonds fall in price.</dd>
+    <dt>Points</dt><dd>Percentage points. A rate going from 4.00% to 4.25% rose 0.25 points.</dd>
+    <dt>Duration</dt><dd>How much a bond fund's price moves when yields move. Duration 6.83: yields up 1 point, price down about 6.83%.</dd>
+    <dt>Market forecast, priced path</dt><dd>The path of the Fed's rate that today's bond prices imply.</dd>
+    <dt>Term premium</dt><dd>The extra yield a longer bond pays beyond the market's forecast of short rates, as pay for tying money up longer.</dd>
+    <dt>ACM model</dt><dd>A model from the New York Fed, named after Adrian, Crump and Moench, that splits each Treasury yield into the market's forecast and the term premium. Published daily.</dd>
+    <dt>Ladder</dt><dd>A set of bonds maturing at evenly spaced dates. The brief models each fund this way to compute its returns.</dd>
+    <dt>Taylor rule</dt><dd>A formula for the Fed's rate based on inflation and unemployment. Section 4 fits one to the Fed's decisions since 1988.</dd>
+    <dt>r* (neutral rate)</dt><dd>The rate after inflation that neither speeds up nor slows the economy. The Laubach-Williams model at the New York Fed estimates it at 1.65%.</dd>
+    <dt>Core PCE, core CPI</dt><dd>Two measures of consumer prices excluding food and energy. The Fed targets 2% on PCE.</dd>
+    <dt>Historical analog</dt><dd>A past episode that matches a scenario, used to measure how far rates ended up from the market's forecast.</dd>
+    <dt>Root-mean-square error, R², standard error</dt><dd>Typical size of a model's miss; share of movement a relationship explains, from 0 to 1; uncertainty in an estimate.</dd>
+  </dl>
 </section>
 </main>
 <footer class="wrap">Practice research for learning, not financial advice. Figures as of the Oct 22, 2026 close unless dated otherwise.</footer>
@@ -400,38 +436,38 @@ $("#t-ytd").innerHTML = FUNDS.map(function (k) {
 }).join("");
 
 var R = D.rule;
-$("#eq").innerHTML = "target = r* + 2 + " + R.b[0].toFixed(2) + " × (core PCE − 2) − " + Math.abs(R.b[1]).toFixed(2) + " × (change in unemployment over 4 quarters)<br>fed funds<sub>t</sub> = " + R.rho.toFixed(2) + " × fed funds<sub>t−1</sub> + " + (1 - R.rho).toFixed(2) + " × target<sub>t</sub>";
+$("#eq").innerHTML = "target rate = r* + 2 + " + R.b[0].toFixed(2) + " × (core PCE − 2) − " + Math.abs(R.b[1]).toFixed(2) + " × (change in unemployment over 4 quarters)<br>Fed rate this quarter = " + R.rho.toFixed(2) + " × Fed rate last quarter + " + (1 - R.rho).toFixed(2) + " × target rate";
 $("#t-rule").innerHTML = [
-  ["Inflation response", R.b[0].toFixed(2), R.se[0].toFixed(2), "Target rises " + R.b[0].toFixed(1) + " points per point of core PCE above 2%"],
-  ["Unemployment-change response", sgn(R.b[1], 2), R.se[1].toFixed(2), "Target falls " + Math.abs(R.b[1]).toFixed(1) + " points per point that unemployment rose over a year"],
-  ["Smoothing, quarterly", R.rho.toFixed(2), "", "Each quarter the rate closes " + Math.round((1 - R.rho) * 100) + "% of the gap to target; half-life " + (Math.log(0.5) / Math.log(R.rho) / 4).toFixed(1) + " years"]
+  ["Response to inflation", R.b[0].toFixed(2), R.se[0].toFixed(2), "Target rises " + R.b[0].toFixed(1) + " points for each point core PCE runs above 2%"],
+  ["Response to rising unemployment", sgn(R.b[1], 2), R.se[1].toFixed(2), "Target falls " + Math.abs(R.b[1]).toFixed(1) + " points for each point unemployment rose over the past year"],
+  ["Gradual adjustment", R.rho.toFixed(2), "", "Each quarter the Fed closes " + Math.round((1 - R.rho) * 100) + "% of the gap to the target, so half the gap closes in " + (Math.log(0.5) / Math.log(R.rho) / 4).toFixed(1) + " years"]
 ].map(function (r) { return "<tr><td>" + r[0] + "</td><td class='r'>" + r[1] + "</td><td class='r'>" + r[2] + "</td><td>" + r[3] + "</td></tr>"; }).join("");
-$("#rule-fit-text").textContent = "Fit: R² " + R.r2.toFixed(3) + " over " + R.n + " quarters; residual " + R.sd.toFixed(2) + " points per quarter. Iterated four quarters ahead from the actual rate with actual macro data, the rule misses by " + R.dyn4.toFixed(2) + " points (RMSE).";
+$("#rule-fit-text").textContent = "How well it fits: over " + R.n + " quarters the formula explains " + Math.round(R.r2 * 100) + "% of the movement in the Fed's rate (R² " + R.r2.toFixed(3) + "). Forecasting four quarters ahead from the actual data, its typical miss is " + R.dyn4.toFixed(2) + " points (root-mean-square error).";
 var EPL = {"1994Q1": "1994 Q1, fast hiking", "1999Q2": "1999 Q2, productivity boom", "2000Q4": "2000 Q4, dot-com bust", "2007Q3": "2007 Q3, financial crisis", "2018Q4": "2018 Q4, Fed stops", "2023Q3": "2023 Q3, Fed stops"};
 $("#t-rule-ep").innerHTML = Object.keys(R.episodes).map(function (k) { var e = R.episodes[k]; return "<tr><td>" + EPL[k] + "</td><td class='r'>" + sgn(e[0], 2) + "</td><td class='r'>" + sgn(e[1], 2) + "</td></tr>"; }).join("");
 
 var BT = D.backtest, KK = ["ff", "y2", "y10", "y30"];
 $("#t-bt tbody").innerHTML = BT.backtest.map(function (r) { return "<tr><td>" + r.name + "</td>" + KK.map(function (k) { return "<td class='r'>" + sgn(r["pred_" + k], 2) + " / " + sgn(r["act_" + k], 2) + "</td>"; }).join("") + "</tr>"; }).join("");
-$("#t-bt tfoot").innerHTML = "<tr><td>RMSE, model</td>" + KK.map(function (k) { return "<td class='r'>" + f2(BT.rmse[k]) + "</td>"; }).join("") + "</tr><tr><td>RMSE, no change</td>" + KK.map(function (k) { return "<td class='r'>" + f2(BT.rmse_nochange[k]) + "</td>"; }).join("") + "</tr><tr><td>Correlation, predicted vs actual</td>" + KK.map(function (k) { return "<td class='r'>" + f2(BT.corr[k]) + "</td>"; }).join("") + "</tr>";
+$("#t-bt tfoot").innerHTML = "<tr><td>Typical miss, model</td>" + KK.map(function (k) { return "<td class='r'>" + f2(BT.rmse[k]) + "</td>"; }).join("") + "</tr><tr><td>Typical miss, predict no change</td>" + KK.map(function (k) { return "<td class='r'>" + f2(BT.rmse_nochange[k]) + "</td>"; }).join("") + "</tr><tr><td>Correlation, predicted with actual</td>" + KK.map(function (k) { return "<td class='r'>" + f2(BT.corr[k]) + "</td>"; }).join("") + "</tr>";
 var T = D.trans;
 $("#t-trans").innerHTML = [
-  ["10-year yield on 2-year yield", T.y10_on_y2.beta, T.y10_on_y2.r2],
-  ["30-year yield on 2-year yield", T.y30x_on_y2.beta, T.y30x_on_y2.r2],
-  ["ACM 10-year expectations on 2-year expectations", T.rn10_on_rn2.beta, T.rn10_on_rn2.r2],
-  ["ACM 2-year term premium on 10-year term premium", T.tp2_on_tp10.beta, T.tp2_on_tp10.r2],
-  ["30-year yield on ACM 10-year term premium, holding expectations fixed", T.y30_on_rn10_tp10.b_tp10, T.y30_on_rn10_tp10.r2]
+  ["10-year yield vs 2-year yield", T.y10_on_y2.beta, T.y10_on_y2.r2],
+  ["30-year yield vs 2-year yield", T.y30x_on_y2.beta, T.y30x_on_y2.r2],
+  ["Market's 10-year rate forecast vs its 2-year forecast (ACM)", T.rn10_on_rn2.beta, T.rn10_on_rn2.r2],
+  ["2-year term premium vs 10-year term premium (ACM)", T.tp2_on_tp10.beta, T.tp2_on_tp10.r2],
+  ["30-year yield vs 10-year term premium, forecast held fixed", T.y30_on_rn10_tp10.b_tp10, T.y30_on_rn10_tp10.r2]
 ].map(function (r) { return "<tr><td>" + r[0] + "</td><td class='r'>" + f2(r[1]) + "</td><td class='r'>" + f2(r[2]) + "</td></tr>"; }).join("");
 var DL = {y2: "2-year yield", y10: "10-year yield", y30x: "30-year yield", ACMTP10: "ACM 10-year term premium"};
 $("#t-dist").innerHTML = Object.keys(DL).map(function (k) { var d = D.dist12[k]; return "<tr><td>" + DL[k] + "</td>" + ["5", "10", "25", "50", "75", "90", "95"].map(function (p) { return "<td class='r'>" + sgn(d[p], 2) + "</td>"; }).join("") + "</tr>"; }).join("");
-$("#dist-note").textContent = D.dist12_n + " overlapping monthly observations of 12-month changes. The 30-year uses the 20-year from 2002 to 2006, when the 30-year was not issued.";
+$("#dist-note").textContent = "How to read it: in 90% of 12-month periods since 1990, the 2-year yield moved between " + sgn(D.dist12.y2["5"], 2) + " and " + sgn(D.dist12.y2["95"], 2) + " points (5th to 95th percentile). Based on " + D.dist12_n + " monthly readings; the 30-year row uses the 20-year from 2002 to 2006, when no 30-year bonds were issued.";
 $("#t-cyc").innerHTML = D.cycles.map(function (c) { return "<tr><td>" + c.start + "</td><td class='r'>" + f2(c.ff_before) + "%</td><td class='r'>" + f2(c.peak) + "%</td><td class='r'>+" + f2(c.total_rise) + "</td><td class='r'>" + c.months_to_peak + "</td></tr>"; }).join("");
 
 /* ---------- scenarios ---------- */
 var A = D.analogs.avg, ROWS = D.analogs.rows;
 var DESC = {
-  cools: "Core PCE falls further than priced and the Fed stops, as after the last hikes of 1995, 2006, 2018 and 2023.",
-  market: "Every rate follows today's expected path and term premiums hold.",
-  reheats: "Unemployment falls and the Fed hikes well past what is priced, as in 1994, 2004-05 and 2022.",
+  cools: "Inflation falls faster than the market expects and the Fed stops hiking, as after the last hikes of 1995, 2006, 2018 and 2023.",
+  market: "Rates follow the market's forecast exactly and the term premium stays the same.",
+  reheats: "Unemployment falls and the Fed hikes well past what the market expects, as in 1994, 2004-05 and 2022.",
   bust: "AI spending collapses into a recession, as after the 2000 and 2007 peaks.",
   boom: "Markets price faster trend growth from AI. Built on 1996-97 and 1999, scaled by the trend-growth setting.",
   tp: "Investors demand more to hold long bonds with no change in the Fed path, as in the 2013 taper tantrum and May-Oct 2023."
@@ -496,7 +532,7 @@ function update() {
     td.innerHTML = main + rng;
     td.className = "r" + (mode === "ex" && k !== "SGOV" ? (x > 0.05 ? " cellpos" : x < -0.05 ? " cellneg" : "") : "");
   });
-  $("#range-note").textContent = method === "an" ? "Small numbers under each cell: the range across the individual episodes behind the scenario." : "Structural model: no episode range. Its backtest errors are in section 6.";
+  $("#range-note").textContent = method === "an" ? "Small numbers under each cell: the lowest and highest result across the individual past episodes behind the scenario." : "Structural model: no range by episode. Its track record on past episodes is in section 6.";
   var tot = SC.reduce(function (a, s) { return a + s.p; }, 0); tf.innerHTML = "";
   var out = $("#outcome");
   if (!tot) { out.textContent = "Enter odds for at least one scenario to see weighted results."; return; }
@@ -513,7 +549,7 @@ function update() {
   var row = function (label, fn, first) { var tr = document.createElement("tr"); tr.innerHTML = "<td>" + label + "</td><td class='r'>" + (first || "") + "</td>" + st.map(function (s) { return "<td class='r'>" + fn(s) + "</td>"; }).join(""); tf.appendChild(tr); };
   row("Weighted by your odds", function (s) { return mode === "ex" ? (s.k === "SGOV" ? "0.00" : sgn(s.ev, 2)) : pc(s.evt, 2); }, tot + "%");
   row("Worst scenario with odds above zero", function (s) { return mode === "ex" ? (s.k === "SGOV" ? "0.0" : sgn(s.worst)) : pc(s.wt); });
-  row("Spread of outcomes (std. dev. of total return)", function (s) { return f2(s.sd); });
+  row("How much the result swings across scenarios (std. dev.)", function (s) { return f2(s.sd); });
   row("Highest average within your loss limit", function (s) { return s === pick ? "✓" : ""; });
   var msg = pick.k === "SGOV" ? "Your odds favor SGOV: no longer fund beats it on average" + (lim < 99 ? " within a " + lim + "-point loss limit." : ".")
     : "Your odds favor " + pick.k + ": " + sgn(pick.ev, 2) + " points over SGOV on average, worst case " + sgn(pick.worst) + ", spread " + f2(pick.sd) + ".";
@@ -531,9 +567,9 @@ $("#m-an").setAttribute("aria-pressed", method === "an"); $("#m-mo").setAttribut
 [["#v-ex", "ex"], ["#v-tot", "tot"]].forEach(function (p) { $(p[0]).addEventListener("click", function () { mode = p[1]; $("#v-ex").setAttribute("aria-pressed", mode === "ex"); $("#v-tot").setAttribute("aria-pressed", mode === "tot"); update(); }); });
 
 var SUGG = [
-  [25, "Core PCE ran at a 2.05% annualized pace over the last three months, below the 2.5% the priced path needs by 2027."],
-  [25, "The estimated rule, given an inflation glide to the Fed's 2.5% projection, reproduces the priced path."],
-  [20, "Every hiking cycle since 1988 went at least 1.55 points past its first hike; the market prices 0.59. Core CPI runs at a 3.4% pace and unemployment fell 0.2 over the year."],
+  [25, "Core PCE ran at a 2.05% annualized pace over the last three months, below the 2.5% the market's forecast assumes for 2027."],
+  [25, "The estimated rule, given an inflation glide to the Fed's 2.5% projection, reproduces the market's forecast."],
+  [20, "Every hiking cycle since 1988 went at least 1.55 points past its first hike; the market expects 0.59. Core CPI runs at a 3.4% pace and unemployment fell 0.2 over the year."],
   [10, "Recessions have started at 0.11 a year since 1990. Oct 22's selloff came from doubts about AI spending."],
   [5, "A year is short for productivity gains to reach GDP and inflation data, which is what would reprice the neutral rate."],
   [15, "The Nov 4 refunding is a direct trigger. Term-premium jumps of about 1 point happened in 2013 and 2023."]
@@ -543,7 +579,7 @@ function suggestText() {
   var res = FUNDS.slice(1).map(function (k) { var ev = SC.reduce(function (a, s, i) { return a + SUGG[i][0] / 100 * (retOf(s, k) - retOf(s, "SGOV")); }, 0); return k + " " + sgn(ev, 2); });
   $("#sugg-out").textContent = "With these odds and the " + (method === "an" ? "historical-analog" : "structural-model") + " method, the average gain over SGOV is " + res.join(", ") + ".";
 }
-$("#show-suggest").addEventListener("click", function () { var b = $("#suggest"); b.hidden = !b.hidden; $("#show-suggest").textContent = b.hidden ? "Show suggested odds and the base rates behind them" : "Hide suggested odds"; });
+$("#show-suggest").addEventListener("click", function () { var b = $("#suggest"); b.hidden = !b.hidden; $("#show-suggest").textContent = b.hidden ? "Show suggested odds and the history behind them" : "Hide suggested odds"; });
 $("#load-suggest").addEventListener("click", function () { SC.forEach(function (s, i) { s.p = SUGG[i][0]; }); buildScen(); update(); $("#t-scen").scrollIntoView({block: "center"}); });
 
 /* ---------- charts ---------- */
