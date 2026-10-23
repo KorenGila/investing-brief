@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Treasuries for the next 12 months: SGOV, SHY, IEF or TLT (Oct 22, 2026)</title>
+<meta name="description" content="What the bond market expects, six scenarios built from past episodes, and 12-month returns for SGOV, SHY, IEF and TLT from a one-line formula checked against real returns.">
+<meta property="og:title" content="Treasuries for the next 12 months: SGOV, SHY, IEF or TLT">
+<meta property="og:description" content="Six scenarios built from past episodes, priced into 12-month returns with a formula checked against this year's actual fund returns.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232a78d6'/%3E%3Cpath d='M8 23V17m8 6V11m8 12V7' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{color-scheme:light;--page:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#6f6d68;--grid:#e1e0d9;--axis:#c3c2b7;--ring:rgba(11,11,11,.10);
+  --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--posbg:rgba(42,120,214,.13);--negbg:rgba(227,73,72,.13);--accentbg:#eef4fc}
+@media (prefers-color-scheme:dark){:root{color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#9a988f;--grid:#2c2c2a;--axis:#383835;--ring:rgba(255,255,255,.10);
+  --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--posbg:rgba(57,135,229,.20);--negbg:rgba(230,103,103,.20);--accentbg:#16202d}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--s1)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header.top{border-bottom:1px solid var(--grid);background:var(--surface)}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+.kicker{font-size:13px;color:var(--muted)}
+nav.toc{display:flex;gap:13px;flex-wrap:wrap;font-size:14px}
+nav.toc a{color:var(--ink2);text-decoration:none}
+nav.toc a:hover{color:var(--ink);text-decoration:underline}
+h1{font-size:32px;line-height:1.15;margin:34px 0 12px;letter-spacing:-.01em}
+h2{font-size:23px;margin:0 0 8px}
+h3{font-size:17px;margin:24px 0 6px}
+p{margin:0 0 12px;max-width:74ch}
+ul,ol{max-width:74ch}
+li{margin-bottom:6px}
+.lead{font-size:17px;color:var(--ink2);max-width:74ch}
+ol.lead-steps{color:var(--ink2);margin:4px 0 12px;padding-left:22px}
+section.block{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:26px 28px;margin:22px 0}
+.small{font-size:14px;color:var(--ink2)}
+.muted{color:var(--muted)}
+.src{font-size:13px;color:var(--muted);margin-top:10px}
+.src a{color:var(--muted)}
+.eq{font:14.5px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--page);border:1px solid var(--ring);border-radius:8px;padding:12px 14px;margin:10px 0;overflow-x:auto;white-space:nowrap}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0 12px}
+.tile{background:var(--page);border:1px solid var(--ring);border-radius:10px;padding:10px 12px}
+.tile .lab{font-size:12.5px;color:var(--muted)}
+.tile .val{font-size:24px;font-weight:650;line-height:1.2;margin-top:2px}
+.tile .cmp{font-size:12.5px;color:var(--ink2);margin-top:2px}
+.live{font-size:15px;padding:12px 16px;border:1px solid var(--ring);border-radius:10px;background:var(--surface);margin:16px 0 0}
+.live .row{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline}
+.tscroll{overflow-x:auto;margin:10px 0}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--grid);vertical-align:top}
+thead th{font-size:12.5px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--axis)}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:0}
+.cellpos{background:var(--posbg)} .cellneg{background:var(--negbg)}
+.rng{display:block;font-size:11.5px;color:var(--muted);font-weight:400}
+tfoot td{font-weight:600;border-bottom:none}
+tfoot tr:first-child td{border-top:1px solid var(--axis)}
+input[type=number],input[type=date],select,textarea{font:inherit;font-size:14px;padding:4px 7px;border:1px solid var(--axis);border-radius:6px;background:var(--page);color:var(--ink)}
+input[type=number]{width:62px;text-align:right}
+textarea{width:100%;min-height:64px;resize:vertical;line-height:1.45}
+button{font:inherit;font-size:14px;padding:5px 11px;border:1px solid var(--axis);border-radius:7px;background:var(--surface);color:var(--ink);cursor:pointer}
+button:hover{border-color:var(--ink2)}
+button.primary{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:10px 0 4px;font-size:14px}
+.seg{display:inline-flex;border:1px solid var(--axis);border-radius:7px;overflow:hidden}
+.seg button{border:0;border-radius:0;padding:5px 11px}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--surface)}
+.outcome{margin-top:12px;padding:12px 16px;border-left:3px solid var(--s1);background:var(--accentbg);border-radius:0 8px 8px 0}
+.scen-name{font-weight:600}
+.scen-desc{font-size:13px;color:var(--ink2);margin-top:2px;max-width:46ch}
+.suggest[hidden]{display:none}
+.chart{position:relative;margin:12px 0 4px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink2);margin-top:6px}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:4px}
+.tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--ring);box-shadow:0 4px 14px rgba(0,0,0,.12);border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.45;min-width:120px;opacity:0;transition:opacity .08s;z-index:5;white-space:nowrap}
+.tip .t{font-weight:600;margin-bottom:2px}
+.tip i{display:inline-block;width:12px;height:2px;margin-right:6px;vertical-align:4px}
+details{margin:10px 0}
+summary{cursor:pointer;color:var(--ink2);font-size:14px}
+.form{display:grid;gap:12px;max-width:760px}
+.form label{display:grid;gap:4px;font-size:14px;color:var(--ink2)}
+.form .inline{display:flex;flex-wrap:wrap;gap:12px 22px}
+.form .inline label{display:flex;align-items:center;gap:8px}
+dl.gloss dt{font-weight:600;margin-top:10px}
+dl.gloss dd{margin:2px 0 0;max-width:74ch;color:var(--ink2)}
+footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
+@media (max-width:760px){.tscroll table{min-width:620px} h1{font-size:25px} section.block{padding:20px 16px} nav.toc{display:none}}
+@media print{nav.toc,.controls,.live,button{display:none} section.block{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="kicker">Treasury research brief · data as of the Oct 22, 2026 close</div>
+  <nav class="toc" aria-label="Sections"><a href="#forecast">Forecast</a><a href="#funds">Funds</a><a href="#evidence">Evidence</a><a href="#scenarios">Scenarios</a><a href="#base">Base rates</a><a href="#calendar">Calendar</a><a href="#call">Your call</a><a href="#method">Method</a><a href="#terms">Terms</a></nav>
+</div></header>
+<main class="wrap">
+<h1>Treasuries for the next 12 months: SGOV, SHY, IEF or TLT</h1>
+<p class="lead">The question: which of four Treasury funds to hold for the next 12 months. SGOV holds Treasury bills that mature within 3 months, so it behaves like cash. SHY, IEF and TLT hold longer bonds, which pay more interest but lose value when interest rates rise. The brief works it out in three steps:</p>
+<ol class="lead-steps">
+  <li>Find what the bond market already expects interest rates to do (section 1).</li>
+  <li>Describe each possible future by what happened to rates in similar past episodes, measured against what the market had expected at the time (section 4).</li>
+  <li>Turn those rates into each fund's 12-month return with a one-line formula, checked against this year's real returns (section 2).</li>
+</ol>
+<p class="small">"Points" means percentage points: a 0.25-point hike takes a 3.75% rate to 4.00%. A bond's yield is the yearly return from buying it today and holding it until it matures. Other terms are explained where they first appear and listed in <a href="#terms">Terms</a>.</p>
+<div class="live" id="live" aria-live="polite"><span class="muted">Checking Treasury for yields after Oct 22…</span></div>
+
+<section class="block" id="forecast">
+  <h2>1. What the market expects</h2>
+  <p>A 2-year Treasury pays about what you would earn by buying 3-month bills and reinvesting them for two years. So its yield tells you where investors think short-term rates, which the Fed sets, are headed. Longer bonds also pay a little extra on top of that forecast, called the term premium, for locking money up longer and taking bigger price swings.</p>
+  <p>To split a yield into the forecast and the term premium, the brief uses a model the New York Fed publishes every day, called ACM after its authors (Adrian, Crump and Moench). On Oct 22 it says investors expect the Fed's rate to average <span id="p-m1"></span> over the next 12 months and <span id="p-m2"></span> over the 12 months after that. The Fed's rate today is 3.88%, so the market expects about 2.4 more quarter-point hikes by late 2027, then a slow drift down to 4.12% ten years out.</p>
+  <p>What is left over is the term premium: <span id="p-tp"></span>. Models disagree on this split: the San Francisco Fed's model puts the 10-year term premium at 1.35, about double ACM's.</p>
+  <div class="chart" id="chart-paths"></div>
+  <div class="legend"><span><i style="background:var(--s1)"></i>Market forecast (ACM)</span><span><i style="background:var(--s3)"></i>Fed's own projection (September)</span></div>
+  <p>The Fed's own September projections are lower: 4.10% and 4.03% for the same two years. Those projections came out before September's 0.6% jump in consumer prices.</p>
+  <p class="src">Sources: <a href="https://www.newyorkfed.org/research/data_indicators/term-premia-tabs" target="_blank" rel="noopener">NY Fed ACM model</a> (daily, Oct 22) · <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026" target="_blank" rel="noopener">Treasury yields</a> · <a href="https://www.frbsf.org/research-and-insights/data-and-indicators/treasury-yield-premiums/" target="_blank" rel="noopener">SF Fed term premium</a> · <a href="https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm" target="_blank" rel="noopener">Fed projections, Sep 16</a></p>
+</section>
+
+<section class="block" id="funds">
+  <h2>2. The four funds and the return formula</h2>
+  <div class="tscroll"><table>
+    <thead><tr><th>Fund</th><th>Holds</th><th class="r">Yield</th><th class="r">Yearly fee</th><th class="r">Duration</th><th class="r">Convexity</th><th class="r">12-month return if the forecast is right</th><th class="r">Gain over SGOV</th></tr></thead>
+    <tbody id="t-funds"></tbody>
+  </table></div>
+  <p class="small">Yield, duration and convexity are as published by iShares for Oct 22.</p>
+  <p>Every return on this page comes from one formula:</p>
+  <div class="eq">12-month return ≈ average yield over the year − fee − duration × (change in yield) + ½ × convexity × (change in yield)²</div>
+  <ul class="small">
+    <li>The first part is the interest you collect. If yields move during the year, the fund reinvests at the new rates, so the formula uses the average of the starting and ending yield.</li>
+    <li>The second part is the price change. Duration 6.84 means a 1-point rise in yields cuts the price about 6.84%, and a 1-point fall raises it about as much.</li>
+    <li>The third part, convexity, corrects for the fact that prices fall a little less than duration predicts when yields rise, and rise a little more when they fall. It only matters for big moves in long bonds: for TLT a 1-point move in either direction adds 1.6 points.</li>
+    <li>"Change in yield" is the change in the Treasury yield at the fund's average maturity: 0.12 years for SGOV, 1.89 for SHY, 8.41 for IEF and 26.03 for TLT.</li>
+  </ul>
+  <p id="base-text"></p>
+  <h3>Check against what the funds returned in 2026</h3>
+  <p>Fed the actual Treasury yields from Jan 2 and Oct 21, 2026, with nothing adjusted to fit, the formula gives:</p>
+  <div class="tscroll"><table style="max-width:640px"><thead><tr><th>Fund</th><th class="r">Yield change</th><th class="r">Formula</th><th class="r">Actual (iShares)</th><th class="r">Gap</th></tr></thead><tbody id="t-check"></tbody></table></div>
+  <p>The formula runs slightly high for all four funds, and most for TLT, by 0.39 points. TLT's bonds span 20 to 30 years. This year 20-year yields rose 0.66 points and 30-year yields 0.56, and the formula uses a single maturity of 26 years, which misses that difference. The formula also treats duration as fixed, while a fund's duration drifts as yields move. Both errors grow with the size of the move, so for the largest scenarios below read TLT's numbers as accurate to about 1 point.</p>
+  <p class="src">Sources: iShares fund pages for <a href="https://www.ishares.com/us/products/314116/ishares-0-3-month-treasury-bond-etf" target="_blank" rel="noopener">SGOV</a>, <a href="https://www.ishares.com/us/products/239452/ishares-13-year-treasury-bond-etf" target="_blank" rel="noopener">SHY</a>, <a href="https://www.ishares.com/us/products/239456/ishares-710-year-treasury-bond-etf" target="_blank" rel="noopener">IEF</a>, <a href="https://www.ishares.com/us/products/239454/ishares-20-year-treasury-bond-etf" target="_blank" rel="noopener">TLT</a> (Oct 21-22) · <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026" target="_blank" rel="noopener">Treasury yields</a></p>
+</section>
+
+<section class="block" id="evidence">
+  <h2>3. Evidence</h2>
+  <h3>Inflation</h3>
+  <div class="tiles">
+    <div class="tile"><div class="lab">Core PCE, pace over last 3 months</div><div class="val">2.05%</div><div class="cmp">Last 6 months 2.74%; last 12 months 3.01% (Aug)</div></div>
+    <div class="tile"><div class="lab">Core CPI, pace over last 3 months</div><div class="val">3.4%</div><div class="cmp">Last 12 months 2.6% (Sep)</div></div>
+    <div class="tile"><div class="lab">All-items CPI, last 12 months</div><div class="val">3.7%</div><div class="cmp">Sep +0.6%; gasoline over half</div></div>
+    <div class="tile"><div class="lab">All-items PCE, last 12 months</div><div class="val">3.4%</div><div class="cmp">Aug</div></div>
+    <div class="tile"><div class="lab">Inflation investors expect, next 10 years</div><div class="val">2.33%</div><div class="cmp">From inflation-protected Treasuries, Oct 22</div></div>
+  </div>
+  <p>"Core" leaves out food and energy, whose prices jump around. The two main core gauges point in opposite directions. Core PCE, the one the Fed targets at 2%, slowed to a 2.05% yearly pace over the last three months. Core CPI, the one in the news, sped up to 3.4%. PCE gives housing less weight and counts spending CPI leaves out, such as health care paid by insurers and government. The Fed sets rates on PCE, so if PCE's slowdown holds, the market's forecast of 2.4 more hikes is too high, and if CPI's pace shows up in PCE, it is too low.</p>
+  <h3>Jobs</h3>
+  <div class="tiles">
+    <div class="tile"><div class="lab">Unemployment, Jul-Sep average</div><div class="val">4.13%</div><div class="cmp">4.33% a year earlier</div></div>
+    <div class="tile"><div class="lab">Jobs added, September</div><div class="val">+29K</div><div class="cmp">12-month average 41K</div></div>
+    <div class="tile"><div class="lab">New jobless claims</div><div class="val">194K</div><div class="cmp">Week to Oct 17; forecast 200K</div></div>
+    <div class="tile"><div class="lab">Consumer spending, Aug</div><div class="val">+0.9%</div><div class="cmp">Not inflation-adjusted; July +0.1%</div></div>
+  </div>
+  <p>Rising unemployment is what has made the Fed cut fast. In 2001 unemployment rose 1.8 points in a year and the Fed cut 4.6 points; in 2007-08 it rose 1.5 and the Fed cut 3.0. Today unemployment is 0.2 points lower than a year ago, while hiring is slow at 41,000 jobs a month. Few people are being hired and few are being let go.</p>
+  <h3>The Fed, long-term bonds and markets</h3>
+  <div class="tiles">
+    <div class="tile"><div class="lab">Fed's target range</div><div class="val">3.75-4.00%</div><div class="cmp">Raised Sep 16</div></div>
+    <div class="tile"><div class="lab">Chance of an Oct 28 hike</div><div class="val">7%</div><div class="cmp">From futures prices (CME), Oct 22</div></div>
+    <div class="tile"><div class="lab">10-year term premium</div><div class="val">0.64</div><div class="cmp">ACM; SF Fed model 1.35</div></div>
+    <div class="tile"><div class="lab">10-year yield after inflation</div><div class="val">2.64%</div><div class="cmp">2.92% on Oct 7</div></div>
+    <div class="tile"><div class="lab">S&amp;P 500</div><div class="val">7,663</div><div class="cmp">−1.2% Oct 22 on AI spending doubts</div></div>
+    <div class="tile"><div class="lab">Brent oil</div><div class="val">~$113</div><div class="cmp">Highest since May</div></div>
+  </div>
+  <p>On Nov 4 the Treasury announces how much debt it will sell at its next auctions. Since August it has said the size of its note and bond sales stays unchanged "for at least the next several quarters." Dropping that line would mean more long bonds to absorb, the most direct trigger for the term-premium scenario. Oil at $113 lifts all-items inflation, but the core measures leave energy out.</p>
+  <p class="src">Sources: <a href="https://db.nomics.world/BEA/NIPA-T20804" target="_blank" rel="noopener">BEA PCE prices via DBnomics</a> · <a href="https://www.bls.gov/news.release/archives/cpi_10142026.htm" target="_blank" rel="noopener">BLS CPI</a> · <a href="https://www.bls.gov/news.release/archives/empsit_10022026.htm" target="_blank" rel="noopener">BLS jobs</a> · <a href="https://www.bea.gov/news/2026/personal-income-and-outlays-august-2026" target="_blank" rel="noopener">BEA spending</a> · <a href="https://db.nomics.world/FED/H15" target="_blank" rel="noopener">Fed funds rate history</a> · <a href="https://www.theglobeandmail.com/investing/article-us-bond-yields-plunge-as-fears-about-sustaining-ai-boom-resurface/" target="_blank" rel="noopener">Reuters, Oct 22</a> · <a href="https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents" target="_blank" rel="noopener">Treasury refunding</a> · <a href="https://www.nbcnews.com/business/markets/iran-war-ai-spending-oil-prices-selloff-rcna604994" target="_blank" rel="noopener">NBC on stocks and oil</a></p>
+</section>
+
+<section class="block" id="scenarios">
+  <h2>4. Six scenarios</h2>
+  <p>Each scenario is built from past episodes that fit its story. For each episode, the brief measures how far the Fed's rate and the 2-, 10- and 30-year yields ended up 12 months later compared with what the market had forecast at the start, using the ACM forecast from that date. A scenario's numbers are the average across its episodes, added to today's forecast. In the four soft landings since 1995, for example, the 2-year yield ended the year 0.98 points below the forecast on average.</p>
+  <div class="tscroll"><table id="t-def">
+    <thead><tr><th>Scenario</th><th>Past episodes</th><th class="r">Fed rate</th><th class="r">2-year</th><th class="r">10-year</th><th class="r">30-year</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p class="small">Each number is how far that rate ended, 12 months later, from the market's forecast, in points. Other maturities are filled in by straight lines between these points.</p>
+  <details><summary>Every episode, one by one</summary>
+    <div class="tscroll"><table id="t-eps"><thead><tr><th>Episode</th><th>Window</th><th class="r">Fed rate</th><th class="r">2-year</th><th class="r">10-year</th><th class="r">30-year</th></tr></thead><tbody></tbody></table></div>
+    <p class="small">Windows start at a defining event: the last hike before a pause, the first hike of a fast cycle, the stock market peak before a recession, the start of the 1990s productivity boom. The two term-premium episodes lasted 4 and 5 months, so their windows are that long. Covid is left out of the recession average because the shock came from a virus, not the economy.</p>
+  </details>
+  <h3>Returns over the next 12 months</h3>
+  <p>Enter how likely you think each scenario is in the Odds column. The bottom rows weight each fund's return by your odds.</p>
+  <div class="controls">
+    <span>Show</span><span class="seg" role="group" aria-label="Display"><button type="button" id="v-ex" aria-pressed="true">Gain over SGOV</button><button type="button" id="v-tot" aria-pressed="false">Total return</button></span>
+    <label>AI boom size <select id="mult"><option value="1" selected>Same as the 1990s</option><option value="2">2× the 1990s</option><option value="3">3× the 1990s</option><option value="5">5× the 1990s</option></select></label>
+    <label>Largest loss vs SGOV you'd accept <select id="risk"><option value="1">1 point</option><option value="2">2 points</option><option value="5">5 points</option><option value="99" selected>No limit</option></select></label>
+    <button type="button" id="clear">Clear odds</button>
+  </div>
+  <div class="tscroll"><table id="t-scen">
+    <thead><tr><th>Scenario</th><th class="r">Odds %</th><th class="r"><span class="sw" style="background:var(--s1)"></span>SGOV</th><th class="r"><span class="sw" style="background:var(--s2)"></span>SHY</th><th class="r"><span class="sw" style="background:var(--s3)"></span>IEF</th><th class="r"><span class="sw" style="background:var(--s4)"></span>TLT</th></tr></thead>
+    <tbody></tbody><tfoot></tfoot>
+  </table></div>
+  <p class="small">Small numbers under each cell: the lowest and highest result across the individual past episodes behind the scenario.</p>
+  <div class="outcome" id="outcome" aria-live="polite"></div>
+  <h3>Yields in 12 months, by maturity</h3>
+  <div class="controls"><label>Scenario <select id="viewer"></select></label></div>
+  <div class="chart" id="chart-curve"></div>
+  <div class="legend"><span><i style="background:var(--s1)"></i>Today</span><span><i style="background:var(--s3)"></i>In 12 months if the forecast is right</span><span><i style="background:var(--s2)"></i>In 12 months under this scenario</span></div>
+  <h3>How big are these moves?</h3>
+  <p class="small" id="dist-note"></p>
+  <div class="tscroll"><table style="max-width:720px"><thead><tr><th>12-month change since 1990</th><th class="r">5th</th><th class="r">10th</th><th class="r">25th</th><th class="r">50th</th><th class="r">75th</th><th class="r">90th</th><th class="r">95th</th></tr></thead><tbody id="t-dist"></tbody></table></div>
+  <div class="controls"><button type="button" id="show-suggest">Show suggested odds and the history behind them</button></div>
+  <div class="suggest" id="suggest" hidden>
+    <div class="tscroll"><table><thead><tr><th>Scenario</th><th class="r">Odds</th><th>Basis</th></tr></thead><tbody id="t-sugg"></tbody></table></div>
+    <p id="sugg-out"></p>
+    <button type="button" class="primary" id="load-suggest">Load these odds into the table</button>
+  </div>
+</section>
+
+<section class="block" id="base">
+  <h2>5. Base rates</h2>
+  <h3>Hiking cycles since 1988</h3>
+  <div class="tscroll"><table style="max-width:700px"><thead><tr><th>First hike</th><th class="r">Fed rate before</th><th class="r">Peak</th><th class="r">Total rise</th><th class="r">Months to peak</th></tr></thead><tbody id="t-cyc"></tbody></table></div>
+  <p>In all six cycles the Fed raised at least 1.55 points beyond its first hike. The market expects 0.59 beyond the September hike. The closest match in setup is 1999, when the Fed also hiked after a run of cuts, and that cycle added 1.55. Six cycles is a small sample, and four of them started from rates far below normal, which this one did not.</p>
+  <h3>Recessions</h3>
+  <p>Four recessions started between January 1990 and September 2026, a rate of 0.11 a year. The two that followed stock market busts, in 2001 and 2008, are the episodes behind the AI bust scenario.</p>
+</section>
+
+<section class="block" id="calendar">
+  <h2>6. Dates that move the 2-year</h2>
+  <p>Markets react to the gap between a release and its consensus forecast, published the week before, so note the forecast ahead of each date.</p>
+  <div class="tscroll"><table>
+    <thead><tr><th>Date (ET)</th><th>Event</th><th>Points to lower yields</th><th>Points to higher yields</th></tr></thead>
+    <tbody>
+      <tr><td>Oct 28, 2:00pm</td><td>Fed decision</td><td>Hold, no signal of a series of hikes</td><td>A hike (7% expected) or "further increases"</td></tr>
+      <tr><td>Oct 29, 8:30am</td><td>September PCE, Q3 GDP</td><td>Core PCE +0.2% or less</td><td>Core PCE +0.3% or more</td></tr>
+      <tr><td>Nov 4</td><td>Treasury auction sizes</td><td>Guidance kept</td><td>Larger note and bond sales (hits 10- and 30-year)</td></tr>
+      <tr><td>Nov 6, 8:30am</td><td>October jobs</td><td>Unemployment 4.3% or higher</td><td>Unemployment 4.0% or lower</td></tr>
+      <tr><td>Nov 10, 8:30am</td><td>October CPI</td><td>Core +0.2% or less</td><td>Core +0.4% or more</td></tr>
+      <tr><td>Dec 4, 8:30am</td><td>November jobs</td><td>Unemployment 4.3% or higher</td><td>Unemployment 4.0% or lower</td></tr>
+      <tr><td>Dec 9, 2:00pm</td><td>Fed decision, new projections</td><td>End-2027 median 4.25% or less</td><td>End-2027 median 4.5% or more</td></tr>
+      <tr><td>Dec 10, 8:30am</td><td>November CPI</td><td>Core +0.2% or less</td><td>Core +0.4% or more</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Sources: <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" rel="noopener">Fed calendar</a> · <a href="https://www.bls.gov/schedule/news_release/cpi.htm" target="_blank" rel="noopener">BLS CPI schedule</a> · <a href="https://www.bls.gov/schedule/news_release/empsit.htm" target="_blank" rel="noopener">BLS jobs schedule</a> · <a href="https://www.bea.gov/news/schedule" target="_blank" rel="noopener">BEA schedule</a></p>
+</section>
+
+<section class="block" id="call">
+  <h2>7. Your call</h2>
+  <div class="form">
+    <div class="inline">
+      <label>Fund <select id="f-fund"><option value="">Choose</option><option>SGOV</option><option>SHY</option><option>IEF</option><option>TLT</option><option>Split</option></select></label>
+      <label>Amount $ <input type="number" id="f-amt" min="0" step="50" value="500" style="width:80px"></label>
+      <label>Review on <input type="date" id="f-date" value="2026-12-10"></label>
+    </div>
+    <label>What I expect that the market's forecast does not, in numbers<textarea id="f-view"></textarea></label>
+    <label>Evidence, and which scenario it makes more likely<textarea id="f-ev"></textarea></label>
+    <label>Strongest argument against<textarea id="f-against"></textarea></label>
+    <label>Exit rule (a yield level or a release result)<textarea id="f-exit"></textarea></label>
+    <div class="controls" style="margin:0"><button type="button" class="primary" id="copy-call">Copy my call with odds</button><span class="small" id="save-note"></span></div>
+  </div>
+  <h3>Entry prices, Oct 22, 2026</h3>
+  <div class="tscroll"><table style="max-width:620px"><thead><tr><th>Fund</th><th class="r">Price (NAV)</th><th class="r">Shares for $500</th><th class="r">Cost</th></tr></thead><tbody>
+    <tr><td>SGOV</td><td class="r">$100.64</td><td class="r">4</td><td class="r">$402.54</td></tr>
+    <tr><td>SHY</td><td class="r">$81.50</td><td class="r">6</td><td class="r">$489.00</td></tr>
+    <tr><td>IEF</td><td class="r">$91.18</td><td class="r">5</td><td class="r">$455.90</td></tr>
+    <tr><td>TLT</td><td class="r">$81.71</td><td class="r">6</td><td class="r">$490.26</td></tr>
+  </tbody></table></div>
+  <p class="small">Use a limit order at the ask between 10:00am and 3:30pm ET; fractional shares use the full $500. Treasury interest is exempt from state and local tax. To grade the call, compare the fund's total return with SGOV's on the review date and write down which scenario happened.</p>
+</section>
+
+<section class="block" id="method">
+  <h2>8. Method and limits</h2>
+  <ul class="small">
+    <li>Forecast: ACM's expected short-rate path for 1 to 10 years, held flat after 10 years. The forecast change in each yield over the next 12 months comes from the same path.</li>
+    <li>Scenarios: the average surprise across the matching past episodes, at the Fed rate and the 2-, 10- and 30-year yields, with straight lines in between. Choosing the episodes is a judgment call, and each scenario rests on two to four of them; the ranges under each return show how much they disagree. The AI boom setting multiplies the 1990s surprises.</li>
+    <li>Returns: the one-line formula in section 2 with iShares' published yield, duration and convexity. Before taxes and trading costs.</li>
+    <li>Not modeled: the order in which events happen within the year, changes in how the funds are built and how these funds move with your other holdings.</li>
+  </ul>
+  <p class="src">Data: <a href="https://www.newyorkfed.org/research/data_indicators/term-premia-tabs" target="_blank" rel="noopener">ACM model</a> · <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026" target="_blank" rel="noopener">Treasury yields, 1990-2026</a> · <a href="https://db.nomics.world/" target="_blank" rel="noopener">DBnomics (Fed, BEA, BLS)</a> · iShares fund pages</p>
+</section>
+
+<section class="block" id="terms">
+  <h2>Terms</h2>
+  <dl class="gloss">
+    <dt>Yield</dt><dd>The yearly return from buying a bond today and holding it to maturity. When yields rise, existing bonds fall in price.</dd>
+    <dt>Points</dt><dd>Percentage points. A rate going from 4.00% to 4.25% rose 0.25 points.</dd>
+    <dt>Duration</dt><dd>How much a bond fund's price moves when yields move. Duration 6.84: yields up 1 point, price down about 6.84%. It is also the average time until the fund's payments arrive, weighted by their value today.</dd>
+    <dt>Convexity</dt><dd>The correction to duration for big moves. Prices fall a little less than duration says when yields rise, and rise a little more when they fall.</dd>
+    <dt>Market forecast</dt><dd>The path of the Fed's rate that today's bond prices imply.</dd>
+    <dt>Term premium</dt><dd>The extra yield a longer bond pays beyond the forecast of short rates, as pay for tying money up longer.</dd>
+    <dt>ACM model</dt><dd>A New York Fed model, named after Adrian, Crump and Moench, that splits each Treasury yield into the market's forecast and the term premium. Published daily, with history back to 1961.</dd>
+    <dt>Core PCE, core CPI</dt><dd>Two measures of consumer prices excluding food and energy. The Fed targets 2% on PCE.</dd>
+    <dt>Surprise</dt><dd>How far a rate ended up from what the market had forecast at the start of the period.</dd>
+    <dt>Percentile</dt><dd>The 90th percentile is the value that 90% of past observations fall below.</dd>
+  </dl>
+</section>
+</main>
+<footer class="wrap">Practice research for learning, not financial advice. Figures as of the Oct 22, 2026 close unless dated otherwise.</footer>
+
+<script>
+var D = __DATA__;
+(function () {
+var $ = function (s) { return document.querySelector(s); };
+var css = function (v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); };
+var f2 = function (x) { return x.toFixed(2); };
+var sgn = function (x, d) { d = d === undefined ? 1 : d; return (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(d); };
+var pc = function (x, d) { d = d === undefined ? 1 : d; return (x < 0 ? "−" : "") + Math.abs(x).toFixed(d) + "%"; };
+var FUNDS = ["SGOV", "SHY", "IEF", "TLT"], COLORS = {SGOV: "--s1", SHY: "--s2", IEF: "--s3", TLT: "--s4"};
+var HOLDS = {SGOV: "0-3 month bills", SHY: "1-3 year notes", IEF: "7-10 year notes", TLT: "20+ year bonds"};
+var KEY = "treasury-brief-v4", saved = {};
+try { saved = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
+function persist() { try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {} }
+
+/* ---------- model ---------- */
+function interp(arr, T) {
+  var X = D.TEN; if (T <= X[0]) return arr[0];
+  for (var i = 1; i < X.length; i++) if (T <= X[i]) return arr[i - 1] + (arr[i] - arr[i - 1]) * (T - X[i - 1]) / (X[i] - X[i - 1]);
+  return arr[arr.length - 1];
+}
+function spread(sff, s2, s10, s30) {
+  return D.TEN.map(function (n) {
+    if (n <= 0.5) return sff;
+    if (n === 1) return (sff + s2) / 2;
+    if (n <= 2) return s2;
+    if (n <= 10) return s2 + (s10 - s2) * (n - 2) / 8;
+    return s10 + (s30 - s10) * (n - 10) / 20;
+  });
+}
+function returns(surp) {
+  var dy = D.TEN.map(function (n, i) { return D.ROLL[i] + surp[i]; }), out = {};
+  FUNDS.forEach(function (k) {
+    var f = D.FUNDS[k], d = interp(dy, f.wam);
+    out[k] = (f.ytm + d / 2 - f.fee) - f.dur * d + 0.5 * f.cvx * d * d;
+  });
+  return {ret: out, dy: dy};
+}
+
+/* ---------- section 1 ---------- */
+$("#p-m1").textContent = f2(D.fwd[0]) + "%"; $("#p-m2").textContent = f2(D.fwd[1]) + "%";
+$("#p-tp").textContent = f2(D.tp["2"]) + " points on the 2-year, " + f2(D.tp["10"]) + " on the 10-year and " + f2(D.tp["30"]) + " on the 30-year. That is the extra a longer bond earns over bills if the forecast turns out right";
+
+/* ---------- section 2 ---------- */
+var base = returns(D.TEN.map(function () { return 0; })).ret;
+$("#t-funds").innerHTML = FUNDS.map(function (k) {
+  var f = D.FUNDS[k];
+  return "<tr><td style='white-space:nowrap'><span class='sw' style='background:var(" + COLORS[k] + ")'></span>" + k + "</td><td>" + HOLDS[k] + "</td><td class='r'>" + f2(f.ytm) + "%</td><td class='r'>" + f2(f.fee) + "%</td><td class='r'>" + f2(f.dur) + "</td><td class='r'>" + f2(f.cvx) + "</td><td class='r'>" + pc(base[k], 2) + "</td><td class='r'>" + (k === "SGOV" ? "" : sgn(base[k] - base.SGOV, 2)) + "</td></tr>";
+}).join("");
+var gains = FUNDS.slice(1).map(function (k) { return base[k] - base.SGOV; });
+$("#base-text").textContent = "If the forecast comes true, the longer funds beat SGOV by " + f2(Math.min.apply(null, gains)) + " to " + f2(Math.max.apply(null, gains)) + " points over the year. That gap is the term premium: pay for taking rate risk. Every scenario below starts from this baseline and adds the effect of rates ending away from the forecast.";
+$("#t-check").innerHTML = FUNDS.map(function (k) { var c = D.check[k]; return "<tr><td>" + k + "</td><td class='r'>" + sgn(c.y1 - c.y0, 2) + "</td><td class='r'>" + pc(c.model, 2) + "</td><td class='r'>" + pc(c.actual, 2) + "</td><td class='r'>" + sgn(c.model - c.actual, 2) + "</td></tr>"; }).join("");
+
+/* ---------- section 4: scenarios ---------- */
+var SC = [
+  {id: "cools", kind: "soft", name: "Inflation cools, Fed stops", desc: "Inflation falls faster than expected and the Fed stops hiking, as after the last hikes of 1995, 2006, 2018 and 2023."},
+  {id: "market", kind: null, name: "The market's forecast", desc: "Rates follow the forecast exactly and the term premium stays the same."},
+  {id: "reheats", kind: "hike", name: "Economy reheats, Fed keeps hiking", desc: "Unemployment falls and the Fed hikes well past what the market expects, as in 1994, 2004-05 and 2022."},
+  {id: "bust", kind: "bust", name: "AI bust, recession", desc: "AI spending collapses into a recession, as after the stock market peaks of 2000 and 2007."},
+  {id: "boom", kind: "boom", name: "AI boom", desc: "Investors expect AI to raise growth for years, as in the 1990s productivity boom. The size setting scales it."},
+  {id: "tp", kind: "tp", name: "Term premium shock", desc: "Investors demand more to hold long bonds with no change in the Fed outlook, as in the 2013 taper tantrum and May-Oct 2023."}
+];
+var EPS = {soft: "1995, 2006-07, 2019, 2023-24", hike: "1994, 2004-05, 2022", bust: "2000-01, 2007-08", boom: "1996-97, 1999", tp: "2013, 2023"};
+SC.forEach(function (s) { s.p = 0; });
+if (saved.odds && saved.odds.length === SC.length) saved.odds.forEach(function (p, i) { if (isFinite(p)) SC[i].p = p; });
+var mode = "ex", mult = saved.mult || 1;
+$("#mult").value = String(mult);
+function epsOf(s) { return s.kind ? D.episodes.filter(function (e) { return e.kind === s.kind && e.name.indexOf("Covid") < 0; }) : []; }
+function scale(s) { return s.id === "boom" ? mult : 1; }
+function avgSurp(s) {
+  var e = epsOf(s); if (!e.length) return {ff: 0, y2: 0, y10: 0, y30: 0};
+  var m = function (k) { return e.reduce(function (a, x) { return a + x[k]; }, 0) / e.length * scale(s); };
+  return {ff: m("s_ff"), y2: m("s_y2"), y10: m("s_y10"), y30: m("s_y30")};
+}
+function label(s) { return s.id === "boom" ? "AI boom" + (mult === 1 ? ", 1990s size" : ", " + mult + "× the 1990s") : s.name; }
+var cache = {};
+function compute() {
+  SC.forEach(function (s) {
+    var a = avgSurp(s), r = returns(spread(a.ff, a.y2, a.y10, a.y30));
+    cache[s.id] = {a: a, r: r, eps: epsOf(s).map(function (e) { var k = scale(s); return returns(spread(e.s_ff * k, e.s_y2 * k, e.s_y10 * k, e.s_y30 * k)).ret; })};
+  });
+}
+function buildDef() {
+  $("#t-def tbody").innerHTML = SC.map(function (s, i) {
+    var a = cache[s.id].a;
+    return "<tr><td><div class='scen-name'>" + (i + 1) + ". " + label(s) + "</div><div class='scen-desc'>" + s.desc + "</div></td><td>" + (s.kind ? EPS[s.kind] : "None") + "</td><td class='r'>" + sgn(a.ff, 2) + "</td><td class='r'>" + sgn(a.y2, 2) + "</td><td class='r'>" + sgn(a.y10, 2) + "</td><td class='r'>" + sgn(a.y30, 2) + "</td></tr>";
+  }).join("");
+}
+$("#t-eps tbody").innerHTML = D.episodes.map(function (e) {
+  return "<tr><td>" + e.name.replace(/ \(.*\)/, "") + (e.name.indexOf("Covid") >= 0 ? " (not used)" : "") + "</td><td>" + e.start + " to " + e.end + "</td><td class='r'>" + sgn(e.s_ff, 2) + "</td><td class='r'>" + sgn(e.s_y2, 2) + "</td><td class='r'>" + sgn(e.s_y10, 2) + "</td><td class='r'>" + sgn(e.s_y30, 2) + "</td></tr>";
+}).join("");
+var tb = $("#t-scen tbody"), tf = $("#t-scen tfoot");
+function buildScen() {
+  tb.innerHTML = "";
+  SC.forEach(function (s, i) {
+    var tr = document.createElement("tr");
+    var td0 = document.createElement("td"); td0.innerHTML = "<div class='scen-name' data-n='" + i + "'>" + (i + 1) + ". " + label(s) + "</div>"; tr.appendChild(td0);
+    var td1 = document.createElement("td"); td1.className = "r";
+    var inp = document.createElement("input"); inp.type = "number"; inp.min = 0; inp.max = 100; inp.step = 5; inp.value = s.p || ""; inp.placeholder = "0"; inp.setAttribute("aria-label", "Odds for " + s.name);
+    inp.addEventListener("input", function () { s.p = Math.max(0, +inp.value || 0); update(); });
+    td1.appendChild(inp); tr.appendChild(td1);
+    FUNDS.forEach(function (k) { var td = document.createElement("td"); td.className = "r"; td.dataset.s = i; td.dataset.f = k; tr.appendChild(td); });
+    tb.appendChild(tr);
+  });
+}
+function R(s, k) { return cache[s.id].r.ret[k]; }
+function update() {
+  saved.odds = SC.map(function (s) { return s.p; }); saved.mult = mult; persist();
+  tb.querySelectorAll("td[data-f]").forEach(function (td) {
+    var s = SC[+td.dataset.s], k = td.dataset.f, v = R(s, k), x = v - R(s, "SGOV");
+    var main = mode === "ex" ? (k === "SGOV" ? "0.0" : sgn(x)) : pc(v), rng = "";
+    var eps = cache[s.id].eps;
+    if (eps.length > 1 && !(mode === "ex" && k === "SGOV")) {
+      var vals = eps.map(function (e) { return mode === "ex" ? e[k] - e.SGOV : e[k]; });
+      var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+      rng = "<span class='rng'>" + (mode === "ex" ? sgn(lo) + " to " + sgn(hi) : pc(lo) + " to " + pc(hi)) + "</span>";
+    }
+    td.innerHTML = main + rng;
+    td.className = "r" + (mode === "ex" && k !== "SGOV" ? (x > 0.05 ? " cellpos" : x < -0.05 ? " cellneg" : "") : "");
+  });
+  var tot = SC.reduce(function (a, s) { return a + s.p; }, 0); tf.innerHTML = "";
+  var out = $("#outcome");
+  if (!tot) { out.textContent = "Enter odds for at least one scenario to see weighted results."; return; }
+  var st = FUNDS.map(function (k) {
+    var ex = SC.map(function (s) { return R(s, k) - R(s, "SGOV"); }), trr = SC.map(function (s) { return R(s, k); });
+    var live = SC.map(function (s, i) { return s.p > 0 ? i : -1; }).filter(function (i) { return i >= 0; });
+    var evt = SC.reduce(function (a, s, i) { return a + s.p / tot * trr[i]; }, 0);
+    return {k: k, ev: SC.reduce(function (a, s, i) { return a + s.p / tot * ex[i]; }, 0), evt: evt,
+      worst: Math.min.apply(null, live.map(function (i) { return ex[i]; })), wt: Math.min.apply(null, live.map(function (i) { return trr[i]; })),
+      sd: Math.sqrt(SC.reduce(function (a, s, i) { return a + s.p / tot * Math.pow(trr[i] - evt, 2); }, 0))};
+  });
+  var lim = +$("#risk").value, ok = st.filter(function (s) { return s.k === "SGOV" || -s.worst <= lim; });
+  var pick = ok.reduce(function (a, b) { return b.ev > a.ev ? b : a; });
+  var row = function (lab, fn, first) { var tr = document.createElement("tr"); tr.innerHTML = "<td>" + lab + "</td><td class='r'>" + (first || "") + "</td>" + st.map(function (s) { return "<td class='r'>" + fn(s) + "</td>"; }).join(""); tf.appendChild(tr); };
+  row("Weighted by your odds", function (s) { return mode === "ex" ? (s.k === "SGOV" ? "0.00" : sgn(s.ev, 2)) : pc(s.evt, 2); }, tot + "%");
+  row("Worst scenario you gave odds to", function (s) { return mode === "ex" ? (s.k === "SGOV" ? "0.0" : sgn(s.worst)) : pc(s.wt); });
+  row("How much the result swings across scenarios (std. dev.)", function (s) { return f2(s.sd); });
+  row("Highest average within your loss limit", function (s) { return s === pick ? "✓" : ""; });
+  var msg = pick.k === "SGOV" ? "Your odds favor SGOV: no longer fund beats it on average" + (lim < 99 ? " within a " + lim + "-point loss limit." : ".")
+    : "Your odds favor " + pick.k + ": " + sgn(pick.ev, 2) + " points a year over SGOV on average, worst case " + sgn(pick.worst) + ".";
+  st.filter(function (s) { return s !== pick && s.k !== "SGOV" && s.ev >= pick.ev - 0.3; }).forEach(function (s) { msg += " " + s.k + " is close: " + sgn(s.ev, 2) + " on average, worst case " + sgn(s.worst) + "."; });
+  if (tot !== 100) msg += " Your odds add to " + tot + "%, so they are scaled to 100.";
+  out.textContent = msg;
+}
+function refreshAll() { compute(); buildDef(); document.querySelectorAll("#t-scen .scen-name").forEach(function (e) { var i = +e.dataset.n; e.textContent = (i + 1) + ". " + label(SC[i]); }); update(); drawCurve(); suggestText(); viewerLabels(); }
+$("#risk").addEventListener("change", update);
+$("#mult").addEventListener("change", function () { mult = +$("#mult").value; refreshAll(); });
+$("#clear").addEventListener("click", function () { SC.forEach(function (s) { s.p = 0; }); buildScen(); update(); });
+[["#v-ex", "ex"], ["#v-tot", "tot"]].forEach(function (p) { $(p[0]).addEventListener("click", function () { mode = p[1]; $("#v-ex").setAttribute("aria-pressed", mode === "ex"); $("#v-tot").setAttribute("aria-pressed", mode === "tot"); update(); }); });
+
+var DL = {y2: "2-year yield", y10: "10-year yield", y30x: "30-year yield"};
+$("#t-dist").innerHTML = Object.keys(DL).map(function (k) { var d = D.dist12[k]; return "<tr><td>" + DL[k] + "</td>" + ["5", "10", "25", "50", "75", "90", "95"].map(function (p) { return "<td class='r'>" + sgn(d[p], 2) + "</td>"; }).join("") + "</tr>"; }).join("");
+$("#dist-note").textContent = "For scale, here is how much yields have actually moved over 12-month periods since 1990. In 90% of those periods the 2-year moved between " + sgn(D.dist12.y2["5"], 2) + " and " + sgn(D.dist12.y2["95"], 2) + " points. A scenario surprise larger than that would be rare by historical standards.";
+
+var SUGG = [
+  [25, "Core PCE ran at a 2.05% yearly pace over the last three months, below the path the market's forecast needs."],
+  [25, "The forecast is the single most likely path by construction: it is what investors with money at stake expect."],
+  [20, "Every hiking cycle since 1988 went at least 1.55 points past its first hike, and the market expects 0.59. Core CPI runs at a 3.4% pace and unemployment is lower than a year ago."],
+  [10, "Recessions have started at a rate of 0.11 a year since 1990. The Oct 22 selloff came from doubts about AI spending."],
+  [5, "A year is short for productivity gains to show up in growth and inflation data."],
+  [15, "The Nov 4 auction announcement is a direct trigger, and jumps of about 1 point in the 10-year term premium happened in 2013 and 2023."]
+];
+function suggestText() {
+  $("#t-sugg").innerHTML = SC.map(function (s, i) { return "<tr><td>" + (i + 1) + ". " + label(s) + "</td><td class='r'>" + SUGG[i][0] + "%</td><td>" + SUGG[i][1] + "</td></tr>"; }).join("");
+  var res = FUNDS.slice(1).map(function (k) { var ev = SC.reduce(function (a, s, i) { return a + SUGG[i][0] / 100 * (R(s, k) - R(s, "SGOV")); }, 0); return k + " " + sgn(ev, 2); });
+  $("#sugg-out").textContent = "With these odds, the average gain over SGOV is " + res.join(", ") + " points.";
+}
+$("#show-suggest").addEventListener("click", function () { var b = $("#suggest"); b.hidden = !b.hidden; $("#show-suggest").textContent = b.hidden ? "Show suggested odds and the history behind them" : "Hide suggested odds"; });
+$("#load-suggest").addEventListener("click", function () { SC.forEach(function (s, i) { s.p = SUGG[i][0]; }); buildScen(); update(); $("#t-scen").scrollIntoView({block: "center"}); });
+$("#t-cyc").innerHTML = D.cycles.map(function (c) { return "<tr><td>" + c.start + "</td><td class='r'>" + f2(c.ff_before) + "%</td><td class='r'>" + f2(c.peak) + "%</td><td class='r'>+" + f2(c.total_rise) + "</td><td class='r'>" + c.months_to_peak + "</td></tr>"; }).join("");
+
+/* ---------- charts ---------- */
+var NS = "http://www.w3.org/2000/svg";
+function el(tag, at, p) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); if (p) p.appendChild(e); return e; }
+function txt(p, x, y, s, at) { var t = el("text", Object.assign({x: x, y: y, "font-size": 12, fill: css("--muted")}, at || {}), p); t.textContent = s; return t; }
+function tipFor(box) { var t = box.querySelector(".tip"); if (!t) { t = document.createElement("div"); t.className = "tip"; box.appendChild(t); } return t; }
+function lineChart(box, o) {
+  var W = 720, H = o.H || 250, m = {l: 46, r: 64, t: 14, b: 30};
+  box.innerHTML = ""; var svg = el("svg", {viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": o.label}, box);
+  var n = o.xs.length, x = function (i) { return m.l + (W - m.l - m.r) * i / (n - 1); }, y = function (v) { return m.t + (H - m.t - m.b) * (1 - (v - o.min) / (o.max - o.min)); };
+  for (var v = o.min; v <= o.max + 1e-9; v += o.step) { el("line", {x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: css("--grid")}, svg); txt(svg, m.l - 8, y(v) + 4, v.toFixed(1) + "%", {"text-anchor": "end"}); }
+  o.xs.forEach(function (l, i) { txt(svg, x(i), H - 10, l, {"text-anchor": "middle"}); });
+  el("line", {x1: m.l, x2: W - m.r, y1: H - m.b, y2: H - m.b, stroke: css("--axis")}, svg);
+  o.series.forEach(function (s) {
+    var d = ""; s.v.forEach(function (v, i) { d += (i ? "L" : "M") + x(i).toFixed(1) + "," + y(v).toFixed(1); });
+    el("path", {d: d, fill: "none", stroke: css(s.c), "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round"}, svg);
+    if (o.dots) s.v.forEach(function (v, i) { el("circle", {cx: x(i), cy: y(v), r: 4, fill: css(s.c), stroke: css("--surface"), "stroke-width": 2}, svg); });
+    var li = s.v.length - 1; txt(svg, x(li) + 8, y(s.v[li]) + 4 + (s.dy || 0), s.v[li].toFixed(2) + "%", {fill: css("--ink"), "font-size": 12.5, "font-weight": 600});
+  });
+  var cross = el("line", {y1: m.t, y2: H - m.b, stroke: css("--axis"), opacity: 0}, svg);
+  var hit = el("rect", {x: m.l - 10, y: m.t, width: W - m.l - m.r + 20, height: H - m.t - m.b, fill: "transparent"}, svg), tip = tipFor(box);
+  hit.addEventListener("pointermove", function (e) {
+    var r = svg.getBoundingClientRect(), px = (e.clientX - r.left) * W / r.width, i = Math.max(0, Math.min(n - 1, Math.round((px - m.l) / (W - m.l - m.r) * (n - 1))));
+    cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i)); cross.setAttribute("opacity", 1);
+    tip.innerHTML = ""; var t = document.createElement("div"); t.className = "t"; t.textContent = o.xs[i]; tip.appendChild(t);
+    o.series.forEach(function (s) { var row = document.createElement("div"), k = document.createElement("i"); k.style.background = css(s.c); row.appendChild(k); row.appendChild(document.createTextNode(s.n + ": " + s.v[i].toFixed(2) + "%")); tip.appendChild(row); });
+    tip.style.opacity = 1; var left = x(i) * r.width / W + 14; if (left + tip.offsetWidth > box.clientWidth) left = x(i) * r.width / W - tip.offsetWidth - 14; tip.style.left = Math.max(0, left) + "px"; tip.style.top = "8px";
+  });
+  hit.addEventListener("pointerleave", function () { tip.style.opacity = 0; cross.setAttribute("opacity", 0); });
+}
+function drawPaths() {
+  lineChart($("#chart-paths"), {xs: ["Oct 2026-27", "Oct 2027-28", "Oct 2028-29"], dots: true, H: 220, series: [{n: "Market forecast", c: "--s1", v: D.fwd}, {n: "Fed projection", c: "--s3", v: D.sep}],
+    min: 3.5, max: 5, step: 0.5, label: "Average Fed rate by year: market forecast and Fed projection"});
+}
+var viewer = $("#viewer");
+function viewerLabels() { viewer.innerHTML = ""; SC.forEach(function (s, i) { var o = document.createElement("option"); o.value = i; o.textContent = (i + 1) + ". " + label(s); viewer.appendChild(o); }); viewer.value = saved.view || 0; }
+viewer.addEventListener("change", function () { saved.view = +viewer.value; persist(); drawCurve(); });
+function drawCurve() {
+  var s = SC[+viewer.value || 0], LAB = ["1M", "3M", "6M", "1Y", "2Y", "3Y", "5Y", "7Y", "10Y", "20Y", "30Y"];
+  var fc = D.TODAY.map(function (v, i) { return v + D.ROLL[i]; }), sc = D.TODAY.map(function (v, i) { return v + cache[s.id].r.dy[i]; });
+  var all = D.TODAY.concat(fc, sc), lo = Math.floor(Math.min.apply(null, all) * 2) / 2, hi = Math.ceil(Math.max.apply(null, all) * 2) / 2;
+  lineChart($("#chart-curve"), {xs: LAB, H: 250, series: [{n: "Today", c: "--s1", v: D.TODAY, dy: 6}, {n: "Forecast", c: "--s3", v: fc, dy: -6}, {n: label(s), c: "--s2", v: sc}],
+    min: lo, max: hi, step: 0.5, label: "Yields today and in 12 months under " + label(s)});
+}
+function drawAll() { drawPaths(); drawCurve(); }
+
+/* ---------- your call ---------- */
+["f-fund", "f-amt", "f-date", "f-view", "f-ev", "f-against", "f-exit"].forEach(function (id) {
+  var e = $("#" + id); if (saved.call && typeof saved.call[id] === "string") e.value = saved.call[id];
+  e.addEventListener("input", function () { saved.call = saved.call || {}; saved.call[id] = e.value; persist(); $("#save-note").textContent = "Saved in this browser"; });
+});
+$("#copy-call").addEventListener("click", function () {
+  var v = function (id) { return $("#" + id).value.trim(); };
+  var t = "My Treasury call, " + new Date().toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric"}) + "\nFund: " + (v("f-fund") || "(not chosen)") + ", $" + v("f-amt") + "\nReview on: " + v("f-date") +
+    "\nEntry (Oct 22, 2026): 2y 4.65%, 10y 4.96%, 30y 5.29%; SGOV $100.64, SHY $81.50, IEF $91.18, TLT $81.71" +
+    "\n\nWhat I expect:\n" + v("f-view") + "\n\nEvidence:\n" + v("f-ev") + "\n\nAgainst:\n" + v("f-against") + "\n\nExit:\n" + v("f-exit") + "\n\nOdds:\n" + SC.map(function (s, i) { return (i + 1) + ". " + label(s) + ": " + s.p + "%"; }).join("\n");
+  var done = function () { $("#save-note").textContent = "Copied"; };
+  var fallback = function () { var ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove(); done(); };
+  if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, fallback); else fallback();
+});
+
+/* ---------- live yields ---------- */
+(function () {
+  var box = $("#live"), ym = function (d) { return d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0"); };
+  var now = new Date(), prev = new Date(now.getFullYear(), now.getMonth() - 1, 1), E = {y2: 4.65, y10: 4.96, y30: 5.29};
+  function month(mo) {
+    return fetch("https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value_month=" + mo).then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); }).then(function (t) {
+      var doc = new DOMParser().parseFromString(t, "application/xml");
+      return Array.prototype.map.call(doc.getElementsByTagNameNS("*", "properties"), function (p) {
+        var g = function (k) { var e = p.getElementsByTagNameNS("*", k)[0]; return e && e.textContent ? parseFloat(e.textContent) : null; };
+        var de = p.getElementsByTagNameNS("*", "NEW_DATE")[0]; return {d: de ? de.textContent.slice(0, 10) : "", y2: g("BC_2YEAR"), y10: g("BC_10YEAR"), y30: g("BC_30YEAR")};
+      }).filter(function (x) { return x.y2 !== null; });
+    });
+  }
+  month(ym(now)).then(function (rows) { return rows.length ? rows : month(ym(prev)); }).then(function (rows) {
+    rows.sort(function (a, b) { return a.d < b.d ? -1 : 1; }); var L = rows[rows.length - 1]; if (!L) throw new Error("empty");
+    var dt = new Date(L.d + "T12:00:00").toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric"}), after = L.d > "2026-10-22";
+    var yv = function (lab, k) { return "<span>" + lab + " <b>" + f2(L[k]) + "%</b>" + (after ? " <span class='small'>(" + sgn(L[k] - E[k], 2) + " since Oct 22)</span>" : "") + "</span>"; };
+    box.innerHTML = "<div class='row'><span class='muted'>Treasury yields, " + dt + "</span>" + yv("2-year", "y2") + yv("10-year", "y10") + yv("30-year", "y30") + "</div>";
+  }).catch(function () { box.innerHTML = "<span class='small'>Treasury's feed did not load. Oct 22 levels: 2-year 4.65%, 10-year 4.96%, 30-year 5.29%.</span>"; });
+})();
+
+compute(); buildDef(); buildScen(); update(); suggestText(); viewerLabels(); drawAll();
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", drawAll);
+var rz; window.addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(drawAll, 150); });
+})();
+</script>
+</body>
+</html>
