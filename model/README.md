@@ -12,6 +12,7 @@ Three pieces, all in plain Python with no fitted parameters:
 - Fed funds monthly: DBnomics `FED/H15/RIFSPFF_N.M` as `ff_m.json`
 - PCE price indexes: DBnomics `BEA/NIPA-T20804` as `pce_t20804.json`
 - Unemployment: DBnomics `BLS/ln/LNS14000000` as `un_dbn.json`, plus the BLS API for recent months
+- Atlanta Fed Market Probability Tracker: `https://www.atlantafed.org/-/media/Project/Atlanta/FRBA/Documents/research-and-data/data/market-probability-tracker/mpt_histdata.xlsx` as `mpt_histdata.xlsx` (personal and educational use only)
 - Laubach-Williams file `lw.xlsx` (used only by `estimate.py` for episode descriptions)
 
 ## Order
