@@ -47,7 +47,7 @@ FW = [['3.75-4.00%', 84.5, 10.1, 1.1], ['4.00-4.25%', 15.5, 76.3, 11.9], ['4.25-
       ['4.50-4.75%', None, None, 36.3], ['4.75-5.00%', None, None, 14.2], ['5.00-5.25%', None, None, 1.6]]   # CME FedWatch, Oct 20
 mid = [3.875, 4.125, 4.375, 4.625, 4.875, 5.125]
 fw_exp = [round(sum((r[c] or 0) / 100 * mid[i] for i, r in enumerate(FW)), 2) for c in (1, 2, 3)]
-D = {'fwdY': fwdY, 'fwdRN': fwdRN, 'be': be, 'be5y5y': be5y5y, 'fedwatch': {'rows': FW, 'expected': fw_exp}, 'TEN': TEN, 'TODAY': TODAY, 'ROLL': ROLL, 'fwd': fwd[:3], 'tp': TP, 'sep': [4.10, 4.03, 3.80], 'FUNDS': FUNDS,
+D = {'acmY': [round(v, 2) for v in Y], 'fwdY': fwdY, 'fwdRN': fwdRN, 'be': be, 'be5y5y': be5y5y, 'fedwatch': {'rows': FW, 'expected': fw_exp}, 'TEN': TEN, 'TODAY': TODAY, 'ROLL': ROLL, 'fwd': fwd[:3], 'tp': TP, 'sep': [4.10, 4.03, 3.80], 'FUNDS': FUNDS,
      'check': check, 'episodes': eps, 'cycles': est['hike_cycles'], 'dist12': est['dist12'], 'dist12_n': est['dist12_n']}
 html = open(TPL).read().replace('__DATA__', json.dumps(D, separators=(',', ':')))
 open(OUT, 'w').write(html); print('wrote', OUT, len(html))
