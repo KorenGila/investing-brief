@@ -36,7 +36,18 @@ for e, r in zip([e for e in est['episodes']], an['rows']):
     assert e['name'] == r['name']
     eps.append({'kind': r['kind'], 'name': r['name'], 'start': e['start'], 'end': e['end'],
                 's_ff': r['s_ff'], 's_y2': r['s_y2'], 's_y10': r['s_y10'], 's_y30': r['s_y30']})
-D = {'TEN': TEN, 'TODAY': TODAY, 'ROLL': ROLL, 'fwd': fwd[:3], 'tp': TP, 'sep': [4.10, 4.03, 3.80], 'FUNDS': FUNDS,
+Y = est['acm_today']['y']; RNa = est['acm_today']['rn']
+fwdY = [round(Y[0], 2)] + [round((n + 1) * Y[n] - n * Y[n - 1], 2) for n in range(1, 10)]
+fwdRN = [round(RNa[0], 2)] + [round((n + 1) * RNa[n] - n * RNa[n - 1], 2) for n in range(1, 10)]
+REAL = {5: 2.33, 7: 2.48, 10: 2.64, 20: 2.91, 30: 3.05}   # Treasury real yield curve, Oct 22, 2026
+NOM = {5: TODAY[6], 7: TODAY[7], 10: TODAY[8], 20: TODAY[9], 30: TODAY[10]}
+be = [[n, NOM[n], REAL[n]] for n in (5, 7, 10, 20, 30)]
+be5y5y = round((10 * (NOM[10] - REAL[10]) - 5 * (NOM[5] - REAL[5])) / 5, 2)
+FW = [['3.75-4.00%', 84.5, 10.1, 1.1], ['4.00-4.25%', 15.5, 76.3, 11.9], ['4.25-4.50%', None, 13.7, 35.0],
+      ['4.50-4.75%', None, None, 36.3], ['4.75-5.00%', None, None, 14.2], ['5.00-5.25%', None, None, 1.6]]   # CME FedWatch, Oct 20
+mid = [3.875, 4.125, 4.375, 4.625, 4.875, 5.125]
+fw_exp = [round(sum((r[c] or 0) / 100 * mid[i] for i, r in enumerate(FW)), 2) for c in (1, 2, 3)]
+D = {'fwdY': fwdY, 'fwdRN': fwdRN, 'be': be, 'be5y5y': be5y5y, 'fedwatch': {'rows': FW, 'expected': fw_exp}, 'TEN': TEN, 'TODAY': TODAY, 'ROLL': ROLL, 'fwd': fwd[:3], 'tp': TP, 'sep': [4.10, 4.03, 3.80], 'FUNDS': FUNDS,
      'check': check, 'episodes': eps, 'cycles': est['hike_cycles'], 'dist12': est['dist12'], 'dist12_n': est['dist12_n']}
 html = open(TPL).read().replace('__DATA__', json.dumps(D, separators=(',', ':')))
 open(OUT, 'w').write(html); print('wrote', OUT, len(html))
