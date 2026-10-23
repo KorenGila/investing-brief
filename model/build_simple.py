@@ -36,6 +36,31 @@ for e, r in zip([e for e in est['episodes']], an['rows']):
     assert e['name'] == r['name']
     eps.append({'kind': r['kind'], 'name': r['name'], 'start': e['start'], 'end': e['end'],
                 's_ff': r['s_ff'], 's_y2': r['s_y2'], 's_y10': r['s_y10'], 's_y30': r['s_y30']})
+
+# Atlanta Fed Market Probability Tracker: CME 3-month SOFR options (personal and educational use permitted)
+mpt = pd.read_excel(f'{H}/mpt_histdata.xlsx', sheet_name='DATA')
+mpt['date'] = pd.to_datetime(mpt['date']); mpt['reference_start'] = pd.to_datetime(mpt['reference_start'])
+last = mpt['date'].max(); tl = mpt[mpt['date'] == last]
+starts = sorted(tl['reference_start'].unique())
+win = []
+for i, rs in enumerate(starts):
+    s = tl[tl['reference_start'] == rs].set_index('field')['value']
+    end = starts[i + 1] if i + 1 < len(starts) else rs + pd.DateOffset(months=3)
+    dist = tl[(tl['reference_start'] == rs) & tl['field'].str.match(r'Prob: \d')].copy()
+    dist['lo'] = dist['field'].str.extract(r'(\d+)bps -')[0].astype(int)
+    dist = dist.sort_values('lo')
+    win.append({'start': str(pd.Timestamp(rs).date()), 'end': str(pd.Timestamp(end).date()),
+                'mean': round(s['Rate: mean'] / 100, 2), 'mode': round(s['Rate: mode'] / 100, 2),
+                'p25': round(s['Rate: 25th percentile'] / 100, 2), 'p75': round(s['Rate: 75th percentile'] / 100, 2),
+                'hike': round(s['Prob: hike'], 1), 'cut': round(s['Prob: cut'], 1),
+                'dist': [[int(r.lo), round(float(r.value), 1)] for r in dist.itertuples()]})
+hist = {}
+for rs in starts[:4]:
+    h = mpt[(mpt['reference_start'] == rs) & (mpt['field'] == 'Rate: mean') & (mpt['date'] >= last - pd.Timedelta(days=120))].sort_values('date')
+    hist[str(pd.Timestamp(rs).date())] = [[str(d.date()), round(v / 100, 3)] for d, v in zip(h['date'], h['value'])]
+MPT = {'date': str(last.date()), 'win': win, 'hist': hist}
+print('mpt', MPT['date'], [(w['start'], w['mean'], w['hike']) for w in win[:4]])
+
 Y = est['acm_today']['y']; RNa = est['acm_today']['rn']
 fwdY = [round(Y[0], 2)] + [round((n + 1) * Y[n] - n * Y[n - 1], 2) for n in range(1, 10)]
 fwdRN = [round(RNa[0], 2)] + [round((n + 1) * RNa[n] - n * RNa[n - 1], 2) for n in range(1, 10)]
@@ -47,7 +72,7 @@ FW = [['3.75-4.00%', 84.5, 10.1, 1.1], ['4.00-4.25%', 15.5, 76.3, 11.9], ['4.25-
       ['4.50-4.75%', None, None, 36.3], ['4.75-5.00%', None, None, 14.2], ['5.00-5.25%', None, None, 1.6]]   # CME FedWatch, Oct 20
 mid = [3.875, 4.125, 4.375, 4.625, 4.875, 5.125]
 fw_exp = [round(sum((r[c] or 0) / 100 * mid[i] for i, r in enumerate(FW)), 2) for c in (1, 2, 3)]
-D = {'acmY': [round(v, 2) for v in Y], 'fwdY': fwdY, 'fwdRN': fwdRN, 'be': be, 'be5y5y': be5y5y, 'fedwatch': {'rows': FW, 'expected': fw_exp}, 'TEN': TEN, 'TODAY': TODAY, 'ROLL': ROLL, 'fwd': fwd[:3], 'tp': TP, 'sep': [4.10, 4.03, 3.80], 'FUNDS': FUNDS,
+D = {'mpt': MPT, 'acmY': [round(v, 2) for v in Y], 'fwdY': fwdY, 'fwdRN': fwdRN, 'be': be, 'be5y5y': be5y5y, 'fedwatch': {'rows': FW, 'expected': fw_exp}, 'TEN': TEN, 'TODAY': TODAY, 'ROLL': ROLL, 'fwd': fwd[:3], 'tp': TP, 'sep': [4.10, 4.03, 3.80], 'FUNDS': FUNDS,
      'check': check, 'episodes': eps, 'cycles': est['hike_cycles'], 'dist12': est['dist12'], 'dist12_n': est['dist12_n']}
 html = open(TPL).read().replace('__DATA__', json.dumps(D, separators=(',', ':')))
 open(OUT, 'w').write(html); print('wrote', OUT, len(html))

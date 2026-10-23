@@ -109,6 +109,18 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 48px}
   <p>A 2-year Treasury pays about what you would earn by buying 3-month bills and reinvesting them for two years. So its yield tells you where investors think short-term rates, which the Fed sets, are headed. Longer bonds also pay a little extra on top of that forecast, called the term premium, for locking money up longer and taking bigger price swings.</p>
   <p>To split a yield into the forecast and the term premium, the brief uses a model the New York Fed publishes every day, called ACM after its authors (Adrian, Crump and Moench). On Oct 22 it says investors expect the Fed's rate to average <span id="p-m1"></span> over the next 12 months and <span id="p-m2"></span> over the 12 months after that. The Fed's rate today is 3.88%, so the market expects about 2.4 more quarter-point hikes by late 2027, then a slow drift down to 4.12% ten years out.</p>
   <p>What is left over is the term premium: <span id="p-tp"></span>. Models disagree on this split: the San Francisco Fed's model puts the 10-year term premium at 1.35, about double ACM's.</p>
+  <h3>What futures and options price, three months at a time</h3>
+  <p>The most direct read on the Fed comes from futures. CME's 3-month SOFR futures settle on the average of SOFR, the overnight rate on loans backed by Treasuries, over a fixed three-month window. SOFR trades within a few hundredths of the Fed's rate (3.90% vs 3.88% on Oct 22), so each futures price is the market's estimate of the average Fed rate over its window. Options on those futures add the odds of each outcome, and the Atlanta Fed turns both into a probability distribution every day. Data as of <span id="mpt-date"></span>.</p>
+  <div class="tscroll"><table style="max-width:900px"><thead><tr><th>Three-month window</th><th class="r">Average rate priced</th><th class="r">Most likely</th><th class="r">Middle half of outcomes</th><th class="r">Chance above today's 3.75-4.00%</th><th class="r">Chance below</th></tr></thead><tbody id="t-mpt"></tbody></table></div>
+  <p class="small">"Chance above" is the probability that the average rate over the window is above 4.00%, meaning the Fed has hiked at least once by then on net. "Middle half" runs from the 25th to the 75th percentile.</p>
+  <div class="controls"><label>Odds of each rate for the window <select id="mpt-win"></select></label></div>
+  <div class="chart" id="chart-mpt"></div>
+  <p id="mpt-text"></p>
+  <h3>How the priced path moved over the last four months</h3>
+  <div class="chart" id="chart-mpt-hist"></div>
+  <div class="legend" id="mpt-legend"></div>
+  <p id="mpt-hist-text"></p>
+  <p class="src">Source: <a href="https://www.atlantafed.org/research-and-data/data/market-probability-tracker" target="_blank" rel="noopener">Atlanta Fed Market Probability Tracker</a>, from CME 3-month SOFR options; CME Group market data used under permission. Not an official forecast of the Federal Reserve. SOFR: <a href="https://www.newyorkfed.org/markets/reference-rates/sofr" target="_blank" rel="noopener">NY Fed</a>.</p>
   <h3>Market-implied Fed rate, one 12-month period at a time</h3>
   <p>Each point below is an average over a 12-month period: first the next 12 months (Oct 2026 to Oct 2027), then each year after. For each period the brief calculates three numbers:</p>
   <ul class="small">
@@ -479,6 +491,51 @@ $("#show-suggest").addEventListener("click", function () { var b = $("#suggest")
 $("#load-suggest").addEventListener("click", function () { SC.forEach(function (s, i) { s.p = SUGG[i][0]; }); buildScen(); update(); $("#t-scen").scrollIntoView({block: "center"}); });
 $("#t-cyc").innerHTML = D.cycles.map(function (c) { return "<tr><td>" + c.start + "</td><td class='r'>" + f2(c.ff_before) + "%</td><td class='r'>" + f2(c.peak) + "%</td><td class='r'>+" + f2(c.total_rise) + "</td><td class='r'>" + c.months_to_peak + "</td></tr>"; }).join("");
 
+
+/* ---------- futures and options: Atlanta Fed tracker ---------- */
+var MP = D.mpt, MON3 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function dlab(d) { return MON3[+d.slice(5, 7) - 1] + " " + (+d.slice(8, 10)) + ", " + d.slice(0, 4); }
+function wlab(w) { return dlab(w.start) + " to " + dlab(w.end); }
+function rlab(lo) { return (lo / 100).toFixed(2) + "-" + ((lo + 25) / 100).toFixed(2) + "%"; }
+$("#mpt-date").textContent = dlab(MP.date);
+$("#t-mpt").innerHTML = MP.win.map(function (w) { return "<tr><td>" + wlab(w) + "</td><td class='r'>" + f2(w.mean) + "%</td><td class='r'>" + f2(w.mode) + "%</td><td class='r'>" + f2(w.p25) + "-" + f2(w.p75) + "%</td><td class='r'>" + w.hike.toFixed(0) + "%</td><td class='r'>" + w.cut.toFixed(0) + "%</td></tr>"; }).join("");
+var mw = $("#mpt-win");
+MP.win.slice(0, 6).forEach(function (w, i) { var o = document.createElement("option"); o.value = i; o.textContent = wlab(w); mw.appendChild(o); });
+function drawMpt() {
+  var w = MP.win[+mw.value || 0], bins = w.dist.filter(function (b) { return b[1] >= 0.5; });
+  var box = $("#chart-mpt"), W = 720, H = 240, m = {l: 40, r: 10, t: 22, b: 42};
+  box.innerHTML = ""; var svg = el("svg", {viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Odds of each rate range for " + wlab(w)}, box);
+  var mx = Math.ceil(Math.max.apply(null, bins.map(function (b) { return b[1]; })) / 10) * 10, n = bins.length;
+  var y = function (v) { return m.t + (H - m.t - m.b) * (1 - v / mx); }, bw = (W - m.l - m.r) / n, barw = Math.min(24, bw * 0.7), tip = tipFor(box);
+  for (var v = 0; v <= mx + 1e-9; v += 10) { el("line", {x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: css(v === 0 ? "--axis" : "--grid")}, svg); txt(svg, m.l - 6, y(v) + 4, v + "%", {"text-anchor": "end"}); }
+  bins.forEach(function (b, i) {
+    var cx = m.l + bw * i + bw / 2, top = y(b[1]), base = y(0), r = Math.min(4, (base - top) / 2);
+    var today = b[0] === 375, d = "M" + (cx - barw / 2) + "," + base + "V" + (top + r) + "Q" + (cx - barw / 2) + "," + top + " " + (cx - barw / 2 + r) + "," + top + "H" + (cx + barw / 2 - r) + "Q" + (cx + barw / 2) + "," + top + " " + (cx + barw / 2) + "," + (top + r) + "V" + base + "Z";
+    var bar = el("path", {d: d, fill: css(today ? "--s3" : "--s1")}, svg);
+    if (b[1] >= 4) txt(svg, cx, top - 5, b[1].toFixed(0) + "%", {"text-anchor": "middle", fill: css("--ink"), "font-size": 11.5});
+    if (n <= 12 || i % 2 === 0) txt(svg, cx, H - 24, (b[0] / 100).toFixed(2), {"text-anchor": "middle", "font-size": 11});
+    var hit = el("rect", {x: cx - bw / 2, y: m.t, width: bw, height: H - m.t - m.b, fill: "transparent"}, svg);
+    hit.addEventListener("pointerenter", function () { tip.innerHTML = ""; var t = document.createElement("div"); t.className = "t"; t.textContent = rlab(b[0]); tip.appendChild(t); var r2 = document.createElement("div"); r2.textContent = b[1].toFixed(1) + "% chance" + (today ? " (today's range)" : ""); tip.appendChild(r2); tip.style.opacity = 1; tip.style.left = Math.min(box.clientWidth - 160, cx * box.clientWidth / W + 10) + "px"; tip.style.top = "8px"; });
+    hit.addEventListener("pointerleave", function () { tip.style.opacity = 0; });
+  });
+  txt(svg, (W + m.l) / 2, H - 6, "Average rate over the window (lower end of each 0.25-point range, %); green = today's range", {"text-anchor": "middle", "font-size": 11.5});
+  var p = function (lo) { var f = w.dist.filter(function (b) { return b[0] === lo; })[0]; return f ? f[1] : 0; };
+  var top3 = w.dist.slice().sort(function (a, b2) { return b2[1] - a[1]; }).slice(0, 3);
+  $("#mpt-text").textContent = "For " + wlab(w) + ", the most likely outcomes are " + top3.map(function (b) { var hikes = Math.round((b[0] - 375) / 25); return rlab(b[0]) + " (" + b[1].toFixed(0) + "%, " + (hikes === 0 ? "no change from today" : hikes > 0 ? hikes + (hikes === 1 ? " hike" : " hikes") + " from today" : (-hikes) + (hikes === -1 ? " cut" : " cuts") + " from today") + ")"; }).join(", ") + ". The chance the Fed is still in today's 3.75-4.00% range is " + p(375).toFixed(0) + "%.";
+}
+mw.addEventListener("change", drawMpt);
+function drawMptHist() {
+  var keys = Object.keys(MP.hist), dates = MP.hist[keys[0]].map(function (r) { return r[0]; }), cols = ["--s1", "--s2", "--s3", "--s4"];
+  var series = keys.map(function (k, i) { var mp = {}; MP.hist[k].forEach(function (r) { mp[r[0]] = r[1]; }); return {n: wlab(MP.win[i]).replace(/, 20\d\d/g, ""), c: cols[i], end: false, v: dates.map(function (d) { return mp[d] === undefined ? null : mp[d]; })}; });
+  var xl = []; dates.forEach(function (d, i) { if (d.slice(8, 10) <= "07" && (i === 0 || dates[i - 1].slice(5, 7) !== d.slice(5, 7))) xl.push([i, MON3[+d.slice(5, 7) - 1]]); });
+  var all = []; series.forEach(function (s) { s.v.forEach(function (v) { if (v !== null) all.push(v); }); });
+  lineChart($("#chart-mpt-hist"), {xs: dates, xl: xl, H: 240, series: series, min: Math.floor(Math.min.apply(null, all) * 4) / 4, max: Math.ceil(Math.max.apply(null, all) * 4) / 4, step: 0.25,
+    label: "Average rate priced for the four nearest windows over the last four months", fmtX: function (d) { return dlab(d); }});
+  $("#mpt-legend").innerHTML = series.map(function (s) { return "<span><i style='background:var(" + s.c + ")'></i>" + s.n + "</span>"; }).join("");
+  var k3 = keys[2], h = MP.hist[k3], a = h[h.length - 2], b = h[h.length - 1];
+  $("#mpt-hist-text").textContent = "On " + dlab(b[0]) + " alone, the rate priced for " + wlab(MP.win[2]) + " fell from " + f2(a[1]) + "% to " + f2(b[1]) + "% as stocks sold off. Each line is the market's average-rate estimate for one fixed window, so a falling line means the market priced fewer hikes.";
+}
+
 /* ---------- charts ---------- */
 var NS = "http://www.w3.org/2000/svg";
 function el(tag, at, p) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); if (p) p.appendChild(e); return e; }
@@ -488,8 +545,8 @@ function lineChart(box, o) {
   var W = 720, H = o.H || 250, m = {l: 46, r: 64, t: 14, b: 30};
   box.innerHTML = ""; var svg = el("svg", {viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": o.label}, box);
   var n = o.xs.length, x = function (i) { return m.l + (W - m.l - m.r) * i / (n - 1); }, y = function (v) { return m.t + (H - m.t - m.b) * (1 - (v - o.min) / (o.max - o.min)); };
-  for (var v = o.min; v <= o.max + 1e-9; v += o.step) { el("line", {x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: css("--grid")}, svg); txt(svg, m.l - 8, y(v) + 4, v.toFixed(1) + "%", {"text-anchor": "end"}); }
-  o.xs.forEach(function (l, i) { txt(svg, x(i), H - 10, l, {"text-anchor": "middle"}); });
+  for (var v = o.min; v <= o.max + 1e-9; v += o.step) { el("line", {x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: css("--grid")}, svg); txt(svg, m.l - 8, y(v) + 4, v.toFixed(o.step < 0.5 ? 2 : 1) + "%", {"text-anchor": "end"}); }
+  (o.xl || o.xs.map(function (l, i) { return [i, l]; })).forEach(function (p) { txt(svg, x(p[0]), H - 10, p[1], {"text-anchor": "middle"}); });
   el("line", {x1: m.l, x2: W - m.r, y1: H - m.b, y2: H - m.b, stroke: css("--axis")}, svg);
   o.series.forEach(function (s) {
     var d = "", pen = false; s.v.forEach(function (v, i) { if (v === null) { pen = false; return; } d += (pen ? "L" : "M") + x(i).toFixed(1) + "," + y(v).toFixed(1); pen = true; });
@@ -530,7 +587,7 @@ function drawCurve() {
   lineChart($("#chart-curve"), {xs: LAB, H: 250, series: [{n: "Today", c: "--s1", v: D.TODAY, dy: 6}, {n: "Forecast", c: "--s3", v: fc, dy: -6}, {n: label(s), c: "--s2", v: sc}],
     min: lo, max: hi, step: 0.5, label: "Yields today and in 12 months under " + label(s)});
 }
-function drawAll() { drawPaths(); drawCurve(); }
+function drawAll() { drawPaths(); drawCurve(); drawMpt(); drawMptHist(); }
 
 /* ---------- your call ---------- */
 ["f-fund", "f-amt", "f-date", "f-view", "f-ev", "f-against", "f-exit"].forEach(function (id) {
